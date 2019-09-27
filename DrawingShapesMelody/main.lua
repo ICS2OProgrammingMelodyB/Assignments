@@ -4,8 +4,6 @@
 -- This program displays five different shapes and 
 -- displays the area of a triangle.
 
---glodal varables
-scrollSpeed = 3 
 
 -- Create local varables
 local myTrapezoid
@@ -26,7 +24,7 @@ myTrapezoid = display.newPolygon(0, 0, vTrapezoid)
 myTrapezoid.anchorX =0
 myTrapezoid.anchorX =0
 myTrapezoid.x =10
-myTrapezoid.y =450
+myTrapezoid.y =560
 
 --set the width of the border
 myTrapezoid.strokeWidth = 20
@@ -41,32 +39,12 @@ myTrapezoid:setStrokeColor(0, 12, 0)
 myTrapezoid.alpha = 1
 
 --write the area on the screen. Take into consideration the size of the font when positioning it on the screen
-TextTrapezoid = display.newText("Trapezoid", 450, 150, Arial, textSize)
+TextTrapezoid = display.newText("Trapezoid", 150, 700, Arial, textSize)
 
 --sets the color 
-TextTrapezoid:setTextColor(0.7, 0.2, 3)
-
--- Function: Trapezoid
--- Input: this function accepts an event listener
--- Out: none
--- Description: This function adds the scroll speed to the x-value of the ship
-local function Trapezoid (event)
-    -- adds the scroll speed to the x-value of the ship
-    myTrapezoid.x = myTrapezoid.x + scrollSpeed
-    -- change the transparency of the ship every time it moves so that it fades out
-    myTrapezoid.alpha = myTrapezoid.alpha + 0.05
-    TextTrapezoid.alpha = TextTrapezoid.alpha - 0
-    timer.performWithDelay( 5000, Triangle )
-end 
-
---MoveShip will be called over and over again
-Runtime:addEventListener("enterFrame", Trapezoid)
+TextTrapezoid:setTextColor(0.1, 2, 3)
 
 
-
-
---glodal varables
-scrollSpeed = 3 
 
 -- Create local varables
 local myTriangle
@@ -80,8 +58,8 @@ myTriangle = display.newPolygon(0, 0, vTriangle)
 --anchor the triangle in the top left corner of the screen and set its (x,y) position
 myTriangle.anchorX =0
 myTriangle.anchorX =0
-myTriangle.x =10
-myTriangle.y =450
+myTriangle.x =450
+myTriangle.y =350
 
 --set the width of the border
 myTriangle.strokeWidth = 20
@@ -96,22 +74,8 @@ myTriangle:setStrokeColor(0.9, 3, 0.7)
 myTriangle.alpha = 1
 
 --write the area on the screen. Take into consideration the size of the font when positioning it on the screen
-TextTriangle = display.newText("Triangle", 450, 150, Arial, textSize)
+TextTriangle = display.newText("Triangle", 530, 460, Arial, textSize)
 
 --sets the color 
 TextTriangle:setTextColor(255/255, 150/255, 50/255)
 
--- Function: Triangle
--- Input: this function accepts an event listener
--- Out: none
--- Description: This function adds the scroll speed to the x-value of the ship
-local function Triangle (event)
-    -- adds the scroll speed to the x-value of the ship
-    myTriangle.x = myTriangle.x + scrollSpeed
-    -- change the transparency of the ship every time it moves so that it fades out
-    myTriangle.alpha = myTriangle.alpha + 0.05
-    TextTriangle.alpha = TextTriangle.alpha - 0.05
-end 
-
---MoveShip will be called over and over again
-Runtime:addEventListener("enterFrame", Triangle)
