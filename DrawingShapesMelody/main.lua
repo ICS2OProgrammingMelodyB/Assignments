@@ -56,7 +56,7 @@ myTrapezoid = display.newPolygon(0, 0, vTrapezoid)
 myTrapezoid.anchorX =0
 myTrapezoid.anchorX =0
 myTrapezoid.x =10
-myTrapezoid.y =560
+myTrapezoid.y =580
 
 --set the width of the border
 myTrapezoid.strokeWidth = 20
@@ -71,18 +71,24 @@ myTrapezoid:setStrokeColor(0, 12, 0)
 myTrapezoid.alpha = 1
 
 --write trapezoid on the screen. Take into consideration the size of the font when positioning it on the screen
-TextTrapezoid = display.newText("Trapezoid", 150, 700, Arial, textSize)
+TextTrapezoid = display.newText("Trapezoid", 150, 730, Arial, textSize)
 
 --sets the color 
 TextTrapezoid:setTextColor(0.1, 2, 3)
 
 
 
+
 -- Create local varables
 local myTriangle
-local vTriangle = {0,-100,140,160,-140,160 }
+local vTriangle = {0,-80,120,140,-120,140 }
 local textSize = 70
+local textSizeTriangle = 50
 local TextTriangle
+local areaText
+local baseOfTriangle = 350
+local heightOfTraingle = 140
+local AreaOfTriangle
 
 --draw the triangle
 myTriangle = display.newPolygon(0, 0, vTriangle)
@@ -91,7 +97,7 @@ myTriangle = display.newPolygon(0, 0, vTriangle)
 myTriangle.anchorX =0
 myTriangle.anchorX =0
 myTriangle.x =350
-myTriangle.y =350
+myTriangle.y =140
 
 --set the width of the border
 myTriangle.strokeWidth = 20
@@ -106,10 +112,19 @@ myTriangle:setStrokeColor(0.9, 3, 0.7)
 myTriangle.alpha = 1
 
 --write triangle on the screen. Take into consideration the size of the font when positioning it on the screen
-TextTriangle = display.newText("Triangle", 500, 530, Arial, textSize)
+TextTriangle = display.newText("Triangle", 500, 300, Arial, textSize)
 
 --sets the color 
 TextTriangle:setTextColor(255/255, 150/255, 50/255)
+
+--calculate the area
+AreaOfTriangle = baseOfTriangle * heightOfTraingle/2
+
+--write the area on the screen. Take into consideration the size of the font when positioning it on the screen
+areaText = display.newText("- The area of this triangle with a base of \n" ..
+	baseOfTriangle .. " and a height of " .. heightOfTraingle .. " is " ..
+	AreaOfTriangle .. " pixel².", 500, 400, Arial, textSizeTriangle)
+
 
 
 
@@ -203,7 +218,11 @@ myPentagon.y =600
 myPentagon.strokeWidth = 20
 
 --set the colour of the pentagon
-myPentagon:setFillColor(167/255, 5/255, 200/255)
+local gradient = {
+    type="gradient",
+    color1={ 40/255, 70/255, 190/255 }, color2={ 175/255, 53/255, 97/255 }, direction="down"
+}
+myPentagon:setFillColor( gradient )
 
 --set the color of the border
 myPentagon:setStrokeColor(200/255, 74/255, 6/255)
