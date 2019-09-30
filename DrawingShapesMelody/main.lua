@@ -102,8 +102,14 @@ myTriangle.y =140
 --set the width of the border
 myTriangle.strokeWidth = 20
 
---set the colour of the triangle
-myTriangle:setFillColor(0.1, 2, 3)
+-- Set the fill (paint) to use the bitmap image
+local coolGalaxy = {
+    type = "image",
+    filename = "Images/cool galaxy.png"
+}
+
+-- Fill the triangle
+myTriangle.fill = coolGalaxy
 
 --set the color of the border
 myTriangle:setStrokeColor(0.9, 3, 0.7)
