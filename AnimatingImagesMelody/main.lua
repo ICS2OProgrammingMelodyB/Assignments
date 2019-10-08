@@ -33,6 +33,7 @@ local eyeBall
 local heart
 local controller
 local crown
+local hello
 
 
 
@@ -147,6 +148,9 @@ crown.x = 20
 crown.y = 50
 crown.alpha = 1
 
+-- create text
+hello = display.newText("Welcome to my game of end less fun", display.contentWidth/2, display.contentHeight/2, nil, 50)
+hello:setTextColor(5/255, 255/255, 200/255)
 
 
 
