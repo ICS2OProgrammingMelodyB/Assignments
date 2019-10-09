@@ -12,7 +12,7 @@ display.setStatusBar(display.HiddenStatusBar)
 
 --glodal varables
 scrollSpeed = 4
-scrollSpeed3 = 4
+scrollSpeed3 = 4 
 scrollSpeed2 = 4 - 8 
 scrollSpeed4 = 4 - 8
 
@@ -84,8 +84,8 @@ local function MoveController(event)
     end--Left
 	if((controller.x + controller.width) > display.contentWidth) then controller.x = controller.x - 3 scrollSpeed4 = -scrollSpeed4 
 	end--Right
-	--if(controller.y < 0) then scrollSpeed4 = -scrollSpeed4 
-	--end--Up
+	if(controller.y < 0) then scrollSpeed4 = -scrollSpeed4 
+	end--Up
 end 
 
 -- Function: MoveCrown
@@ -102,8 +102,8 @@ local function MoveCrown(event)
     end--Left
 	if((crown.x + crown.width) > display.contentWidth) then crown.x = crown.x - 3 scrollSpeed3 = -scrollSpeed3 
 	end--Right
-	--if(crown.y < 0) then scrollSpeed3 = -scrollSpeed3 
-	--end--Up
+	if(crown.y < 0) then scrollSpeed3 = -scrollSpeed3 
+	end--Up
 end
 
 local function RotateCrown(event) 
@@ -121,12 +121,15 @@ end
 
 
 
+
 ---------------------------------------------------------------
 --OBJECT CREATION
 ---------------------------------------------------------------
 
 --create the background
 background = display.newImageRect("Images/cool background.jpg", 2048, 1536)
+background.x = 400
+background.y = 400
 
 --create the eyeBall image, set its x and y position of the eyeball and sets its transparent
 eyeBall = display.newImageRect("Images/real eye.png", 50, 50)
@@ -156,13 +159,15 @@ crown.alpha = 1
 
 -- create text
 hello = display.newText("Welcome to my game of end less fun", display.contentWidth/2, display.contentHeight/2, ArialNarrow, 50)
---hello:setTextColor(5/255, 255/255, 200/255)
---set the colour of the pentagon
+--set the colour of the text
 local gradient = {
     type="gradient",
     color1={ 1/255, 255/255, 1/255 }, color2={ 255/255, 1/255, 1/255 }, direction="down"
 }
 hello:setTextColor(gradient)
+
+
+
 
 
 
@@ -184,8 +189,10 @@ Runtime:addEventListener("enterFrame", MoveCrown)
 --RotateCrown will be called over and over again
 Runtime:addEventListener("enterFrame", RotateCrown)
 
+
 --RotateController will be called over and over again
 Runtime:addEventListener("enterFrame", RotateController)
+
 
 -----------------------------------------------------------------
 --FUNCTION CALLS
