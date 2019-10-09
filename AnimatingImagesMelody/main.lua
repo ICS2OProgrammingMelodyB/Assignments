@@ -106,9 +106,15 @@ local function MoveCrown(event)
 	--end--Up
 end
 
+local function RotateCrown(event) 
+    -- rotates the crown ( learned code from Noah)
+    crown:rotate(4)
+end
 
-
-
+local function RotateController(event) 
+    -- rotates the crown ( learned code from Noah but i changed the name and speed)
+    controller:rotate(4)
+end
 
 
 
@@ -175,6 +181,11 @@ Runtime:addEventListener("enterFrame", MoveController)
 --MoveCrown will be called over and over again
 Runtime:addEventListener("enterFrame", MoveCrown)
 
+--RotateCrown will be called over and over again
+Runtime:addEventListener("enterFrame", RotateCrown)
+
+--RotateController will be called over and over again
+Runtime:addEventListener("enterFrame", RotateController)
 
 -----------------------------------------------------------------
 --FUNCTION CALLS
