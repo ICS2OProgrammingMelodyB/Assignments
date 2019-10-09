@@ -40,7 +40,6 @@ local hello
 
 
 
-
 ----------------------------------------------------------
 --LOCAL FUNCTION
 ----------------------------------------------------------
@@ -141,6 +140,7 @@ controller.x = 950
 controller.y = 750
 controller.alpha = 1
 
+ 
 
 --create the crown image, set the x and y position of the crown and sets its transparent
 crown = display.newImageRect("Images/crown.png", 100, 100)
@@ -149,9 +149,14 @@ crown.y = 50
 crown.alpha = 1
 
 -- create text
-hello = display.newText("Welcome to my game of end less fun", display.contentWidth/2, display.contentHeight/2, nil, 50)
-hello:setTextColor(5/255, 255/255, 200/255)
-
+hello = display.newText("Welcome to my game of end less fun", display.contentWidth/2, display.contentHeight/2, ArialNarrow, 50)
+--hello:setTextColor(5/255, 255/255, 200/255)
+--set the colour of the pentagon
+local gradient = {
+    type="gradient",
+    color1={ 1/255, 255/255, 1/255 }, color2={ 255/255, 1/255, 1/255 }, direction="down"
+}
+hello:setTextColor(gradient)
 
 
 
