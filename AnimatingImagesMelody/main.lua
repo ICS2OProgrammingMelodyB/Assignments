@@ -40,6 +40,7 @@ local hello
 
 
 
+
 ----------------------------------------------------------
 --LOCAL FUNCTION
 ----------------------------------------------------------
@@ -80,12 +81,15 @@ local function MoveController(event)
     controller.y = controller.y + scrollSpeed4
 
     -- makes controller continue to change direction(I got the code for https://stackoverflow.com/questions/17766773/how-to-make-multiple-objects-bounce-around-in-corona-sdk)
-    if(controller.x < 0) then controller.x = controller.x + 3 scrollSpeed4 = -scrollSpeed4 
+    if(controller.x < 0) then 
+        controller.x = controller.x + 3 scrollSpeed4 = -scrollSpeed4 
     end--Left
-	if((controller.x + controller.width) > display.contentWidth) then controller.x = controller.x - 3 scrollSpeed4 = -scrollSpeed4 
+	if((controller.x + controller.width) > display.contentWidth) then 
+        controller.x = controller.x - 3 scrollSpeed4 = -scrollSpeed4 
 	end--Right
-	if(controller.y < 0) then scrollSpeed4 = -scrollSpeed4 
-	end--Up
+	--if(controller.y < 0) then 
+       -- scrollSpeed4 = -scrollSpeed4 
+	--end--Up
 end 
 
 -- Function: MoveCrown
@@ -98,11 +102,14 @@ local function MoveCrown(event)
     crown.y = crown.y + scrollSpeed3
 
     --makes crown continue to change direction(I got the code for https://stackoverflow.com/questions/17766773/how-to-make-multiple-objects-bounce-around-in-corona-sdk)
-    if(crown.x < 0) then crown.x = crown.x + 3 scrollSpeed3 = -scrollSpeed3 
+    if(crown.x < 0) then 
+        crown.x = crown.x + 3 scrollSpeed3 = -scrollSpeed3 
     end--Left
-	if((crown.x + crown.width) > display.contentWidth) then crown.x = crown.x - 3 scrollSpeed3 = -scrollSpeed3 
+	if((crown.x + crown.width) > display.contentWidth) then 
+        crown.x = crown.x - 3 scrollSpeed3 = -scrollSpeed3 
 	end--Right
-	if(crown.y < 0) then scrollSpeed3 = -scrollSpeed3 
+	if(crown.y < 0) then 
+        scrollSpeed3 = -scrollSpeed3 
 	end--Up
 end
 
@@ -115,8 +122,6 @@ local function RotateController(event)
     -- rotates the crown ( learned code from Noah but i changed the name and speed)
     controller:rotate(4)
 end
-
-
 
 
 
