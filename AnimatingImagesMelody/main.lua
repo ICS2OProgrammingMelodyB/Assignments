@@ -34,6 +34,8 @@ local heart
 local controller
 local crown
 local hello
+local spongebob
+local curve = 4 - 8
 
 
 
@@ -63,12 +65,22 @@ end
 -- Output: none
 -- Description: This function adds the scroll speed to the x-value of the heart
 local function MoveHeart(event)
-    -- adds the scroll speed to the x-value of the eye
+    -- adds the scroll speed to the x-value of the heart
     heart.x = heart.x + scrollSpeed2
     -- change the transparency of the heart every time it moves so that it fades out
     heart.alpha = heart.alpha - 0.001
     heart.xScale = heart.xScale - 0.004
     heart.yScale = heart.yScale - 0.004
+end 
+
+-- Function: MoveSpongebob
+-- Input: this function accepts an event listener
+-- Output: none
+-- Description: This function adds the scroll speed to the x-value of the spongebob
+local function MoveSpongebob(event)
+    -- adds the scroll speed to the x-value of the spongebob
+    spongebob.x = spongebob.x + curve
+    spongebob.y = spongebob.y + scrollSpeed
 end 
 
 -- Function: MoveController
@@ -123,7 +135,9 @@ local function RotateController(event)
     controller:rotate(4)
 end
 
-
+local function Curve(event)
+    curve = curve - 0.5
+end
 
 
 
@@ -162,6 +176,12 @@ crown.x = 20
 crown.y = 50
 crown.alpha = 1
 
+--create the spongebob image, set the x and y position of the spongebob and sets its transparent
+spongebob = display.newImageRect("Images/spongebob.png", 100, 100)
+spongebob.x = 1000
+spongebob.y = 50
+spongebob.alpha = 1
+
 -- create text
 hello = display.newText("Welcome to my game of end less fun", display.contentWidth/2, display.contentHeight/2, ArialNarrow, 50)
 --set the colour of the text
@@ -197,6 +217,10 @@ Runtime:addEventListener("enterFrame", RotateCrown)
 
 --RotateController will be called over and over again
 Runtime:addEventListener("enterFrame", RotateController)
+
+--MoveSpongebob will be called over and over again
+Runtime:addEventListener("enterFrame", MoveSpongebob)
+
 
 
 -----------------------------------------------------------------
