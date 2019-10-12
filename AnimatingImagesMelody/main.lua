@@ -1,7 +1,7 @@
 -- Title: AnimatingImages
--- Name: Melody berhane
+-- Name: Melody Berhane
 -- Course: ICS2O
--- This program displays four images that move up, down and sideways.
+-- This program displays four images that move up, down and sideways and one image that jumps when you click on the screen
 
 -- hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
@@ -10,18 +10,11 @@ display.setStatusBar(display.HiddenStatusBar)
 --GLOBAL VARIABLES
 ---------------------------------------------------------------
 
---glodal varables
+--global varables
 scrollSpeed = 4
 scrollSpeed3 = 4 
 scrollSpeed2 = 4 - 8 
 scrollSpeed4 = 4 - 8
-
-
-
-
-
-
-
 
 ----------------------------------------------------------
 --LOCAL VARIABLES
@@ -36,12 +29,10 @@ local crown
 local hello
 local spongebob
 local curve = 4 - 8
-
-
-
-
-
-
+local ground
+local physics = require "physics"
+local spongebobJump
+local gradient
 
 ----------------------------------------------------------
 --LOCAL FUNCTION
@@ -73,15 +64,6 @@ local function MoveHeart(event)
     heart.yScale = heart.yScale - 0.004
 end 
 
--- Function: MoveSpongebob
--- Input: this function accepts an event listener
--- Output: none
--- Description: This function adds the scroll speed to the x-value of the spongebob
-local function MoveSpongebob(event)
-    -- adds the scroll speed to the x-value of the spongebob
-    spongebob.x = spongebob.x + curve
-    spongebob.y = spongebob.y + scrollSpeed
-end 
 
 -- Function: MoveController
 -- Input: this function accepts an event listener
@@ -135,11 +117,21 @@ local function RotateController(event)
     controller:rotate(4)
 end
 
-local function Curve(event)
-    curve = curve - 0.5
-end
-
-
+-- Function: SpongebobJump
+-- Input: this function accepts an event listener
+-- Output: none
+-- Description: This functionmakes spongebob jump when clicked on
+local function SpongebobJump(event)
+    if(event.phase == "began") then
+        if(event.x < spongebob.x) then
+            --jump left
+            spongebob:setLinearVelocity(-30, -200)
+        else
+            -- jump right
+           spongebob:setLinearVelocity(30, -200)
+        end 
+    end
+end 
 
 ---------------------------------------------------------------
 --OBJECT CREATION
@@ -149,6 +141,13 @@ end
 background = display.newImageRect("Images/cool background.jpg", 2048, 1536)
 background.x = 400
 background.y = 400
+
+--create the ground
+ground = display.newImageRect("Images/Ground.png", 1750, 60)
+ground.x = 160
+ground.y = 750
+physics.start()
+physics.addBody(ground, "static")
 
 --create the eyeBall image, set its x and y position of the eyeball and sets its transparent
 eyeBall = display.newImageRect("Images/real eye.png", 50, 50)
@@ -177,24 +176,29 @@ crown.y = 50
 crown.alpha = 1
 
 --create the spongebob image, set the x and y position of the spongebob and sets its transparent
-spongebob = display.newImageRect("Images/spongebob.png", 100, 100)
-spongebob.x = 1000
-spongebob.y = 50
+spongebob = display.newImageRect("Images/spongebob.png", 150, 150)
+spongebob.x = 500
+spongebob.y = 700
 spongebob.alpha = 1
+physics.addBody(spongebob)
 
 -- create text
 hello = display.newText("Welcome to my game of end less fun", display.contentWidth/2, display.contentHeight/2, ArialNarrow, 50)
 --set the colour of the text
-local gradient = {
+gradient = {
     type="gradient",
     color1={ 1/255, 255/255, 1/255 }, color2={ 255/255, 1/255, 1/255 }, direction="down"
 }
 hello:setTextColor(gradient)
 
-
-
-
-
+-- create text
+spongebobJump = display.newText("Click the screen to make spongebob jump.", display.contentWidth/2, 500, ArialNarrow, 50)
+--set the colour of the text
+gradient = {
+    type="gradient",
+    color1={ 192/255, 205/255, 167/255 }, color2={ 9/255, 88/255, 200/255 }, direction="down"
+}
+spongebobJump:setTextColor(gradient)
 
 ---------------------------------------------------------------
 --EVENT LISTENER
@@ -218,11 +222,5 @@ Runtime:addEventListener("enterFrame", RotateCrown)
 --RotateController will be called over and over again
 Runtime:addEventListener("enterFrame", RotateController)
 
---MoveSpongebob will be called over and over again
-Runtime:addEventListener("enterFrame", MoveSpongebob)
-
-
-
------------------------------------------------------------------
---FUNCTION CALLS
------------------------------------------------------------------
+--SpongebobJump will be called over and over again
+Runtime:addEventListener("touch", SpongebobJump)
