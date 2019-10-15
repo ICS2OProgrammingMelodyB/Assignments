@@ -6,6 +6,13 @@
 -- hide the status bar
 display.setStatusBar(display.HiddenStatusBar)
 
+-------------------------------------------------------------
+--SOUND CREATION
+------------------------------------------------------------
+
+local backgroundSound = audio.loadSound( "Sounds/backgroundMusic.MP3" )
+local backgoundSoundChannel = audio.play( backgroundSound )
+
 --------------------------------------------------------------
 --GLOBAL VARIABLES
 ---------------------------------------------------------------
