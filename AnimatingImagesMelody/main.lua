@@ -11,7 +11,7 @@ display.setStatusBar(display.HiddenStatusBar)
 ------------------------------------------------------------
 
 local backgroundSound = audio.loadSound( "Sounds/backgroundMusic.MP3" )
-local backgoundSoundChannel = audio.play( backgroundSound )
+local backgoundSoundChannel = audio.play( backgroundSound, {loop = -1} )
 
 --------------------------------------------------------------
 --GLOBAL VARIABLES
