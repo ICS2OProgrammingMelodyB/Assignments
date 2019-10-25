@@ -52,6 +52,7 @@ local countDownTimer
 local heart1
 local heart2
 local heart3
+local gradient
 
 ----------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -264,7 +265,11 @@ heart1.y=  display.contentHeight * 1/7
 
 --create the lives to display on the screen
 clockText = display.newText("secondsLeft = ".. secondsLeft, 100, 100, nil, 50)
-clockText:setTextColor(247/255, 255/255, 0/255)
+gradient = {
+    type="gradient",
+    color1={ 247/255, 255/255, 0/255 }, color2={ 175/255, 53/255, 97/255 }, direction="down"
+}
+clockText:setFillColor( gradient )
 clockText.x= 190
 clockText.y= 100
 
@@ -281,10 +286,11 @@ heart3.y=  display.contentHeight * 1/7
 
 --display a question and sets the colour
 questionObject = display.newText( "", display.contentWidth/3, display.contentHeight/2, nil, 50)
-questionObject:setTextColor(247/255, 255/255, 0/255)
+questionObject:setFillColor( 247/255, 255/255, 0/255 )
+
 
 --create the correct text object and make it invisble
-correctObject = display.newText( "Correct!", display.contentWidth/2, display.contentHeight*2/3, nil, 50)
+correctObject = display.newText( "Correct! ☺ ☺ ☺ ", display.contentWidth/2, display.contentHeight*2/3, nil, 50)
 correctObject:setTextColor(247/255, 255/255, 0/255)
 correctObject.isVisible = false
 
@@ -305,11 +311,19 @@ correctAnswerObject.isVisible = false
 
 --display the amount of points as a text object
 pointsText = display.newText("Points = " .. points, 900, 20, nil, 50)
-pointsText:setTextColor(247/255, 255/255, 0/255)
+gradient = {
+    type="gradient",
+    color1={ 247/255, 255/255, 0/255 }, color2={ 175/255, 53/255, 97/255 }, direction="down"
+}
+pointsText:setFillColor( gradient )
 
 --display the amount of lives as a text object
 livesText = display.newText("Lives = " .. lives, 120, 20, nil, 50)
-livesText:setTextColor(247/255, 255/255, 0/255)
+gradient = {
+    type="gradient",
+    color1={ 247/255, 255/255, 0/255 }, color2={ 175/255, 53/255, 97/255 }, direction="down"
+}
+livesText:setFillColor( gradient )
 
 --display GameOver! and sets the colour
 gameOverObject = display.newImageRect("Images/gameOver.png", 1100, 1000)
