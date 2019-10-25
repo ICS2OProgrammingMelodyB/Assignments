@@ -22,6 +22,7 @@ local gameOver = audio.loadSound("Sounds/gameover.mp3")
 local gameOverChannel
 local winSound = audio.loadSound("Sounds/win.mp3")
 local winSoundChannel
+
 -------------------------------------------------------
 --LOCAL VARIABLES
 -------------------------------------------------------
