@@ -38,7 +38,7 @@ local randomNumber4
 local randomNumber5
 local randomNumber6
 local userAnser
-local correctAnswer = 0
+local correctAnswer = 1
 local correctAnswer1
 local incorrectObject
 local randomOperator
@@ -53,6 +53,10 @@ local heart1
 local heart2
 local heart3
 local gradient
+local exponent = randomNumber7
+local base = randomNumber3
+local randomNumber7
+local counter = 1
 
 ----------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -61,7 +65,7 @@ local gradient
 local function AskQuestions()
 	--generate a random number between 1 and 4
 	-- *** MAKE SURE TO DECLARE THIS VARIABLE ABOVE
-	randomOperator = math.random(1,5)
+	randomOperator = math.random(1,6)
 	--generate 2 random numbers between a max. and a min. number
 	randomNumber1 = math.random(1, 20)
 	randomNumber2 = math.random(1, 20)
@@ -69,6 +73,10 @@ local function AskQuestions()
 	randomNumber4 = math.random(1, 10)
 	randomNumber5 = math.random(1, 100)
 	randomNumber6 = math.random(1, 100)
+	randomNumber7 = math.random(1, 5)
+	exponent = randomNumber7
+	base = randomNumber3
+
 
 	-- if the random operator is 1, then do addition
 	if (randomOperator == 1) then
@@ -109,7 +117,7 @@ local function AskQuestions()
 		questionObject.text = correctAnswer1 .. " / " .. randomNumber5 .. " = "
 
 
-		-- otherwise, if the random operator is 5, do squareroots
+	-- otherwise, if the random operator is 5, do squareroots
 	elseif (randomOperator == 5)then
 		--calculate the correct answer
 		correctAnswer1 = randomNumber3 * randomNumber3
@@ -117,6 +125,16 @@ local function AskQuestions()
 
 		--create question in text object
 		questionObject.text = "√" .. correctAnswer1 .. " = "
+
+	-- otherwise, if the random operator is 5, do squareroots
+	elseif (randomOperator == 6)then
+		for counter = 1, exponent
+			--calculate the correct answer
+			do correctAnswer = correctAnswer * base
+		
+			--create question in text object
+			questionObject.text = base .. "^" .. exponent .. " = "
+		end
 	end
 end
 
