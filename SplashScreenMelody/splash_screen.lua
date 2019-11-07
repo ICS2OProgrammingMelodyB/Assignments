@@ -71,7 +71,7 @@ function scene:create( event )
     --bkg_image:toBack()
 
     -- Insert the beetleship image
-    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 200, 200)
+    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 700, 700)
 
     -- set the initial x and y position of the beetleship
     CompanyLogo.x = 100
