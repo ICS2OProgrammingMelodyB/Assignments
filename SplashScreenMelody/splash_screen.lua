@@ -24,21 +24,53 @@ local scene = composer.newScene( sceneName )
  
 -- The local variables for this scene
 local CompanyLogo
-local scrollXSpeed = 6
-local jungleSounds = audio.loadSound("Sounds/animals144.mp3")
-local jungleSoundsChannel
+local CompanyLogo2
+local scrollXSpeed = 4
+local starWarsSounds = audio.loadSound("Sounds/Star Wars Main Theme.mp3")
+local starWarsSoundsChannel
 local bkg_image
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 --------------------------------------------------------------------------------------------
 
--- The function that moves the beetleship across the screen
-local function moveCompanyLogo()
-    CompanyLogo.x = CompanyLogo.x + scrollXSpeed
+-- This function shows the companylogo2 
+
+local function showCompanyLogo2()
+    CompanyLogo2.isVisible = true
 end
 
--- The function that will go to the main menu 
+-- This function hides the companylogo
+local function hideCompanyLogo()
+    CompanyLogo.alpha = 0
+    CompanyLogo.isVisible = false
+end
+
+-- This function rotates the companylogo2
+local function RotateCompanyLogo2(event) 
+    -- rotates the CompanyLogo2  
+    CompanyLogo2:rotate(3)
+end
+
+local function FadeOutCompanyLogo2(event) 
+    -- change the transparency of the companylogo2 so that it fades out
+    CompanyLogo2.alpha = CompanyLogo2.alpha - 0.001
+end
+
+-- Function: moveCompanyLogo
+-- Input: this function accepts an event listener
+-- Output: none
+-- Description: This function calls hideCompanyLogo and showCompanyLogo2 after 1 second. After 2.3 second it calls RotateCompanyLogo2 . 
+--After 2.5 seconds it calls FadeOutCompanyLogo2
+local function moveCompanyLogo()
+    timer.performWithDelay(1000, hideCompanyLogo)
+    timer.performWithDelay(1000, showCompanyLogo2)
+    timer.performWithDelay(1300, RotateCompanyLogo2)
+    timer.performWithDelay(1300, FadeOutCompanyLogo2)
+    
+end
+
+
 
 
 -----------------------------------------------------------------------------------------
@@ -56,29 +88,28 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    display.setDefault("background", 47/255, 5/255, 255/255)
+    display.setDefault("background", 7/255, 215/255, 255/255)
 
-    --bkg_image = display.newImageRect("Images/background.png", display.contentWidth, display.contentHeight)
-    --bkg_image.x = display.contentCenterX
-    --bkg_image.y = display.contentCenterY
-    --bkg_image.width = display.contentWidth
-    --bkg_image.height = display.contentHeight
+    -- Insert the CompanyLogo image
+    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 570, 570)
+    CompanyLogo.isVisible = true
 
-    -- Associating display objects with this scene 
-    --sceneGroup:insert( bkg_image )
-
-    -- Send the background image to the back layer so all other objects can be on top
-    --bkg_image:toBack()
-
-    -- Insert the beetleship image
-    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 200, 200)
-
-    -- set the initial x and y position of the beetleship
-    CompanyLogo.x = 100
+    -- set the initial x and y position of the CompanyLogo
+    CompanyLogo.x = display.contentWidth/2--100
     CompanyLogo.y = display.contentHeight/2
+
+    -- Insert the CompanyLogo2 image
+    CompanyLogo2 = display.newImageRect("Images/CompanyLogoMelodyAfter@2x.png", 700, 700)
+    CompanyLogo2.isVisible = false
+
+    -- set the initial x and y position of the CompanyLogo2
+    CompanyLogo2.x = display.contentWidth/2--100
+    CompanyLogo2.y = display.contentHeight/2
+
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( CompanyLogo )
+    sceneGroup:insert( CompanyLogo2 )
 
 end -- function scene:create( event )
 
@@ -103,7 +134,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- start the splash screen music
-        jungleSoundsChannel = audio.play(jungleSounds )
+       starWarsSoundsChannel = audio.play(starWarsSounds )
 
         -- Call the moveBeetleship function as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveCompanyLogo)
@@ -136,8 +167,8 @@ function scene:hide( event )
     -- Called immediately after scene goes off screen.
     elseif ( phase == "did" ) then
         
-        -- stop the jungle sounds channel for this screen
-        audio.stop(jungleSoundsChannel)
+        --stop the jungle sounds channel for this screen
+        audio.stop(starWarsSoundsChannel)
     end
 
 end --function scene:hide( event )
