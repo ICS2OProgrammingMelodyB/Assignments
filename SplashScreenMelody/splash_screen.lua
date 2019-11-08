@@ -37,6 +37,7 @@ local bkg_image
 -- This function shows the companylogo2 
 
 local function showCompanyLogo2()
+    display.setDefault("background", 7/255, 215/255, 255/255)
     CompanyLogo2.isVisible = true
 end
 
@@ -49,12 +50,14 @@ end
 -- This function rotates the companylogo2
 local function RotateCompanyLogo2(event) 
     -- rotates the CompanyLogo2  
-    CompanyLogo2:rotate(3)
+    CompanyLogo2:rotate(5)
 end
 
 local function FadeOutCompanyLogo2(event) 
     -- change the transparency of the companylogo2 so that it fades out
     CompanyLogo2.alpha = CompanyLogo2.alpha - 0.001
+    CompanyLogo2.xScale = CompanyLogo2.xScale - 0.004
+    CompanyLogo2.yScale = CompanyLogo2.yScale - 0.004
 end
 
 -- Function: moveCompanyLogo
@@ -63,10 +66,10 @@ end
 -- Description: This function calls hideCompanyLogo and showCompanyLogo2 after 1 second. After 2.3 second it calls RotateCompanyLogo2 . 
 --After 2.5 seconds it calls FadeOutCompanyLogo2
 local function moveCompanyLogo()
-    timer.performWithDelay(1000, hideCompanyLogo)
-    timer.performWithDelay(1000, showCompanyLogo2)
+    timer.performWithDelay(1300, hideCompanyLogo)
+    timer.performWithDelay(1300, showCompanyLogo2)
     timer.performWithDelay(1300, RotateCompanyLogo2)
-    timer.performWithDelay(1300, FadeOutCompanyLogo2)
+    timer.performWithDelay(1700, FadeOutCompanyLogo2)
     
 end
 
@@ -88,7 +91,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    display.setDefault("background", 7/255, 215/255, 255/255)
+    display.setDefault("background", 38/255, 230/255, 25/255)
 
     -- Insert the CompanyLogo image
     CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 570, 570)
