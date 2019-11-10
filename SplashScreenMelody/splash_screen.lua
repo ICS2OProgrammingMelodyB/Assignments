@@ -105,14 +105,10 @@ function scene:create( event )
     CompanyLogo2 = display.newImageRect("Images/CompanyLogoMelodyAfter@2x.png", 700, 700)
     CompanyLogo2.isVisible = false
 
-<<<<<<< HEAD
-    -- Insert the beetleship image
-    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 700, 700)
-=======
+
     -- set the initial x and y position of the CompanyLogo2
     CompanyLogo2.x = display.contentWidth/2--100
     CompanyLogo2.y = display.contentHeight/2
->>>>>>> df741becf58dd4c4e1318f6c4daf1f01f94cc55e
 
 
     -- Insert objects into the scene group in order to ONLY be associated with this scene
