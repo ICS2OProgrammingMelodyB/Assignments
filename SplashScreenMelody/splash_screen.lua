@@ -28,7 +28,7 @@ local CompanyLogo2
 local scrollXSpeed = 4
 local starWarsSounds = audio.loadSound("Sounds/Star Wars Main Theme.mp3")
 local starWarsSoundsChannel
-local bkg_image
+local bkg
 
 --------------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -86,12 +86,18 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-     -----------------------------------------------------------------------------------------
+    -----------------------------------------------------------------------------------------
     -- BACKGROUND AND DISPLAY OBJECTS
     -----------------------------------------------------------------------------------------
 
-    -- Insert the background image and set it to the center of the screen
-    display.setDefault("background", 38/255, 230/255, 25/255)
+    bkg = display.newImageRect("Images/background1.png", display.contentWidth, display.contentHeight)
+    bkg.x = display.contentCenterX
+    bkg.y = display.contentCenterY
+    bkg.width = display.contentWidth
+    bkg.height = display.contentHeight
+    
+
+
 
     -- Insert the CompanyLogo image
     CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 570, 570)
@@ -114,6 +120,9 @@ function scene:create( event )
     -- Insert objects into the scene group in order to ONLY be associated with this scene
     sceneGroup:insert( CompanyLogo )
     sceneGroup:insert( CompanyLogo2 )
+    sceneGroup:insert( bkg )
+    -- Send the background image to the back layer so all other objects can be on top
+    bkg:toBack()
 
 end -- function scene:create( event )
 
