@@ -4,7 +4,7 @@
 -- Created by: Melody Berhane
 -- Date: Nov 05, 2019
 -- Description: This is the splash screen of the game. It displays the 
--- company logo that...
+-- company logo that appears on the screen, then gets bigger and starts to rotate and fade in while growing smaller.
 -----------------------------------------------------------------------------------------
 
 -- Use Composer Library
@@ -37,7 +37,7 @@ local bkg
 -- This function shows the companylogo2 
 
 local function showCompanyLogo2()
-    display.setDefault("background", 7/255, 215/255, 255/255)
+    bkg.isVisible = true
     CompanyLogo2.isVisible = true
 end
 
@@ -66,10 +66,10 @@ end
 -- Description: This function calls hideCompanyLogo and showCompanyLogo2 after 1 second. After 2.3 second it calls RotateCompanyLogo2 . 
 --After 2.5 seconds it calls FadeOutCompanyLogo2
 local function moveCompanyLogo()
-    timer.performWithDelay(1300, hideCompanyLogo)
-    timer.performWithDelay(1300, showCompanyLogo2)
-    timer.performWithDelay(1300, RotateCompanyLogo2)
-    timer.performWithDelay(1700, FadeOutCompanyLogo2)
+    timer.performWithDelay(500, hideCompanyLogo)
+    timer.performWithDelay(500, showCompanyLogo2)
+    timer.performWithDelay(500, RotateCompanyLogo2)
+    timer.performWithDelay(1000, FadeOutCompanyLogo2)
     
 end
 
@@ -90,17 +90,20 @@ function scene:create( event )
     -- BACKGROUND AND DISPLAY OBJECTS
     -----------------------------------------------------------------------------------------
 
+    display.setDefault("background", 105/255, 105/255, 225/255)
+
     bkg = display.newImageRect("Images/background1.png", display.contentWidth, display.contentHeight)
     bkg.x = display.contentCenterX
     bkg.y = display.contentCenterY
     bkg.width = display.contentWidth
     bkg.height = display.contentHeight
+    bkg.isVisible = false
     
 
 
 
     -- Insert the CompanyLogo image
-    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 570, 570)
+    CompanyLogo = display.newImageRect("Images/CompanyLogoMelody@2x.png", 530, 530)
     CompanyLogo.isVisible = true
 
     -- set the initial x and y position of the CompanyLogo
@@ -108,7 +111,7 @@ function scene:create( event )
     CompanyLogo.y = display.contentHeight/2
 
     -- Insert the CompanyLogo2 image
-    CompanyLogo2 = display.newImageRect("Images/CompanyLogoMelodyAfter@2x.png", 700, 700)
+    CompanyLogo2 = display.newImageRect("Images/CompanyLogoMelodyAfter@2x.png", 600, 570)
     CompanyLogo2.isVisible = false
 
 
@@ -182,6 +185,7 @@ function scene:hide( event )
         
         --stop the jungle sounds channel for this screen
         audio.stop(starWarsSoundsChannel)
+
     end
 
 end --function scene:hide( event )
