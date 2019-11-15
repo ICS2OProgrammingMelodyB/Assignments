@@ -35,11 +35,6 @@ local bkg
 --------------------------------------------------------------------------------------------
 
 -- This function shows the companylogo2 
-
-local function gotoMainMenu()
-    composer.gotoScene( "main_menu" )
-end
-
 local function showCompanyLogo2()
     bkg.isVisible = true
     CompanyLogo2.isVisible = true
@@ -64,6 +59,10 @@ local function FadeOutCompanyLogo2(event)
     CompanyLogo2.yScale = CompanyLogo2.yScale - 0.004
 end
 
+local function MainMenu()
+    composer.gotoScene("mainmenu")
+end
+
 -- Function: moveCompanyLogo
 -- Input: this function accepts an event listener
 -- Output: none
@@ -76,9 +75,6 @@ local function moveCompanyLogo()
     timer.performWithDelay(1000, FadeOutCompanyLogo2)
     
 end
-
-
-
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -160,7 +156,7 @@ function scene:show( event )
         Runtime:addEventListener("enterFrame", moveCompanyLogo)
 
         -- Go to the main menu screen after the given time.
-        timer.performWithDelay ( 4500, gotoMainMenu)          
+        timer.performWithDelay( 5500, MainMenu)          
         
     end
 
