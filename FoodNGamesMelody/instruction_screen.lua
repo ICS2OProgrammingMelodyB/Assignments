@@ -21,7 +21,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "soccer_screen"
+sceneName = "instruction_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -33,35 +33,21 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 --local bkg_image
-local instructionsButton
-local playButton
+local backButton
 --local creditsButton
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
------------------------------------------------------------------------------------------
-
--- Creating Transition Function to Credits Page
---local function CreditsTransition( )       
-    --composer.gotoScene( "credits_screen", {effect = "flip", time = 500})
---end 
-
------------------------------------------------------------------------------------------
-
--- Creating Transition to soccer Screen
-local function InstructionsScreenTransition( )
-    composer.gotoScene( "instruction_screen", {effect = "fromTop", time = 1000})
-end    
+----------------------------------------------------------------------------------------- 
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
-local function PlayScreenTransition( )
-    composer.gotoScene( "play_screen", {effect = "slideDown", time = 500})
-end 
-
 local function BackTransition( )
-    composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
-end 
+    composer.gotoScene( "soccer_screen", {effect = "slideDown", time = 500})
+end
 
+--local function BackTransition2( )
+    --composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
+--end  
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -96,45 +82,9 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
-
-     -- Creating Play Button
-    instructionButton = widget.newButton( 
-        {   
-            -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*4/5,
-            y = display.contentHeight/2,
-            width = 200,
-            height = 100,
-
-            --Insert the images here
-            defaultFile = "Images/InstructionsButtonUnpressed.png",
-            overFile = "Images/InstructionsButtonPressed.png",
-
-            -- When the button is released, call the Level1 screen transition function
-            onRelease = InstructionScreenTransition          
-        } )
-
-
-    -----------------------------------------------------------------------------------------
     
     -- ADD INSTRUCTIONS BUTTON WIDGET
      -- Creating Play Button
-    playButton = widget.newButton( 
-        {
-            -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/2,
-            y = display.contentHeight/2,
-            width = 200,
-            height = 100,
-
-            -- Insert the images here
-            defaultFile = "Images/PlayButtonUnpressedMelody@2x.png",
-            overFile = "Images/PlayButtonpressedMelody@2x.png",
-
-            -- When the button is released, call the Credits transition function
-           onRelease = PlayScreenTransition
-        } ) 
-
     backButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -154,9 +104,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
-    sceneGroup:insert( playButton )
     sceneGroup:insert( backButton )
-    sceneGroup:insert( instructionButton )
    
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 

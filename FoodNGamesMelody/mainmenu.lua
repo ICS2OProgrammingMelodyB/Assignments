@@ -32,7 +32,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
---local bkg_image
+local bkg_image
 local bakeButton
 local soccerButton
 --local creditsButton
@@ -42,9 +42,9 @@ local soccerButton
 -----------------------------------------------------------------------------------------
 
 -- Creating Transition Function to Credits Page
---local function CreditsTransition( )       
-    --composer.gotoScene( "credits_screen", {effect = "flip", time = 500})
---end 
+local function CreditsTransition( )       
+    composer.gotoScene( "credits_screen", {effect = "flip", time = 500})
+end 
 
 -----------------------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ end
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 local function BakeScreenTransition( )
-    composer.gotoScene( "bake_screen", {effect = "flip", time = 500})
+    composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
@@ -75,18 +75,18 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    --bkg_image = display.newImage("Images/main_menu.png")
-    --bkg_image.x = display.contentCenterX
-    --bkg_image.y = display.contentCenterY
-    --bkg_image.width = display.contentWidth
-    --bkg_image.height = display.contentHeight
+    bkg_image = display.newImage("Images/MainMenuLogan@2x.png")
+    bkg_image.x = display.contentCenterX
+    bkg_image.y = display.contentCenterY
+    bkg_image.width = display.contentWidth
+    bkg_image.height = display.contentHeight
 
 
     -- Associating display objects with this scene 
-    --sceneGroup:insert( bkg_image )
+    sceneGroup:insert( bkg_image )
 
     -- Send the background image to the back layer so all other objects can be on top
-    --bkg_image:toBack()
+    bkg_image:toBack()
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
@@ -102,8 +102,8 @@ function scene:create( event )
             height = 100,
 
             -- Insert the images here
-            defaultFile = "Images/SoccerButtonUnpressed@2x.png",
-            overFile = "Images/SoccerButtonPressed@2x.png",
+            defaultFile = "Images/SoccerButtonUnpressedMelody@2x.png",
+            overFile = "Images/SoccerButtonPressedMelody@2x.png",
 
             -- When the button is released, call the Level1 screen transition function
             onRelease = SoccerScreenTransition          
@@ -112,21 +112,21 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Creating Credits Button
-    --creditsButton = widget.newButton( 
-       -- {
-            -- Set its position on the screen relative to the screen size
-            --x = display.contentWidth*7/8,
-           -- y = display.contentHeight*7/8,
-            --width = 200,
-            --height = 100,
+    creditsButton = widget.newButton( 
+        {
+            --Set its position on the screen relative to the screen size
+            x = display.contentWidth/2,
+            y = display.contentHeight/2,
+            width = 200,
+            height = 100,
 
-            -- Insert the images here
-            --defaultFile = "Images/Credits Button Unpressed.png",
-            --overFile = "Images/Credits Button Pressed.png",
+            --Insert the images here
+            defaultFile = "Images/CreditsButtonUnPressedJosias@2x.png",
+            overFile = "Images/CreditsButtonPressedJosias@2x.png",
 
             -- When the button is released, call the Credits transition function
-            --onRelease = CreditsTransition
-        --} ) 
+            onRelease = CreditsTransition
+        } ) 
     
     -- ADD INSTRUCTIONS BUTTON WIDGET
      -- Creating Instruction Button
@@ -139,8 +139,8 @@ function scene:create( event )
             height = 100,
 
             -- Insert the images here
-            defaultFile = "Images/BakingButtonUnpressed@2x.png",
-            overFile = "Images/BakingButtonpressed@2x.png",
+            defaultFile = "Images/BakingButtonUnpressedMelody@2x.png",
+            overFile = "Images/BakingButtonPressedMelody@2x.png",
 
             -- When the button is released, call the Credits transition function
             onRelease = BakeScreenTransition
@@ -149,7 +149,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
-    --sceneGroup:insert( playButton )
+    sceneGroup:insert( creditsButton )
     sceneGroup:insert( soccerButton )
     sceneGroup:insert( bakeButton )
    
