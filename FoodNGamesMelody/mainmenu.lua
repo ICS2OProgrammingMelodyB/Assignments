@@ -21,7 +21,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "main_menu"
+sceneName = "mainmenu"
 
 -----------------------------------------------------------------------------------------
 
@@ -50,12 +50,12 @@ local soccerButton
 
 -- Creating Transition to soccer Screen
 local function SoccerScreenTransition( )
-    composer.gotoScene( "soccer_screen", {effect = "fromTop", time = 1000})
+    composer.gotoScene( "soccer_screen", {effect = "slideDown", time = 1000})
 end    
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
 local function BakeScreenTransition( )
-    composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
+    composer.gotoScene( "bake_screen", {effect = "flip", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------
@@ -64,6 +64,8 @@ end
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
+
+    display.setDefault("background", 105/255, 15/255, 225/255)
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
@@ -94,17 +96,17 @@ function scene:create( event )
     soccerButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/2,
-            y = display.contentHeight*7/8,
+            x = display.contentWidth*4/5,
+            y = display.contentHeight/2,
             width = 200,
             height = 100,
 
             -- Insert the images here
-            defaultFile = "Images/SoccerButtonUnpressed.png",
-            overFile = "Images/SoccerButtonPressed.png",
+            defaultFile = "Images/SoccerButtonUnpressed@2x.png",
+            overFile = "Images/SoccerButtonPressed@2x.png",
 
             -- When the button is released, call the Level1 screen transition function
-            --onRelease = SoccerScreenTransition          
+            onRelease = SoccerScreenTransition          
         } )
 
     -----------------------------------------------------------------------------------------
@@ -132,16 +134,16 @@ function scene:create( event )
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth/8,
-            y = display.contentHeight*7/8,
+            y = display.contentHeight/2,
             width = 200,
             height = 100,
 
             -- Insert the images here
-            defaultFile = "Images/BakingButtonUnpressed.png",
-            overFile = "Images/BakingButtonpressed.png",
+            defaultFile = "Images/BakingButtonUnpressed@2x.png",
+            overFile = "Images/BakingButtonpressed@2x.png",
 
             -- When the button is released, call the Credits transition function
-           -- onRelease = BakeScreenTransition
+            onRelease = BakeScreenTransition
         } ) 
 
     -----------------------------------------------------------------------------------------
