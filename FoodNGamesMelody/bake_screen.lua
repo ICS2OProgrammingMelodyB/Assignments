@@ -46,7 +46,7 @@ local playButton
 
 -- Creating Transition to soccer Screen
 local function InstructionsScreenTransition( )
-    composer.gotoScene( "instruction_screen", {effect = "fromTop", time = 1000})
+    composer.gotoScene( "instruction_screen", {effect = "slideDown", time = 1000})
 end    
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
@@ -90,7 +90,7 @@ function scene:create( event )
             overFile = "Images/InstructionsButtonPressed.png",
 
             -- When the button is released, call the Level1 screen transition function
-            onRelease = InstructionScreenTransition          
+            onRelease = InstructionsScreenTransition          
         } )
 
     -----------------------------------------------------------------------------------------
