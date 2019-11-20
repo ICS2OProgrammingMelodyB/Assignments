@@ -21,7 +21,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "bake_screen"
+sceneName = "instruction2_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -33,63 +33,21 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 --local bkg_image
-local instructionsButton
-local playButton
-local MuteButton
-local UnmuteButton
+local backButton
+--local creditsButton
 
-
------------------------------------------------------------------------------------------
--- LOCAL SOUNDS
------------------------------------------------------------------------------------------
-
-local bakingSound = audio.loadSound("Sounds/bakingSound.mp3")
-local bakingSoundChannel
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
------------------------------------------------------------------------------------------
-
--- Creating Transition Function to Credits Page 
-
------------------------------------------------------------------------------------------
-
--- Creating Transition to soccer Screen
-local function InstructionsScreenTransition( )
-    composer.gotoScene( "instruction_screen", {effect = "slideDown", time = 1000})
-end    
+----------------------------------------------------------------------------------------- 
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
-local function PlayScreenTransition( )
-    composer.gotoScene( "play_screen", {effect = "slideDown", time = 500})
-end 
-
 local function BackTransition( )
-    composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
-end 
-
-local function MuteListener(touch)
-    if (touch.phase == "ended") then
-        print("****clicked mute")
-        --bakingSoundChannel = audio.pause( bakingSound )
-        UnmuteButton.isVisible = true
-        MuteButton.isVisible = false
-        -- Play the correct soud on any available channel
-        bakingSoundChannel = audio.pause( bakingSound )
-    end
+    composer.gotoScene( "soccer_screen", {effect = "slideDown", time = 500})
 end
 
-local function UnmuteListener(touch)
-    if (touch.phase == "ended") then
-        print("****clicked mute")
-        --bakingSoundChannel = audio.pause( bakingSound )
-        UnmuteButton.isVisible = false
-        MuteButton.isVisible = true
-        -- Play the correct soud on any available channel
-        bakingSoundChannel = audio.play( bakingSound )
-    end
-end
-
-
+--local function BackTransition2( )
+    --composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
+--end  
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -98,73 +56,40 @@ end
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
+    display.setDefault("background", 95/255, 15/255, 135/255)
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-    display.setDefault("background", 255/255, 15/255, 25/255)
+    -----------------------------------------------------------------------------------------
+    -- BACKGROUND IMAGE & STATIC OBJECTS
+    -----------------------------------------------------------------------------------------
 
-    UnmuteButton = display.newImageRect("Images/UnmuteButtonMelody@2x.png", 198, 98)
-    UnmuteButton.x = display.contentWidth*1/5
-    UnmuteButton.y = display.contentHeight*1/5
-    UnmuteButton.isVisible = false
-
-    MuteButton = display.newImageRect("Images/MuteButtonMelody@2x.png", 198, 98)
-    MuteButton.x = display.contentWidth*1/5
-    MuteButton.y = display.contentHeight*1/5
-    MuteButton.isVisible = true
-
+    -- Insert the background image and set it to the center of the screen
+    bkg_image = display.newImage("Images/BakingInstructionsScreenLoganS@2x.png")
+    bkg_image.x = display.contentCenterX
+    bkg_image.y = display.contentCenterY
+    bkg_image.width = display.contentWidth
+    bkg_image.height = display.contentHeight
 
 
+    -- Associating display objects with this scene 
+    sceneGroup:insert( bkg_image )
 
+    -- Send the background image to the back layer so all other objects can be on top
+    bkg_image:toBack()
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
-
-    -- Creating Play Button
-    instructionButton = widget.newButton( 
-        {   
-            -- Set its position on the screen relative to the screen size
-            x = display.contentWidth*4/5,
-            y = display.contentHeight/2,
-            width = 200,
-            height = 100,
-
-            --Insert the images here
-            defaultFile = "Images/InstructionsButtonUnpressed.png",
-            overFile = "Images/InstructionsButtonPressed.png",
-
-            -- When the button is released, call the Level1 screen transition function
-            onRelease = InstructionsScreenTransition          
-        } )
-
-    -----------------------------------------------------------------------------------------
     
     -- ADD INSTRUCTIONS BUTTON WIDGET
-     -- Creating Instruction Button
-    playButton = widget.newButton( 
-        {
-            -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/2,
-            y = display.contentHeight/2,
-            width = 200,
-            height = 100,
-
-            -- Insert the images here
-            defaultFile = "Images/PlayButtonUnpressedMelody@2x.png",
-            overFile = "Images/PlayButtonpressedMelody@2x.png",
-
-            -- When the button is released, call the Credits transition function
-           onRelease = PlayScreenTransition
-        } ) 
-
-
+     -- Creating Play Button
     backButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth/8,
-            y = display.contentHeight/2,
+            y = display.contentHeight*3/5,
             width = 200,
             height = 100,
 
@@ -175,14 +100,11 @@ function scene:create( event )
             -- When the button is released, call the Credits transition function
            onRelease = BackTransition
         } ) 
+
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
-    sceneGroup:insert( playButton )
     sceneGroup:insert( backButton )
-    sceneGroup:insert( instructionButton )
-    sceneGroup:insert( MuteButton )
-    sceneGroup:insert( UnmuteButton )
    
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 
@@ -212,11 +134,7 @@ function scene:show( event )
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then 
-
-        bakingSoundChannel = audio.play( bakingSound ) 
-        MuteButton:addEventListener("touch", MuteListener) 
-        UnmuteButton:addEventListener("touch", UnmuteListener)    
+    elseif ( phase == "did" ) then       
         
 
     end
@@ -241,15 +159,11 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        bakingSoundChannel = audio.pause( bakingSound )
-        MuteButton:removeEventListener("touch", MuteListener)
-        UnmuteButton:removeEventListener("touch", UnmuteListener) 
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-
     end
 
 end -- function scene:hide( event )

@@ -50,7 +50,7 @@ local playButton
 
 -- Creating Transition to soccer Screen
 local function InstructionsScreenTransition( )
-    composer.gotoScene( "instruction_screen", {effect = "slideDown", time = 1000})
+    composer.gotoScene( "instruction2_screen", {effect = "slideDown", time = 1000})
 end    
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
@@ -61,7 +61,6 @@ end
 local function BackTransition( )
     composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
 end 
-
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -149,7 +148,9 @@ function scene:create( event )
 
             -- When the button is released, call the Credits transition function
            onRelease = BackTransition
-        } ) 
+        } )
+
+
 
     -----------------------------------------------------------------------------------------
 
