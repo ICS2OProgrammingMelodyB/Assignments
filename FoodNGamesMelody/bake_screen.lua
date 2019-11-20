@@ -164,7 +164,10 @@ function scene:show( event )
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then       
+    elseif ( phase == "did" ) then 
+        local bakingSound = audio.loadSound("Sounds/bakingSound.mp3")
+        local bakingSoundChannel
+        bakingSoundChannel = audio.play( bakingSound )      
         
 
     end
@@ -189,11 +192,13 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        bakingSoundChannel = audio.pause( bakingSound )
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+
     end
 
 end -- function scene:hide( event )
