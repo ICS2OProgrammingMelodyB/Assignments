@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
 --
--- main_menu.lua
+-- mainmenu.lua
 -- Created by: Melody Berhane
 -- Date: Nov 14, 2019
--- Description: This is the main menu, displaying the credits, instructions & play buttons.
+-- Description: This is the main menu, displaying the credits, soccer, back & bake buttons.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -35,7 +35,16 @@ local scene = composer.newScene( sceneName )
 local bkg_image
 local bakeButton
 local soccerButton
---local creditsButton
+local MuteButton
+local UnmuteButton
+local creditsButton
+
+
+-----------------------------------------------------------------------------------------
+-- LOCAL SOUND
+-----------------------------------------------------------------------------------------
+local mainmenuSound = audio.loadSound("Sounds/mainmenuSound.mp3")
+local mainmenuSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -53,9 +62,29 @@ local function SoccerScreenTransition( )
     composer.gotoScene( "soccer_screen", {effect = "slideDown", time = 1000})
 end    
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
+-- Creating Transition to bake Screen 
 local function BakeScreenTransition( )
     composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
+end
+
+-- making the music to pause when the mute button is clicked
+local function MuteListener(touch)
+    if (touch.phase == "ended") then
+        UnmuteButton.isVisible = true
+        MuteButton.isVisible = false
+        -- Play the correct soud on any available channel
+        mainmenuSoundChannel = audio.pause( mainmenuSound )
+    end
+end
+
+-- making the music to play when the unmute button is clicked
+local function UnmuteListener(touch)
+    if (touch.phase == "ended") then
+        UnmuteButton.isVisible = false
+        MuteButton.isVisible = true
+        -- Play the correct soud on any available channel
+        mainmenuSoundChannel = audio.play( mainmenuSound )
+    end
 end 
 
 -----------------------------------------------------------------------------------------
@@ -65,10 +94,20 @@ end
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
-    display.setDefault("background", 105/255, 15/255, 225/255)
-
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
+
+    --creating the unmute button
+    UnmuteButton = display.newImageRect("Images/UnmuteButtonMelody@2x.png", 198, 98)
+    UnmuteButton.x = display.contentWidth/2
+    UnmuteButton.y = display.contentHeight*1/10
+    UnmuteButton.isVisible = false
+
+    -- creating the mute button
+    MuteButton = display.newImageRect("Images/MuteButtonMelody@2x.png", 198, 98)
+    MuteButton.x = display.contentWidth/2
+    MuteButton.y = display.contentHeight*1/10
+    MuteButton.isVisible = true
 
     -----------------------------------------------------------------------------------------
     -- BACKGROUND IMAGE & STATIC OBJECTS
@@ -92,7 +131,7 @@ function scene:create( event )
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
 
-    -- Creating Play Button
+    -- Creating soccer Button
     soccerButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
@@ -105,7 +144,7 @@ function scene:create( event )
             defaultFile = "Images/SoccerButtonUnpressedMelody@2x.png",
             overFile = "Images/SoccerButtonPressedMelody@2x.png",
 
-            -- When the button is released, call the Level1 screen transition function
+            -- When the button is released, call the soccer screen transition function
             onRelease = SoccerScreenTransition          
         } )
 
@@ -128,8 +167,7 @@ function scene:create( event )
             onRelease = CreditsTransition
         } ) 
     
-    -- ADD INSTRUCTIONS BUTTON WIDGET
-     -- Creating Instruction Button
+     -- Creating bake Button
     bakeButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -142,7 +180,7 @@ function scene:create( event )
             defaultFile = "Images/BakingButtonUnpressedMelody@2x.png",
             overFile = "Images/BakingButtonPressedMelody@2x.png",
 
-            -- When the button is released, call the Credits transition function
+            -- When the button is released, call the bake transition function
             onRelease = BakeScreenTransition
         } ) 
 
@@ -154,6 +192,8 @@ function scene:create( event )
     sceneGroup:insert( creditsButton )
     sceneGroup:insert( soccerButton )
     sceneGroup:insert( bakeButton )
+    sceneGroup:insert( MuteButton )
+    sceneGroup:insert( UnmuteButton )
    
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 
@@ -184,9 +224,9 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
-        local mainmenuSound = audio.loadSound("Sounds/mainmenuSound.mp3")
-        local mainmenuSoundChannel
-        mainmenuSoundChannel = audio.play( mainmenuSound )      
+        mainmenuSoundChannel = audio.play( mainmenuSound, {loops = -1} )
+        MuteButton:addEventListener("touch", MuteListener) 
+        UnmuteButton:addEventListener("touch", UnmuteListener)      
         
 
     end
@@ -202,8 +242,7 @@ function scene:hide( event )
     local sceneGroup = self.view
 
     -----------------------------------------------------------------------------------------
-
-    local phase = event.phase
+     local phase = event.phase
 
     -----------------------------------------------------------------------------------------
 
@@ -212,6 +251,8 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         mainmenuSoundChannel = audio.pause( mainmenuSound ) 
+        MuteButton:removeEventListener("touch", MuteListener)
+        UnmuteButton:removeEventListener("touch", UnmuteListener)
 
     -----------------------------------------------------------------------------------------
 
@@ -244,7 +285,5 @@ scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
 scene:addEventListener( "destroy", scene )
-
------------------------------------------------------------------------------------------
-
+----------------------------------------------------------------------------------------
 return scene

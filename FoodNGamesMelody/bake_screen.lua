@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
 --
--- main_menu.lua
+-- bake_screen.lua
 -- Created by: Melody Berhane
--- Date: Nov 14, 2019
--- Description: This is the main menu, displaying the credits, instructions & play buttons.
+-- Date: Nov 20, 2019
+-- Description: This is the bake main menu, displaying the back, instructions & play buttons.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -32,56 +32,50 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
---local bkg_image
 local instructionsButton
 local playButton
 local MuteButton
 local UnmuteButton
 
-
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
-
 local bakingSound = audio.loadSound("Sounds/bakingSound.mp3")
 local bakingSoundChannel
+
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
--- Creating Transition Function to Credits Page 
-
------------------------------------------------------------------------------------------
-
--- Creating Transition to soccer Screen
+-- Creating Transition to instruction Screen
 local function InstructionsScreenTransition( )
     composer.gotoScene( "instruction_screen", {effect = "slideDown", time = 1000})
 end    
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
+-- Creating Transition to level1 Screen 
 local function PlayScreenTransition( )
     composer.gotoScene( "play_screen", {effect = "slideDown", time = 500})
 end 
 
+--Creating Transition to mainmenu Screen
 local function BackTransition( )
     composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
 end 
 
+-- making the music to pause when the mute button is clicked
 local function MuteListener(touch)
     if (touch.phase == "ended") then
-        print("****clicked mute")
-        --bakingSoundChannel = audio.pause( bakingSound )
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
-        -- Play the correct soud on any available channel
+        -- Play the correct sound on any available channel
         bakingSoundChannel = audio.pause( bakingSound )
     end
 end
 
+-- making the music to play when the unmute button is clicked
 local function UnmuteListener(touch)
     if (touch.phase == "ended") then
         print("****clicked mute")
-        --bakingSoundChannel = audio.pause( bakingSound )
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
         -- Play the correct soud on any available channel
@@ -98,31 +92,27 @@ end
 -- The function called when the screen doesn't exist
 function scene:create( event )
 
-
+    display.setDefault("background", 255/255, 15/255, 25/255)
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
-    display.setDefault("background", 255/255, 15/255, 25/255)
-
+    -- creatin the unmute button
     UnmuteButton = display.newImageRect("Images/UnmuteButtonMelody@2x.png", 198, 98)
-    UnmuteButton.x = display.contentWidth*1/5
-    UnmuteButton.y = display.contentHeight*1/5
+    UnmuteButton.x = display.contentWidth/2
+    UnmuteButton.y = display.contentHeight*1/10
     UnmuteButton.isVisible = false
 
+    --creating the mute button
     MuteButton = display.newImageRect("Images/MuteButtonMelody@2x.png", 198, 98)
-    MuteButton.x = display.contentWidth*1/5
-    MuteButton.y = display.contentHeight*1/5
+    MuteButton.x = display.contentWidth/2
+    MuteButton.y = display.contentHeight*1/10
     MuteButton.isVisible = true
-
-
-
-
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
 
-    -- Creating Play Button
+    -- Creating instructions Button
     instructionButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
@@ -135,14 +125,13 @@ function scene:create( event )
             defaultFile = "Images/InstructionsButtonUnpressed.png",
             overFile = "Images/InstructionsButtonPressed.png",
 
-            -- When the button is released, call the Level1 screen transition function
+            -- When the button is released, call the instructions screen transition function
             onRelease = InstructionsScreenTransition          
         } )
 
     -----------------------------------------------------------------------------------------
     
-    -- ADD INSTRUCTIONS BUTTON WIDGET
-     -- Creating Instruction Button
+     -- Creating play Button
     playButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -155,11 +144,12 @@ function scene:create( event )
             defaultFile = "Images/PlayButtonUnpressedMelody@2x.png",
             overFile = "Images/PlayButtonpressedMelody@2x.png",
 
-            -- When the button is released, call the Credits transition function
+            -- When the button is released, call the play transition function
            onRelease = PlayScreenTransition
         } ) 
 
 
+    -- Creating the back button
     backButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -172,7 +162,7 @@ function scene:create( event )
             defaultFile = "Images/BackbuttonUnpressedJosias@2x.png",
             overFile = "Images/BackButtonPressedJosias@2x.png",
 
-            -- When the button is released, call the Credits transition function
+            -- When the button is released, call the back transition function
            onRelease = BackTransition
         } ) 
     -----------------------------------------------------------------------------------------
@@ -183,8 +173,6 @@ function scene:create( event )
     sceneGroup:insert( instructionButton )
     sceneGroup:insert( MuteButton )
     sceneGroup:insert( UnmuteButton )
-   
-    -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 
 end -- function scene:create( event )   
 
@@ -214,7 +202,7 @@ function scene:show( event )
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
 
-        bakingSoundChannel = audio.play( bakingSound ) 
+        bakingSoundChannel = audio.play( bakingSound, {loops = -1} ) 
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)    
         

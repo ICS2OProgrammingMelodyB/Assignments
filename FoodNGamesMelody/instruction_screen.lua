@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- main_menu.lua
+-- instruction_screen.lua
 -- Created by: Melody Berhane
 -- Date: Nov 14, 2019
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
@@ -32,22 +32,17 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
---local bkg_image
+local bkg_image
 local backButton
---local creditsButton
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------- 
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
+-- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN 
 local function BackTransition( )
     composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
-end
-
---local function BackTransition2( )
-    --composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
---end  
+end 
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -84,7 +79,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------   
     
     -- ADD INSTRUCTIONS BUTTON WIDGET
-     -- Creating Play Button
+     -- Creating back Button
     backButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -105,8 +100,6 @@ function scene:create( event )
 
     -- Associating button widgets with this scene
     sceneGroup:insert( backButton )
-   
-    -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 
 end -- function scene:create( event )   
 

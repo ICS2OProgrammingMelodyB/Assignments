@@ -62,18 +62,19 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    --bkg_image = display.newImage("Images/main_menu.png")
-    --bkg_image.x = display.contentCenterX
-    --bkg_image.y = display.contentCenterY
-    --bkg_image.width = display.contentWidth
-    --bkg_image.height = display.contentHeight
+    bkg_image = display.newImage("Images/BakingInstructionsScreenLoganS@2x.png")
+    bkg_image.x = display.contentCenterX
+    bkg_image.y = display.contentCenterY
+    bkg_image.width = display.contentWidth
+    bkg_image.height = display.contentHeight
 
 
     -- Associating display objects with this scene 
-    --sceneGroup:insert( bkg_image )
+    sceneGroup:insert( bkg_image )
 
     -- Send the background image to the back layer so all other objects can be on top
-    --bkg_image:toBack()
+    bkg_image:toBack()
+
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
@@ -85,7 +86,7 @@ function scene:create( event )
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth/8,
-            y = display.contentHeight/2,
+            y = display.contentHeight*3/5,
             width = 200,
             height = 100,
 

@@ -1,9 +1,9 @@
 -----------------------------------------------------------------------------------------
 --
--- main_menu.lua
+-- soccer_screen.lua
 -- Created by: Melody Berhane
 -- Date: Nov 14, 2019
--- Description: This is the main menu, displaying the credits, instructions & play buttons.
+-- Description: This is the soccer_screen, displaying the back, mute, instructions & play buttons.
 -----------------------------------------------------------------------------------------
 
 -----------------------------------------------------------------------------------------
@@ -32,34 +32,56 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
---local bkg_image
 local instructionsButton
 local playButton
---local creditsButton
+local MuteButton
+local UnmuteButton
+
+-----------------------------------------------------------------------------------------
+-- LOCAL SOUND
+-----------------------------------------------------------------------------------------
+local soccerSound = audio.loadSound("Sounds/soccerSound.mp3")
+local soccerSoundChannel
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
------------------------------------------------------------------------------------------
-
--- Creating Transition Function to Credits Page
---local function CreditsTransition( )       
-    --composer.gotoScene( "credits_screen", {effect = "flip", time = 500})
---end 
+----------------------------------------------------------------------------------------- 
 
 -----------------------------------------------------------------------------------------
 
--- Creating Transition to soccer Screen
+-- Creating Transition to instruction Screen
 local function InstructionsScreenTransition( )
     composer.gotoScene( "instruction2_screen", {effect = "slideDown", time = 1000})
 end    
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO INSTRUCTIONS SCREEN 
+-- Creating Transition to play Screen
 local function PlayScreenTransition( )
     composer.gotoScene( "play_screen", {effect = "slideDown", time = 500})
 end 
 
+-- Creating Transition to mainmenu Screen
 local function BackTransition( )
     composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
+end 
+
+-- making the music to pause when the mute button is clicked
+local function MuteListener(touch)
+    if (touch.phase == "ended") then
+        UnmuteButton.isVisible = true
+        MuteButton.isVisible = false
+        -- Play the correct soud on any available channel
+        soccerSoundChannel = audio.pause( soccerSound )
+    end
+end
+
+-- making the music to play when the unmute button is clicked
+local function UnmuteListener(touch)
+    if (touch.phase == "ended") then
+        UnmuteButton.isVisible = false
+        MuteButton.isVisible = true
+        -- Play the correct soud on any available channel
+        soccerSoundChannel = audio.play( soccerSound )
+    end
 end 
 
 -----------------------------------------------------------------------------------------
@@ -74,29 +96,27 @@ function scene:create( event )
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
 
+    -- creating the unmute button
+    UnmuteButton = display.newImageRect("Images/UnmuteButtonMelody@2x.png", 198, 98)
+    UnmuteButton.x = display.contentWidth/2
+    UnmuteButton.y = display.contentHeight*1/10
+    UnmuteButton.isVisible = false
+
+    --creating the mute button
+    MuteButton = display.newImageRect("Images/MuteButtonMelody@2x.png", 198, 98)
+    MuteButton.x = display.contentWidth/2
+    MuteButton.y = display.contentHeight*1/10
+    MuteButton.isVisible = true
+
     -----------------------------------------------------------------------------------------
     -- BACKGROUND IMAGE & STATIC OBJECTS
     -----------------------------------------------------------------------------------------
-
-    -- Insert the background image and set it to the center of the screen
-    --bkg_image = display.newImage("Images/main_menu.png")
-    --bkg_image.x = display.contentCenterX
-    --bkg_image.y = display.contentCenterY
-    --bkg_image.width = display.contentWidth
-    --bkg_image.height = display.contentHeight
-
-
-    -- Associating display objects with this scene 
-    --sceneGroup:insert( bkg_image )
-
-    -- Send the background image to the back layer so all other objects can be on top
-    --bkg_image:toBack()
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
 
-     -- Creating Play Button
+     -- Creating instruction Button
     instructionButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
@@ -109,15 +129,14 @@ function scene:create( event )
             defaultFile = "Images/InstructionsButtonUnpressed.png",
             overFile = "Images/InstructionsButtonPressed.png",
 
-            -- When the button is released, call the Level1 screen transition function
+            -- When the button is released, call the instruction screen transition function
             onRelease = InstructionsScreenTransition          
         } )
 
 
     -----------------------------------------------------------------------------------------
     
-    -- ADD INSTRUCTIONS BUTTON WIDGET
-     -- Creating Play Button
+    -- Creating Play Button
     playButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -130,10 +149,11 @@ function scene:create( event )
             defaultFile = "Images/PlayButtonUnpressedMelody@2x.png",
             overFile = "Images/PlayButtonpressedMelody@2x.png",
 
-            -- When the button is released, call the Credits transition function
+            -- When the button is released, call the level1 transition function
            onRelease = PlayScreenTransition
         } ) 
 
+    -- Creating back Button
     backButton = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
@@ -146,7 +166,7 @@ function scene:create( event )
             defaultFile = "Images/BackbuttonUnpressedJosias@2x.png",
             overFile = "Images/BackButtonPressedJosias@2x.png",
 
-            -- When the button is released, call the Credits transition function
+            -- When the button is released, call the back transition function
            onRelease = BackTransition
         } )
 
@@ -158,6 +178,8 @@ function scene:create( event )
     sceneGroup:insert( playButton )
     sceneGroup:insert( backButton )
     sceneGroup:insert( instructionButton )
+    sceneGroup:insert( MuteButton )
+    sceneGroup:insert( UnmuteButton )
    
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 
@@ -188,9 +210,9 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
-        local soccerSound = audio.loadSound("Sounds/soccerSound.mp3")
-        local soccerSoundChannel
-        soccerSoundChannel = audio.play( soccerSound )      
+        soccerSoundChannel = audio.play( soccerSound, {loops = -1} ) 
+        MuteButton:addEventListener("touch", MuteListener) 
+        UnmuteButton:addEventListener("touch", UnmuteListener)     
         
 
     end
@@ -216,6 +238,8 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         soccerSoundChannel = audio.pause( soccerSound )
+        MuteButton:removeEventListener("touch", MuteListener)
+        UnmuteButton:removeEventListener("touch", UnmuteListener)
 
     -----------------------------------------------------------------------------------------
 
