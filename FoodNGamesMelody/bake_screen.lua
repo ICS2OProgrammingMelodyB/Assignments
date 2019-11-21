@@ -37,6 +37,9 @@ local playButton
 local MuteButton
 local UnmuteButton
 
+
+soundOn = true
+
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
@@ -67,6 +70,7 @@ local function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
+        soundOn = true
         -- Play the correct sound on any available channel
         bakingSoundChannel = audio.pause( bakingSound )
     end
@@ -78,8 +82,9 @@ local function UnmuteListener(touch)
         print("****clicked mute")
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
+        soundOn = false
         -- Play the correct soud on any available channel
-        bakingSoundChannel = audio.play( bakingSound )
+        bakingSoundChannel = audio.resume( bakingSound )
     end
 end
 
@@ -230,13 +235,14 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         bakingSoundChannel = audio.pause( bakingSound )
-        MuteButton:removeEventListener("touch", MuteListener)
-        UnmuteButton:removeEventListener("touch", UnmuteListener) 
+         
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        MuteButton:removeEventListener("touch", MuteListener)
+        UnmuteButton:removeEventListener("touch", UnmuteListener)
 
     end
 

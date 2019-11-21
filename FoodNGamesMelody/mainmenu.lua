@@ -257,7 +257,9 @@ function scene:hide( event )
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
-        -- Called immediately after scene goes off screen.\ 
+        -- Called immediately after scene goes off screen.
+        MuteButton:removeEventListener("touch", MuteListener)
+        UnmuteButton:removeEventListener("touch", UnmuteListener)
     end
 
 end -- function scene:hide( event )

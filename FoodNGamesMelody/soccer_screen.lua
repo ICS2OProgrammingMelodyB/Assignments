@@ -238,13 +238,14 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         soccerSoundChannel = audio.pause( soccerSound )
-        MuteButton:removeEventListener("touch", MuteListener)
-        UnmuteButton:removeEventListener("touch", UnmuteListener)
+    
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        MuteButton:removeEventListener("touch", MuteListener)
+        UnmuteButton:removeEventListener("touch", UnmuteListener)
 
     end
 

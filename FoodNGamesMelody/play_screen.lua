@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- instruction2_screen.lua
+-- play_screen.lua
 -- Created by: Melody Berhane
 -- Date: Nov 14, 2019
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.
@@ -21,7 +21,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "instruction2_screen"
+sceneName = "play_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -33,16 +33,12 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 local bkg_image
-local backButton
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------- 
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO back SCREEN 
-local function BackTransition( )
-    composer.gotoScene( "soccer_screen", {effect = "slideDown", time = 500})
-end 
+-- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN  
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -50,8 +46,6 @@ end
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
-
-    display.setDefault("background", 95/255, 15/255, 135/255)
 
     -- Creating a group that associates objects with the scene
     local sceneGroup = self.view
@@ -61,7 +55,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/SoccerInstructionsScreenLoganS@2x.png")
+    bkg_image = display.newImage("Images/BakingInstructionsScreenLoganS@2x.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
@@ -74,32 +68,11 @@ function scene:create( event )
     -- Send the background image to the back layer so all other objects can be on top
     bkg_image:toBack()
 
-    -----------------------------------------------------------------------------------------
-    -- BUTTON WIDGETS
-    -----------------------------------------------------------------------------------------   
-    
-    -- ADD INSTRUCTIONS BUTTON WIDGET
-     -- Creating Play Button
-    backButton = widget.newButton( 
-        {
-            -- Set its position on the screen relative to the screen size
-            x = display.contentWidth/8,
-            y = display.contentHeight*3/5,
-            width = 200,
-            height = 100,
-
-            -- Insert the images here
-            defaultFile = "Images/BackbuttonUnpressedJosias@2x.png",
-            overFile = "Images/BackButtonPressedJosias@2x.png",
-
-            -- When the button is released, call the back transition function
-           onRelease = BackTransition
-        } ) 
 
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
-    sceneGroup:insert( backButton )
+
 
 end -- function scene:create( event )   
 
