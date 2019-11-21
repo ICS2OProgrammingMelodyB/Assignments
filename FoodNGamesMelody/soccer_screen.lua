@@ -37,11 +37,13 @@ local playButton
 local MuteButton
 local UnmuteButton
 
+
+soundOn = true
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUND
 -----------------------------------------------------------------------------------------
 local soccerSound = audio.loadSound("Sounds/soccerSound.mp3")
-local soccerSoundChannel
+local soccerSoundChannel2
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -69,8 +71,9 @@ local function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
+        soundOn = false
         -- Play the correct soud on any available channel
-        soccerSoundChannel = audio.pause( soccerSound )
+        soccerSoundChannel2 = audio.pause( soccerSound )
     end
 end
 
@@ -79,8 +82,9 @@ local function UnmuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
+        soundOn = true
         -- Play the correct soud on any available channel
-        soccerSoundChannel = audio.play( soccerSound )
+        soccerSoundChannel2 = audio.resume( soccerSound )
     end
 end 
 
@@ -210,7 +214,7 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
-        soccerSoundChannel = audio.play( soccerSound, {loops = -1} ) 
+        soccerSoundChannel2 = audio.play( soccerSound, {loops = -1} ) 
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)     
         
@@ -237,7 +241,7 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        soccerSoundChannel = audio.pause( soccerSound )
+        
     
 
     -----------------------------------------------------------------------------------------

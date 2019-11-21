@@ -39,12 +39,12 @@ local MuteButton
 local UnmuteButton
 local creditsButton
 
-
+soundOn = true
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUND
 -----------------------------------------------------------------------------------------
 local mainmenuSound = audio.loadSound("Sounds/mainmenuSound.mp3")
-local mainmenuSoundChannel
+local mainmenuSoundChannel3
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -72,8 +72,9 @@ local function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
+        soundOn = false
         -- Play the correct soud on any available channel
-        mainmenuSoundChannel = audio.pause( mainmenuSound )
+        mainmenuSoundChannel3 = audio.pause( mainmenuSound )
     end
 end
 
@@ -82,8 +83,9 @@ local function UnmuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
+        soundOn = true
         -- Play the correct soud on any available channel
-        mainmenuSoundChannel = audio.play( mainmenuSound )
+        mainmenuSoundChannel3 = audio.resume( mainmenuSound )
     end
 end 
 
@@ -224,7 +226,7 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
-        mainmenuSoundChannel = audio.play( mainmenuSound, {loops = -1} )
+        mainmenuSoundChannel3 = audio.play( mainmenuSound, {loops = -1} )
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)      
         
@@ -250,7 +252,7 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        mainmenuSoundChannel = audio.pause( mainmenuSound ) 
+        mainmenuSoundChannel3 = audio.pause( mainmenuSound ) 
         MuteButton:removeEventListener("touch", MuteListener)
         UnmuteButton:removeEventListener("touch", UnmuteListener)
 
