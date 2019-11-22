@@ -29,6 +29,11 @@ sceneName = "mainmenu"
 local scene = composer.newScene( sceneName )
 
 -----------------------------------------------------------------------------------------
+-- GLOBAL VARIABLES
+-----------------------------------------------------------------------------------------
+soundOn = true
+
+-----------------------------------------------------------------------------------------
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
@@ -38,9 +43,6 @@ local soccerButton
 local MuteButton
 local UnmuteButton
 local creditsButton
-
-soundOn = true
-audio.setVolume( 0.5 )
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUND
 -----------------------------------------------------------------------------------------
@@ -69,26 +71,25 @@ local function BakeScreenTransition( )
 end
 
 -- making the music to pause when the mute button is clicked
-function MuteListener(touch)
+local function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
-        --soundOn = false
-        audio.setVolume( 0, { channel=1 } )
+        soundOn = false
+        print("***Soccer: soundOn is false")
         -- Play the correct soud on any available channel
-        mainmenuSoundChannel3 = audio.pause( mainmenuSound )
+        audio.pause( mainmenuSoundChannel3 )
     end
 end
 
 -- making the music to play when the unmute button is clicked
-function UnmuteListener(touch)
+local function UnmuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
-        --soundOn = true
-        audio.setVolume( 1, { channel=1 } )
+        soundOn = true
         -- Play the correct soud on any available channel
-       mainmenuSoundChannel3 = audio.resume( mainmenuSound )
+       audio.resume( mainmenuSoundChannel3 )
     end
 end 
 
@@ -222,14 +223,22 @@ function scene:show( event )
 
     -- Called when the scene is still off screen (but is about to come on screen).   
     if ( phase == "will" ) then
-       mainmenuSoundChannel3 = audio.play( mainmenuSound, { channel=1, loops = -1} )
+       
     -----------------------------------------------------------------------------------------
 
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then 
-        mainmenuSoundChannel3 = audio.play( mainmenuSound, { channel=1, loops = -1} )
+    elseif ( phase == "did" ) then
+        if (soundOn == true) then
+            MuteButton.isVisible = true
+            UnmuteButton.isVisible = false
+            mainmenuSoundChannel3 = audio.play( mainmenuSound, { channel=1, loops = -1} )
+        else
+            UnmuteButton.isVisible = true
+            MuteButton.isVisible = false
+            audio.pause( mainmenuSoundChannel3 ) 
+        end
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)      
         
@@ -255,7 +264,7 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        mainmenuSoundChannel3 = audio.pause( mainmenuSound ) 
+        audio.stop( mainmenuSoundChannel3 ) 
 
     -----------------------------------------------------------------------------------------
 
