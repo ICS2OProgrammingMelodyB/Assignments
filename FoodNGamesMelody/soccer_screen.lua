@@ -39,6 +39,7 @@ local UnmuteButton
 
 
 soundOn = true
+audio.setVolume( 0.5 )
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUND
 -----------------------------------------------------------------------------------------
@@ -67,22 +68,24 @@ local function BackTransition( )
 end 
 
 -- making the music to pause when the mute button is clicked
-local function MuteListener(touch)
+function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
-        soundOn = false
+        --soundOn = false
+        audio.setVolume( 0, { channel=3 } )
         -- Play the correct soud on any available channel
         soccerSoundChannel2 = audio.pause( soccerSound )
     end
 end
 
 -- making the music to play when the unmute button is clicked
-local function UnmuteListener(touch)
+function UnmuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
-        soundOn = true
+        --soundOn = true
+        audio.setVolume( 1, { channel=3 } )
         -- Play the correct soud on any available channel
         soccerSoundChannel2 = audio.resume( soccerSound )
     end
@@ -214,7 +217,7 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
-        soccerSoundChannel2 = audio.play( soccerSound, {loops = -1} ) 
+        soccerSoundChannel2 = audio.play( soccerSound, { channel=3, loops = -1} ) 
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)     
         
@@ -241,6 +244,7 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        soccerSoundChannel2 = audio.stop( soccerSound )
         
     
 

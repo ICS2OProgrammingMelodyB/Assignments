@@ -37,9 +37,6 @@ local playButton
 local MuteButton
 local UnmuteButton
 
-
-soundOn = true
-
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUNDS
 -----------------------------------------------------------------------------------------
@@ -66,23 +63,25 @@ local function BackTransition( )
 end 
 
 -- making the music to pause when the mute button is clicked
-local function MuteListener(touch)
+function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
-        soundOn = false
+        --soundOn = false
+        audio.setVolume( 0, { channel=2 } )
         -- Play the correct sound on any available channel
         bakingSoundChannel1 = audio.pause( bakingSound )
     end
 end
 
 -- making the music to play when the unmute button is clicked
-local function UnmuteListener(touch)
+function UnmuteListener(touch)
     if (touch.phase == "ended") then
         print("****clicked mute")
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
-        soundOn = true
+        --soundOn = true
+        audio.setVolume( 1, { channel=2 } )
         -- Play the correct soud on any available channel
         bakingSoundChannel1 = audio.resume( bakingSound )
     end
@@ -199,6 +198,7 @@ function scene:show( event )
 
     -- Called when the scene is still off screen (but is about to come on screen).   
     if ( phase == "will" ) then
+
        
     -----------------------------------------------------------------------------------------
 
@@ -207,7 +207,7 @@ function scene:show( event )
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
 
-        bakingSoundChannel1 = audio.play( bakingSound, {loops = -1} ) 
+        bakingSoundChannel1 = audio.play( bakingSound, { channel=2, loops = -1} ) 
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)    
         
@@ -234,6 +234,7 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        bakingSoundChannel1 = audio.pause( bakingSound )
          
 
     -----------------------------------------------------------------------------------------

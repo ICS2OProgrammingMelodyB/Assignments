@@ -84,7 +84,7 @@ function scene:create( event )
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth/8,
-            y = display.contentHeight*3/5,
+            y = display.contentHeight*1/10,
             width = 200,
             height = 100,
 

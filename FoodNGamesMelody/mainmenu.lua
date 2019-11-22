@@ -40,6 +40,7 @@ local UnmuteButton
 local creditsButton
 
 soundOn = true
+audio.setVolume( 0.5 )
 -----------------------------------------------------------------------------------------
 -- LOCAL SOUND
 -----------------------------------------------------------------------------------------
@@ -68,24 +69,26 @@ local function BakeScreenTransition( )
 end
 
 -- making the music to pause when the mute button is clicked
-local function MuteListener(touch)
+function MuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = true
         MuteButton.isVisible = false
-        soundOn = false
+        --soundOn = false
+        audio.setVolume( 0, { channel=1 } )
         -- Play the correct soud on any available channel
         mainmenuSoundChannel3 = audio.pause( mainmenuSound )
     end
 end
 
 -- making the music to play when the unmute button is clicked
-local function UnmuteListener(touch)
+function UnmuteListener(touch)
     if (touch.phase == "ended") then
         UnmuteButton.isVisible = false
         MuteButton.isVisible = true
-        soundOn = true
+        --soundOn = true
+        audio.setVolume( 1, { channel=1 } )
         -- Play the correct soud on any available channel
-        mainmenuSoundChannel3 = audio.resume( mainmenuSound )
+       mainmenuSoundChannel3 = audio.resume( mainmenuSound )
     end
 end 
 
@@ -219,14 +222,14 @@ function scene:show( event )
 
     -- Called when the scene is still off screen (but is about to come on screen).   
     if ( phase == "will" ) then
-       
+       mainmenuSoundChannel3 = audio.play( mainmenuSound, { channel=1, loops = -1} )
     -----------------------------------------------------------------------------------------
 
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
-        mainmenuSoundChannel3 = audio.play( mainmenuSound, {loops = -1} )
+        mainmenuSoundChannel3 = audio.play( mainmenuSound, { channel=1, loops = -1} )
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)      
         
@@ -253,8 +256,6 @@ function scene:hide( event )
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
         mainmenuSoundChannel3 = audio.pause( mainmenuSound ) 
-        MuteButton:removeEventListener("touch", MuteListener)
-        UnmuteButton:removeEventListener("touch", UnmuteListener)
 
     -----------------------------------------------------------------------------------------
 
