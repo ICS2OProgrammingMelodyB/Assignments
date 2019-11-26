@@ -150,7 +150,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- start the splash screen music
-       audio.play(backgroundSoundsChannel )
+       backgroundSoundsChannel = audio.play(backgroundSounds)
 
         -- Call the moveBeetleship function as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveCompanyLogo)
