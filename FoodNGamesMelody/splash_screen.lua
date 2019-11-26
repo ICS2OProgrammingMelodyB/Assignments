@@ -26,8 +26,8 @@ local scene = composer.newScene( sceneName )
 local CompanyLogo
 local CompanyLogo2
 local scrollXSpeed = 4
-local starWarsSounds = audio.loadSound("Sounds/Star Wars Main Theme.mp3")
-local starWarsSoundsChannel
+local backgroundSounds = audio.loadSound("Sounds/backgroundSound.mp3")
+local backgroundSoundsChannel
 local bkg
 
 --------------------------------------------------------------------------------------------
@@ -150,7 +150,7 @@ function scene:show( event )
 
     elseif ( phase == "did" ) then
         -- start the splash screen music
-       starWarsSoundsChannel = audio.play(starWarsSounds )
+       audio.play(backgroundSoundsChannel )
 
         -- Call the moveBeetleship function as soon as we enter the frame.
         Runtime:addEventListener("enterFrame", moveCompanyLogo)
@@ -184,7 +184,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         
         --stop the jungle sounds channel for this screen
-        audio.stop(starWarsSoundsChannel)
+        audio.stop(backgroundSoundsChannel)
 
     end
 
