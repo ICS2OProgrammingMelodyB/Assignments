@@ -56,7 +56,7 @@ end
 
 -- Creating Transition to play Screen
 local function PlayScreenTransition( )
-    composer.gotoScene( "SoccerLevel1_screen", {effect = "slideDown", time = 500})
+    composer.gotoScene( "Level1_screen", {effect = "slideDown", time = 500})
 end 
 
 -- Creating Transition to mainmenu Screen

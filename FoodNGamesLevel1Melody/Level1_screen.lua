@@ -21,7 +21,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "play_screen"
+sceneName = "Level1_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -55,7 +55,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/soccer background.png")
+    bkg_image = display.newImage("Images/kitchen.jpg")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
