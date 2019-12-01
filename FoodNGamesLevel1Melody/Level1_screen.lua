@@ -55,11 +55,13 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Insert the background image and set it to the center of the screen
-    bkg_image = display.newImage("Images/kitchen.jpg")
+    bkg_image = display.newImage("Images/Level1ScreenMelody@2x.png")
     bkg_image.x = display.contentCenterX
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
+    -- show overlay with math question
+    composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
 
 
     -- Associating display objects with this scene 
