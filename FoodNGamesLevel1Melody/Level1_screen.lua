@@ -33,12 +33,124 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 local bkg_image
+local egg
+local egg2
+local bakingSoda
+local sugar
+local milk
+local flour
+local butter
+local bowl
+
+local eggTouched = false
+local egg2Touched = false
+local bakingSodaTouched = false
+local sugarTouched = false
+local milkTouched = false
+local flourTouched = false
+local butterTouched = false
+
+local eggPreviousX
+local egg2PreviousX
+local bakingSodaPreviousX
+local sugarPreviousX
+local milkPreviousX
+local flourPreviousX
+local butterPreviousX
+
+local eggPreviousY
+local egg2PreviousY
+local bakingSodaPreviousY
+local sugarPreviousY
+local milkPreviousY
+local flourPreviousY
+local butterPreviousY
+
+local BowlPlaceholder
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------- 
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN  
+-- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN
+
+local function TouchEgg(touch)
+    --only work if none of the other boxes have been touched
+    if (egg2Touched == false) and 
+        (bakingSodaTouched == false) and
+        (sugarTouched == false) and
+        (milkTouched == false) and
+        (flourTouched == false) and
+        (butterTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            eggTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            egg.x = touch.x
+            egg.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            eggTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < egg.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > egg.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < egg.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > egg.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                egg.x = BowlPlaceholder.x
+                egg.y = BowlPlaceholder.y
+                egg.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                egg.x = BowlPlaceholderX
+                egg.y = BowlPlaceholderY
+
+            end
+        end
+    end                
+end 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+local function AddAnswerBoxEventListeners()
+    egg:addEventListener("touch", TouchEgg)
+    --alternateAnswerBox1:addEventListener("touch", TouchListenerAnswerBox1)
+    --alternateAnswerBox2:addEventListener("touch", TouchListenerAnswerBox2)
+    --alternateAnswerBox3:addEventListener("touch", TouchListenerAnswerBox3)
+end 
+
+
+
+local function RemoveAnswerBoxEventListeners()
+    egg:removeEventListener("touch", TouchEgg)
+    --alternateAnswerBox1:removeEventListener("touch", TouchListenerAnswerBox1)
+    --alternateAnswerBox2:removeEventListener("touch", TouchListenerAnswerBox2)
+    --alternateAnswerBox3:removeEventListener("touch", TouchListenerAnswerBox3)
+end 
 
 -----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
@@ -61,7 +173,7 @@ function scene:create( event )
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
     -- show overlay with math question
-    composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
+    --composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
 
 
     -- Associating display objects with this scene 
@@ -69,6 +181,69 @@ function scene:create( event )
 
     -- Send the background image to the back layer so all other objects can be on top
     bkg_image:toBack()
+
+    -- Insert the platforms
+    egg = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
+    egg.x = display.contentWidth * 3 / 10
+    egg.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( egg )
+
+    -- Insert the platforms
+    egg2 = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
+    egg2.x = display.contentWidth * 2 / 10
+    egg2.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( egg2 )
+
+    -- Insert the platforms
+    butter= display.newImageRect("Images/ButterMelody@2x.png", 100, 100)
+    butter.x = display.contentWidth * 6 / 10
+    butter.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( butter )
+
+    -- Insert the platforms
+    sugar = display.newImageRect("Images/SugarMelody@2x.png", 100, 100)
+    sugar.x = display.contentWidth * 7 / 10
+    sugar.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( sugar)
+
+    -- Insert the platforms
+    milk = display.newImageRect("Images/MilkMelody@2x.png", 100, 100)
+    milk.x = display.contentWidth * 5 / 10
+    milk.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( milk )
+
+    -- Insert the platforms
+    flour = display.newImageRect("Images/FlourMelody@2x.png", 100, 100)
+    flour.x = display.contentWidth * 4 / 10
+    flour.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( flour )
+
+    -- Insert the platforms
+    bowl = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
+    bowl.x = display.contentWidth * 1 / 10
+    bowl.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( bowl )
+
+    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
+    BowlPlaceholder.x = display.contentWidth * 1 / 10
+    BowlPlaceholder.y = display.contentHeight * 2 / 4
+
+    sceneGroup:insert(BowlPlaceholder)
+
+    -- Insert the platforms
+    bakingSoda = display.newImageRect("Images/BakingSodaMelody@2x.png", 150, 150)
+    bakingSoda.x = display.contentWidth * 8 / 10
+    bakingSoda.y = display.contentHeight * 2 / 4
+
+        
+    sceneGroup:insert( bakingSoda )
 
 
     -----------------------------------------------------------------------------------------
@@ -103,7 +278,7 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then       
-        
+        AddAnswerBoxEventListeners()
 
     end
 
@@ -132,6 +307,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        RemoveAnswerBoxEventListeners()
     end
 
 end -- function scene:hide( event )
