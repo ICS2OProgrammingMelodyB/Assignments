@@ -42,6 +42,8 @@ local flour
 local butter
 local bowl
 
+local numIngredients = 0
+
 
 local eggTouched = false
 local egg2Touched = false
@@ -113,7 +115,13 @@ local function TouchEgg(touch)
                 egg.x = BowlPlaceholder.x
                 egg.y = BowlPlaceholder.y
                 egg.isVisible = false
+                numIngredients = numIngredients + 1
                 
+                if (numIngredients == 7)  then
+                    -- display the filled bowl
+
+                end
+
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
 
@@ -481,6 +489,20 @@ function scene:create( event )
     bkg_image:toBack()
 
     -- Insert the platforms
+    bowl = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
+    bowl.x = display.contentWidth * 1 / 10
+    bowl.y = display.contentHeight * 2 / 4
+        
+    sceneGroup:insert( bowl )
+    
+
+    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
+    BowlPlaceholder.x = display.contentWidth * 1 / 10
+    BowlPlaceholder.y = display.contentHeight * 2 / 4
+   
+    sceneGroup:insert(BowlPlaceholder)
+
+    -- Insert the platforms
     egg = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
     egg.x = display.contentWidth * 3 / 10
     egg.y = display.contentHeight * 2 / 4
@@ -533,22 +555,6 @@ function scene:create( event )
     flourPreviousY = flour.y
         
     sceneGroup:insert( flour )
-
-    -- Insert the platforms
-    bowl = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
-    bowl.x = display.contentWidth * 1 / 10
-    bowl.y = display.contentHeight * 2 / 4
-        
-    sceneGroup:insert( bowl )
-    
-
-    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
-    BowlPlaceholder.x = display.contentWidth * 1 / 10
-    BowlPlaceholder.y = display.contentHeight * 2 / 4
-   
-
-
-    sceneGroup:insert(BowlPlaceholder)
 
 
     -- Insert the platforms
