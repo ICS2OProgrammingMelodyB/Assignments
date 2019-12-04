@@ -13,7 +13,7 @@
 -----------------------------------------------------------------------------------------
 
 -- Use Composer Libraries
---[[local composer = require( "composer" )
+local composer = require( "composer" )
 local widget = require( "widget" )
 local physics = require( "physics")
 
@@ -349,7 +349,7 @@ end -- function scene:destroy( event )
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )
 scene:addEventListener( "hide", scene )
-scene:addEventListener( "destroy", scene )--]]
+scene:addEventListener( "destroy", scene )
 
 
 

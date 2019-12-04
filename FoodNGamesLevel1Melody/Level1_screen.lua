@@ -115,8 +115,303 @@ local function TouchEgg(touch)
 
             --else make box go back to where it was
             else
-                egg.x = BowlPlaceholderX
-                egg.y = BowlPlaceholderY
+                egg.x = eggPreviousX 
+                egg.y = eggPreviousY
+
+            end
+        end
+    end                
+end 
+
+local function TouchEgg2(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (bakingSodaTouched == false) and
+        (sugarTouched == false) and
+        (milkTouched == false) and
+        (flourTouched == false) and
+        (butterTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            egg2Touched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            egg2.x = touch.x
+            egg2.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            egg2Touched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < egg2.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > egg2.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < egg2.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > egg2.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                egg2.x = BowlPlaceholder.x
+                egg2.y = BowlPlaceholder.y
+                egg2.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                egg2.x = egg2PreviousX 
+                egg2.y = egg2PreviousY
+
+            end
+        end
+    end                
+end 
+
+local function TouchFlour(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (bakingSodaTouched == false) and
+        (sugarTouched == false) and
+        (milkTouched == false) and
+        (egg2Touched == false) and
+        (butterTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            flourTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            flour.x = touch.x
+            flour.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            flourTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < flour.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > flour.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < flour.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > flour.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                flour.x = BowlPlaceholder.x
+                flour.y = BowlPlaceholder.y
+                flour.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                flour.x = flourPreviousX
+                flour.y = flourPreviousY
+
+            end
+        end
+    end                
+end 
+
+local function TouchMilk(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (bakingSodaTouched == false) and
+        (sugarTouched == false) and
+        (flourTouched == false) and
+        (egg2Touched == false) and
+        (butterTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            milkTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            milk.x = touch.x
+            milk.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            milkTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < milk.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > milk.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < milk.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > milk.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                milk.x = BowlPlaceholder.x
+                milk.y = BowlPlaceholder.y
+                milk.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                milk.x = milkPreviousX
+                milk.y = milkPreviousY
+
+            end
+        end
+    end                
+end 
+
+local function TouchButter(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (bakingSodaTouched == false) and
+        (sugarTouched == false) and
+        (flourTouched == false) and
+        (egg2Touched == false) and
+        (milkTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            butterTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            butter.x = touch.x
+            butter.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            butterTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < butter.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > butter.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < butter.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > butter.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                butter.x = BowlPlaceholder.x
+                butter.y = BowlPlaceholder.y
+                butter.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                butter.x = butterPreviousX
+                butter.y = butterPreviousY
+
+            end
+        end
+    end                
+end 
+
+local function TouchSugar(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (bakingSodaTouched == false) and
+        (butterTouched == false) and
+        (flourTouched == false) and
+        (egg2Touched == false) and
+        (milkTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            sugarTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            sugar.x = touch.x
+            sugar.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            sugarTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < sugar.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > sugar.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < sugar.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > sugar.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                sugar.x = BowlPlaceholder.x
+                sugar.y = BowlPlaceholder.y
+                sugar.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                sugar.x = sugarPreviousX
+                sugar.y = sugarPreviousY
+
+            end
+        end
+    end                
+end 
+
+
+local function TouchBakingSoda(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (sugarTouched == false) and
+        (butterTouched == false) and
+        (flourTouched == false) and
+        (egg2Touched == false) and
+        (milkTouched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            bakingSodaTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            bakingSoda.x = touch.x
+            bakingSoda.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            bakingSodaTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((BowlPlaceholder.x - BowlPlaceholder.width/2) < bakingSoda.x ) and
+                ((BowlPlaceholder.x + BowlPlaceholder.width/2) > bakingSoda.x ) and 
+                ((BowlPlaceholder.y - BowlPlaceholder.height/2) < bakingSoda.y ) and 
+                ((BowlPlaceholder.y + BowlPlaceholder.height/2) > bakingSoda.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                bakingSoda.x = BowlPlaceholder.x
+                bakingSoda.y = BowlPlaceholder.y
+                bakingSoda.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                bakingSoda.x = bakingSodaPreviousX
+                bakingSoda.y = bakingSodaPreviousY
 
             end
         end
@@ -129,27 +424,26 @@ end
 
 
 
-
-
-
-
-
-
-
 local function AddAnswerBoxEventListeners()
     egg:addEventListener("touch", TouchEgg)
-    --alternateAnswerBox1:addEventListener("touch", TouchListenerAnswerBox1)
-    --alternateAnswerBox2:addEventListener("touch", TouchListenerAnswerBox2)
-    --alternateAnswerBox3:addEventListener("touch", TouchListenerAnswerBox3)
+    egg2:addEventListener("touch", TouchEgg2)
+    flour:addEventListener("touch", TouchFlour)
+    milk:addEventListener("touch", TouchMilk)
+    butter:addEventListener("touch", TouchButter)
+    sugar:addEventListener("touch", TouchSugar)
+    bakingSoda:addEventListener("touch", TouchBakingSoda)
 end 
 
 
 
 local function RemoveAnswerBoxEventListeners()
     egg:removeEventListener("touch", TouchEgg)
-    --alternateAnswerBox1:removeEventListener("touch", TouchListenerAnswerBox1)
-    --alternateAnswerBox2:removeEventListener("touch", TouchListenerAnswerBox2)
-    --alternateAnswerBox3:removeEventListener("touch", TouchListenerAnswerBox3)
+    egg2:removeEventListener("touch", TouchEgg2)
+    flour:removeEventListener("touch", TouchFlour)
+    milk:removeEventListener("touch", TouchMilk)
+    butter:removeEventListener("touch", TouchButter)
+    sugar:removeEventListener("touch", TouchSugar)
+    bakingSoda:removeEventListener("touch", TouchBakingSoda)
 end 
 
 -----------------------------------------------------------------------------------------
@@ -173,7 +467,7 @@ function scene:create( event )
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
     -- show overlay with math question
-    --composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
+    composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
 
 
     -- Associating display objects with this scene 
@@ -186,6 +480,8 @@ function scene:create( event )
     egg = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
     egg.x = display.contentWidth * 3 / 10
     egg.y = display.contentHeight * 2 / 4
+    eggPreviousX = egg.x  
+    eggPreviousY = egg.y
         
     sceneGroup:insert( egg )
 
@@ -193,6 +489,8 @@ function scene:create( event )
     egg2 = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
     egg2.x = display.contentWidth * 2 / 10
     egg2.y = display.contentHeight * 2 / 4
+    egg2PreviousX = egg2.x  
+    egg2PreviousY = egg2.y
         
     sceneGroup:insert( egg2 )
 
@@ -200,6 +498,8 @@ function scene:create( event )
     butter= display.newImageRect("Images/ButterMelody@2x.png", 100, 100)
     butter.x = display.contentWidth * 6 / 10
     butter.y = display.contentHeight * 2 / 4
+    butterPreviousX = butter.x  
+    butterPreviousY = butter.y
         
     sceneGroup:insert( butter )
 
@@ -207,6 +507,8 @@ function scene:create( event )
     sugar = display.newImageRect("Images/SugarMelody@2x.png", 100, 100)
     sugar.x = display.contentWidth * 7 / 10
     sugar.y = display.contentHeight * 2 / 4
+    sugarPreviousX = sugar.x  
+    sugarPreviousY = sugar.y
         
     sceneGroup:insert( sugar)
 
@@ -214,6 +516,8 @@ function scene:create( event )
     milk = display.newImageRect("Images/MilkMelody@2x.png", 100, 100)
     milk.x = display.contentWidth * 5 / 10
     milk.y = display.contentHeight * 2 / 4
+    milkPreviousX = milk.x  
+    milkPreviousY = milk.y
         
     sceneGroup:insert( milk )
 
@@ -221,6 +525,8 @@ function scene:create( event )
     flour = display.newImageRect("Images/FlourMelody@2x.png", 100, 100)
     flour.x = display.contentWidth * 4 / 10
     flour.y = display.contentHeight * 2 / 4
+    flourPreviousX = flour.x  
+    flourPreviousY = flour.y
         
     sceneGroup:insert( flour )
 
@@ -230,17 +536,23 @@ function scene:create( event )
     bowl.y = display.contentHeight * 2 / 4
         
     sceneGroup:insert( bowl )
+    
 
-    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
+    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
     BowlPlaceholder.x = display.contentWidth * 1 / 10
     BowlPlaceholder.y = display.contentHeight * 2 / 4
+   
+
 
     sceneGroup:insert(BowlPlaceholder)
 
+
     -- Insert the platforms
-    bakingSoda = display.newImageRect("Images/BakingSodaMelody@2x.png", 150, 150)
+    bakingSoda = display.newImageRect("Images/BakingSodaMelody@2x.png", 100, 100)
     bakingSoda.x = display.contentWidth * 8 / 10
     bakingSoda.y = display.contentHeight * 2 / 4
+    bakingSodaPreviousX = bakingSoda.x  
+    bakingSodaPreviousY = bakingSoda.y
 
         
     sceneGroup:insert( bakingSoda )
