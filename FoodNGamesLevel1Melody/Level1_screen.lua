@@ -42,6 +42,7 @@ local flour
 local butter
 local bowl
 
+
 local eggTouched = false
 local egg2Touched = false
 local bakingSodaTouched = false
@@ -49,6 +50,7 @@ local sugarTouched = false
 local milkTouched = false
 local flourTouched = false
 local butterTouched = false
+
 
 local eggPreviousX
 local egg2PreviousX
@@ -58,6 +60,7 @@ local milkPreviousX
 local flourPreviousX
 local butterPreviousX
 
+
 local eggPreviousY
 local egg2PreviousY
 local bakingSodaPreviousY
@@ -65,6 +68,7 @@ local sugarPreviousY
 local milkPreviousY
 local flourPreviousY
 local butterPreviousY
+
 
 local BowlPlaceholder
 
@@ -422,8 +426,6 @@ end
 
 
 
-
-
 local function AddAnswerBoxEventListeners()
     egg:addEventListener("touch", TouchEgg)
     egg2:addEventListener("touch", TouchEgg2)
@@ -432,6 +434,7 @@ local function AddAnswerBoxEventListeners()
     butter:addEventListener("touch", TouchButter)
     sugar:addEventListener("touch", TouchSugar)
     bakingSoda:addEventListener("touch", TouchBakingSoda)
+    
 end 
 
 
@@ -444,6 +447,7 @@ local function RemoveAnswerBoxEventListeners()
     butter:removeEventListener("touch", TouchButter)
     sugar:removeEventListener("touch", TouchSugar)
     bakingSoda:removeEventListener("touch", TouchBakingSoda)
+
 end 
 
 -----------------------------------------------------------------------------------------
@@ -556,6 +560,8 @@ function scene:create( event )
 
         
     sceneGroup:insert( bakingSoda )
+
+
 
 
     -----------------------------------------------------------------------------------------
