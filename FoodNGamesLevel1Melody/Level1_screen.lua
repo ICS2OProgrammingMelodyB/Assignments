@@ -41,6 +41,7 @@ local milk
 local flour
 local butter
 local bowl
+local bowlFilled
 
 local numIngredients = 0
 
@@ -118,7 +119,9 @@ local function TouchEgg(touch)
                 numIngredients = numIngredients + 1
                 
                 if (numIngredients == 7)  then
-                    -- display the filled bowl
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
 
                 end
 
@@ -170,6 +173,14 @@ local function TouchEgg2(touch)
                 egg2.x = BowlPlaceholder.x
                 egg2.y = BowlPlaceholder.y
                 egg2.isVisible = false
+                numIngredients = numIngredients + 1
+                
+                if (numIngredients == 7)  then
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
+
+                end
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -219,6 +230,14 @@ local function TouchFlour(touch)
                 flour.x = BowlPlaceholder.x
                 flour.y = BowlPlaceholder.y
                 flour.isVisible = false
+                numIngredients = numIngredients + 1
+                
+                if (numIngredients == 7)  then
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
+
+                end
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -268,6 +287,14 @@ local function TouchMilk(touch)
                 milk.x = BowlPlaceholder.x
                 milk.y = BowlPlaceholder.y
                 milk.isVisible = false
+                numIngredients = numIngredients + 1
+                
+                if (numIngredients == 7)  then
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
+
+                end
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -317,6 +344,14 @@ local function TouchButter(touch)
                 butter.x = BowlPlaceholder.x
                 butter.y = BowlPlaceholder.y
                 butter.isVisible = false
+                numIngredients = numIngredients + 1
+                
+                if (numIngredients == 7)  then
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
+
+                end
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -366,6 +401,14 @@ local function TouchSugar(touch)
                 sugar.x = BowlPlaceholder.x
                 sugar.y = BowlPlaceholder.y
                 sugar.isVisible = false
+                numIngredients = numIngredients + 1
+                
+                if (numIngredients == 7)  then
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
+
+                end
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -416,6 +459,14 @@ local function TouchBakingSoda(touch)
                 bakingSoda.x = BowlPlaceholder.x
                 bakingSoda.y = BowlPlaceholder.y
                 bakingSoda.isVisible = false
+                numIngredients = numIngredients + 1
+                
+                if (numIngredients == 7)  then
+                    bowlFilled.isVisible = true
+                    bowl.isVisible = false
+                    BowlPlaceholder.isVisible = false
+
+                end
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -489,18 +540,26 @@ function scene:create( event )
     bkg_image:toBack()
 
     -- Insert the platforms
-    bowl = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
+    bowl = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
     bowl.x = display.contentWidth * 1 / 10
     bowl.y = display.contentHeight * 2 / 4
         
     sceneGroup:insert( bowl )
     
 
-    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 100, 100)
+    BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
     BowlPlaceholder.x = display.contentWidth * 1 / 10
     BowlPlaceholder.y = display.contentHeight * 2 / 4
    
     sceneGroup:insert(BowlPlaceholder)
+
+    -- Insert the platforms
+    bowlFilled = display.newImageRect("Images/BowlFilledMelody@2x.png", 150, 150)
+    bowlFilled.x = display.contentWidth * 1 / 10
+    bowlFilled.y = display.contentHeight * 2 / 4
+    bowlFilled.isVisible = false
+        
+    sceneGroup:insert( bowl )
 
     -- Insert the platforms
     egg = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
