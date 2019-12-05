@@ -32,7 +32,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
-local bkg_image
+-- Objects used to bake 
 local egg
 local egg2
 local bakingSoda
@@ -43,9 +43,16 @@ local butter
 local bowl
 local bowlFilled
 
+
+-- The background and the mute and unmute buttons
+local bkg_image
+local MuteButton
+local UnmuteButton
+
+-- Keeps track of how many ingredients are in the bowl
 local numIngredients = 0
 
-
+-- This tells use if the ingredients have been touched or not
 local eggTouched = false
 local egg2Touched = false
 local bakingSodaTouched = false
@@ -53,8 +60,9 @@ local sugarTouched = false
 local milkTouched = false
 local flourTouched = false
 local butterTouched = false
+local bowlFilled = false
 
-
+--takes the ingredients to there previous locations
 local eggPreviousX
 local egg2PreviousX
 local bakingSodaPreviousX
@@ -62,8 +70,9 @@ local sugarPreviousX
 local milkPreviousX
 local flourPreviousX
 local butterPreviousX
+local bowlFilledPreviousX
 
-
+--takes the ingredients to there previous locations
 local eggPreviousY
 local egg2PreviousY
 local bakingSodaPreviousY
@@ -71,9 +80,18 @@ local sugarPreviousY
 local milkPreviousY
 local flourPreviousY
 local butterPreviousY
+local bowlFilledPreviousY
 
-
+-- place holders
 local BowlPlaceholder
+local fire
+
+----------------------------------------------------------------------------------------
+--SOUND
+----------------------------------------------------------------------------------------
+-- level 1 backgroundsound
+local level1Sound = audio.loadSound("Sounds/level1Sound.mp3")
+local level1SoundChannel4
 
 -----------------------------------------------------------------------------------------
 -- LOCAL FUNCTIONS
@@ -115,9 +133,14 @@ local function TouchEgg(touch)
                 -- setting the position of the number to be in the center of the box
                 egg.x = BowlPlaceholder.x
                 egg.y = BowlPlaceholder.y
+                --makes the egg invisible
                 egg.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -172,9 +195,14 @@ local function TouchEgg2(touch)
                 -- setting the position of the number to be in the center of the box
                 egg2.x = BowlPlaceholder.x
                 egg2.y = BowlPlaceholder.y
+                --makes the egg2 invisible
                 egg2.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -229,9 +257,14 @@ local function TouchFlour(touch)
                 -- setting the position of the number to be in the center of the box
                 flour.x = BowlPlaceholder.x
                 flour.y = BowlPlaceholder.y
+                --makes the flour invisible
                 flour.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -286,9 +319,14 @@ local function TouchMilk(touch)
                 -- setting the position of the number to be in the center of the box
                 milk.x = BowlPlaceholder.x
                 milk.y = BowlPlaceholder.y
+                --makes the milk invisible
                 milk.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -343,9 +381,14 @@ local function TouchButter(touch)
                 -- setting the position of the number to be in the center of the box
                 butter.x = BowlPlaceholder.x
                 butter.y = BowlPlaceholder.y
+                --makes the butter invisible
                 butter.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -400,9 +443,14 @@ local function TouchSugar(touch)
                 -- setting the position of the number to be in the center of the box
                 sugar.x = BowlPlaceholder.x
                 sugar.y = BowlPlaceholder.y
+                --makes the sugar invisible
                 sugar.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -458,9 +506,14 @@ local function TouchBakingSoda(touch)
                 -- setting the position of the number to be in the center of the box
                 bakingSoda.x = BowlPlaceholder.x
                 bakingSoda.y = BowlPlaceholder.y
+                --makes the bakingsoda invisible
                 bakingSoda.isVisible = false
+                --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
+                --bowlFilled will be visible 
+                -- both the bowl and the BowlPlaceholder will be invisible.
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
@@ -482,7 +535,78 @@ local function TouchBakingSoda(touch)
 end 
 
 
+local function TouchBowlFilled(touch)
+    --only work if none of the other boxes have been touched
+    if (eggTouched == false) and 
+        (sugarTouched == false) and
+        (butterTouched == false) and
+        (flourTouched == false) and
+        (egg2Touched == false) and
+        (bakingSodaTouched == false) and
+        (milkTouched == false) then
 
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            bowlFilledTouched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            bowlFilled.x = touch.x
+            bowlFilled.y = touch.y
+
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            bakingSodaTouched = false
+
+              -- if the number is dragged into the userAnswerBox, place it in the center of it
+            if (((fire.x - fire.width/2) < bowlFilled.x ) and
+                ((fire.x + fire.width/2) > bowlFilled.x ) and 
+                ((fire.y - fire.height/2) < bowlFilled.y ) and 
+                ((fire.y + fire.height/2) > bowlFilled.y ) ) then
+
+                -- setting the position of the number to be in the center of the box
+                bowlFilled.x = fire.x
+                bowlFilled.y = fire.y
+                composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
+                --bowlFilled.isVisible = false
+                
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                bowlFilled.x = bowlFilledPreviousX
+                bowlFilled.y = bowlFilledPreviousY
+
+            end
+        end
+    end                
+end 
+
+-- making the music to pause when the mute button is clicked
+local function MuteListener(touch)
+    if (touch.phase == "ended") then
+        UnmuteButton.isVisible = true
+        MuteButton.isVisible = false
+        soundOn = false
+        -- Play the correct soud on any available channel
+        audio.pause( level1SoundChannel4 )
+    end
+end
+
+-- making the music to play when the unmute button is clicked
+local function UnmuteListener(touch)
+    if (touch.phase == "ended") then
+        UnmuteButton.isVisible = false
+        MuteButton.isVisible = true
+        soundOn = true
+        -- Play the correct soud on any available channel
+        audio.resume( level1SoundChannel4)
+    end
+end 
 
 
 local function AddAnswerBoxEventListeners()
@@ -493,6 +617,7 @@ local function AddAnswerBoxEventListeners()
     butter:addEventListener("touch", TouchButter)
     sugar:addEventListener("touch", TouchSugar)
     bakingSoda:addEventListener("touch", TouchBakingSoda)
+    bowlFilled:addEventListener("touch", TouchBowlFilled)
     
 end 
 
@@ -506,6 +631,7 @@ local function RemoveAnswerBoxEventListeners()
     butter:removeEventListener("touch", TouchButter)
     sugar:removeEventListener("touch", TouchSugar)
     bakingSoda:removeEventListener("touch", TouchBakingSoda)
+    bowlFilled:removeEventListener("touch", TouchBowlFilled)
 
 end 
 
@@ -523,6 +649,7 @@ function scene:create( event )
     -- BACKGROUND IMAGE & STATIC OBJECTS
     -----------------------------------------------------------------------------------------
 
+
     -- Insert the background image and set it to the center of the screen
     bkg_image = display.newImage("Images/Level1ScreenMelody@2x.png")
     bkg_image.x = display.contentCenterX
@@ -538,6 +665,13 @@ function scene:create( event )
 
     -- Send the background image to the back layer so all other objects can be on top
     bkg_image:toBack()
+
+    -- Insert the platforms
+    fire = display.newImageRect("Images/fire.png", 300, 200)
+    fire.x = display.contentWidth *  7.75 / 10
+    fire.y = display.contentHeight * 8.5 / 10
+        
+    sceneGroup:insert( fire )
 
     -- Insert the platforms
     bowl = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
@@ -557,9 +691,11 @@ function scene:create( event )
     bowlFilled = display.newImageRect("Images/BowlFilledMelody@2x.png", 150, 150)
     bowlFilled.x = display.contentWidth * 1 / 10
     bowlFilled.y = display.contentHeight * 2 / 4
+    bowlFilledPreviousX = bowlFilled.x  
+    bowlFilledPreviousY = bowlFilled.y
     bowlFilled.isVisible = false
         
-    sceneGroup:insert( bowl )
+    sceneGroup:insert( bowlFilled )
 
     -- Insert the platforms
     egg = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
@@ -626,6 +762,23 @@ function scene:create( event )
         
     sceneGroup:insert( bakingSoda )
 
+    -- creating the unmute button
+    UnmuteButton = display.newImageRect("Images/UnmuteButtonMelody@2x.png", 198, 98)
+    UnmuteButton.x = display.contentWidth/2
+    UnmuteButton.y = display.contentHeight*1/10
+    UnmuteButton.isVisible = false
+
+    sceneGroup:insert( UnmuteButton )
+
+    --creating the mute button
+    MuteButton = display.newImageRect("Images/MuteButtonMelody@2x.png", 198, 98)
+    MuteButton.x = display.contentWidth/2
+    MuteButton.y = display.contentHeight*1/10
+    MuteButton.isVisible = true
+
+    sceneGroup:insert( MuteButton )
+
+
 
 
 
@@ -660,10 +813,23 @@ function scene:show( event )
     -- Called when the scene is now on screen.
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
-    elseif ( phase == "did" ) then       
-        AddAnswerBoxEventListeners()
+    elseif ( phase == "did" ) then 
+        if (soundOn == true) then
+            MuteButton.isVisible = true
+            UnmuteButton.isVisible = false
+            level1SoundChannel4 = audio.play( level1Sound, { channel=3, loops = -1} ) 
+        else
+            UnmuteButton.isVisible = true
+            MuteButton.isVisible = false
+            level1SoundChannel4 = audio.play( level1Sound, { channel=3, loops = -1} ) 
+            audio.pause( levelSoundChannel2 )
+        end
+        MuteButton:addEventListener("touch", MuteListener) 
+        UnmuteButton:addEventListener("touch", UnmuteListener)     
+        
 
-    end
+    end     
+        AddAnswerBoxEventListeners()
 
 end -- function scene:show( event )
 
@@ -685,12 +851,16 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
+        audio.stop( level1SoundChannel4 )
+
 
     -----------------------------------------------------------------------------------------
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         RemoveAnswerBoxEventListeners()
+        MuteButton:removeEventListener("touch", MuteListener)
+        UnmuteButton:removeEventListener("touch", UnmuteListener)
     end
 
 end -- function scene:hide( event )

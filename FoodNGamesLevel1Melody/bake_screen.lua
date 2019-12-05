@@ -33,7 +33,8 @@ local scene = composer.newScene( sceneName )
 -----------------------------------------------------------------------------------------
 
 local instructionsButton
-local playButton
+local level1Button
+local level2Button
 local MuteButton
 local UnmuteButton
 
@@ -52,10 +53,14 @@ local function InstructionsScreenTransition( )
     composer.gotoScene( "instruction_screen", {effect = "slideDown", time = 1000})
 end    
 
--- Creating Transition to level1 Screen 
 -- Creating Transition to play Screen
-local function PlayScreenTransition( )
+local function Level1Transition( )
     composer.gotoScene( "Level1_screen", {effect = "slideDown", time = 500})
+end 
+
+-- Creating Transition to play Screen
+local function Level2Transition( )
+    composer.gotoScene( "Level2_screen", {effect = "slideDown", time = 500})
 end 
 
 --Creating Transition to mainmenu Screen
@@ -133,8 +138,8 @@ function scene:create( event )
 
     -----------------------------------------------------------------------------------------
     
-     -- Creating play Button
-    playButton = widget.newButton( 
+     -- Creating Play Button
+    level1Button = widget.newButton( 
         {
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth/2,
@@ -143,11 +148,28 @@ function scene:create( event )
             height = 100,
 
             -- Insert the images here
-            defaultFile = "Images/PlayButtonUnpressedMelody@2x.png",
-            overFile = "Images/PlayButtonpressedMelody@2x.png",
+            defaultFile = "Images/level1ButtonUnpressedMelody@2x.png",
+            overFile = "Images/level1ButtonpressedMelody@2x.png",
 
-            -- When the button is released, call the play transition function
-           onRelease = PlayScreenTransition
+            -- When the button is released, call the level1 transition function
+           onRelease = Level1Transition
+        } ) 
+
+    -- Creating Play Button
+    level2Button = widget.newButton( 
+        {
+            -- Set its position on the screen relative to the screen size
+            x = display.contentWidth/2,
+            y = display.contentHeight* 3/4,
+            width = 200,
+            height = 100,
+
+            -- Insert the images here
+            defaultFile = "Images/level2ButtonUnpressedMelody@2x.png",
+            overFile = "Images/level2ButtonpressedMelody@2x.png",
+
+            -- When the button is released, call the level1 transition function
+           onRelease = Level2Transition
         } ) 
 
 
@@ -170,7 +192,8 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------
 
     -- Associating button widgets with this scene
-    sceneGroup:insert( playButton )
+    sceneGroup:insert( level1Button )
+    sceneGroup:insert( level2Button )
     sceneGroup:insert( backButton )
     sceneGroup:insert( instructionButton )
     sceneGroup:insert( MuteButton )
