@@ -41,9 +41,15 @@ local letter1
 local letter2
 local letter3
 
-local letter1Completed = false
-local letter2Completed = false
-local letter3Completed = false
+local correctLetter1 
+local correctLetter2 
+local correctLetter3 
+
+local userLetter1
+local userLetter2
+local userLetter3
+
+local numLettersCompleted = 0
 
 
 local letter1Touched = false
@@ -86,6 +92,14 @@ local function BackToLevel1()
 end 
 
 
+local CheckUserAnswerInput()
+    if (userLetter1.text == correctLetter1.text) and
+        (userLetter2.text == correctLetter2.text) and
+        (userLetter3.text == correctLetter3.text) then
+            -- They got it right
+    end
+end
+
 --checking to see if the user pressed the right answer and bring them back to level 1
 local function TouchListenerLetter1(touch)
     --only work if none of the other boxes have been touched
@@ -118,7 +132,9 @@ local function TouchListenerLetter1(touch)
                 letter1.x = placeholderL1.x
                 letter1.y = placeholderL1.y
                 placeholderL1Filled = true
-                --letter1Completed = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter1 = letter1
+     
                 letter1:removeEventListener( "touch", TouchListenerLetter1 )
                 print ("***TouchListenerLetter1: placeholderL1Filled is true")
                 
@@ -136,7 +152,8 @@ local function TouchListenerLetter1(touch)
                 letter1.x = placeholderL2.x
                 letter1.y = placeholderL2.y
                 placeholderL2Filled = true
-                --letter1Completed = true
+                userLetter2 = letter1
+          
                 letter1:removeEventListener( "touch", TouchListenerLetter1 )
                 print ("***TouchListenerLetter1: placeholderL2Filled is true")
                 
@@ -154,7 +171,7 @@ local function TouchListenerLetter1(touch)
                 letter1.x = placeholderL3.x
                 letter1.y = placeholderL3.y
                 placeholderL3Filled = true
-                --letter1Completed = true
+              
                 letter1:removeEventListener( "touch", TouchListenerLetter1 )
                 print ("***TouchListenerLetter1: placeholderL3Filled is true")
                 
@@ -205,7 +222,7 @@ local function TouchListenerLetter2(touch)
                 letter2.x = placeholderL1.x
                 letter2.y = placeholderL1.y
                 placeholderL1Filled = true
-                --letter2Completed = true
+                
                 letter2:removeEventListener( "touch", TouchListenerLetter2 )
                 print ("***TouchListenerLetter2: placeholderL1Filled is true")
                 
@@ -223,7 +240,7 @@ local function TouchListenerLetter2(touch)
                 letter2.x = placeholderL2.x
                 letter2.y = placeholderL2.y
                 placeholderL2Filled = true
-                letter2Completed = true
+                
                 letter2:removeEventListener( "touch", TouchListenerLetter2 )
                 print ("***TouchListenerLetter2: placeholderL2Filled is true")
                 
@@ -241,7 +258,7 @@ local function TouchListenerLetter2(touch)
                 letter2.x = placeholderL3.x
                 letter2.y = placeholderL3.y
                 placeholderL3Filled = true
-                letter2Completed = true
+                
                 letter2:removeEventListener( "touch", TouchListenerLetter2 )
                 print ("***TouchListenerLetter2: placeholderL3Filled is true")
                 
@@ -292,6 +309,10 @@ local function DisplayQuestion()
     randomQuestion = math.random(1,2)
 
     if (randomQuestion == 1) then
+        correctLetter1 = "F"
+        correctLetter1 = "A"
+        correctLetter1 = "T"
+
         letter1.text = "A"
         letter2.text = "T"
         letter3.text = "F"
