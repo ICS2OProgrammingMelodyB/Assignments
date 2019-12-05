@@ -21,7 +21,7 @@ local widget = require( "widget" )
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "Level1_screen"
+sceneName = "level1_screen"
 
 -----------------------------------------------------------------------------------------
 
@@ -133,10 +133,13 @@ local function TouchEgg(touch)
                 -- setting the position of the number to be in the center of the box
                 egg.x = BowlPlaceholder.x
                 egg.y = BowlPlaceholder.y
+
                 --makes the egg invisible
                 egg.isVisible = false
+
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
+                print ("***numIngredients = " .. numIngredients)
                 
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
@@ -199,6 +202,8 @@ local function TouchEgg2(touch)
                 egg2.isVisible = false
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
+
+                print ("***numIngredients = " .. numIngredients)
                 
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
@@ -262,6 +267,8 @@ local function TouchFlour(touch)
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
+                print ("***numIngredients = " .. numIngredients)
+
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
                 -- both the bowl and the BowlPlaceholder will be invisible.
@@ -323,6 +330,8 @@ local function TouchMilk(touch)
                 milk.isVisible = false
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
+
+                print ("***numIngredients = " .. numIngredients)
                 
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
@@ -385,6 +394,8 @@ local function TouchButter(touch)
                 butter.isVisible = false
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
+
+                print ("***numIngredients = " .. numIngredients)
                 
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
@@ -447,6 +458,8 @@ local function TouchSugar(touch)
                 sugar.isVisible = false
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
+
+                print ("***numIngredients = " .. numIngredients)
                 
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
@@ -510,6 +523,8 @@ local function TouchBakingSoda(touch)
                 bakingSoda.isVisible = false
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
+
+                print ("***numIngredients = " .. numIngredients)
                 
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
@@ -537,13 +552,7 @@ end
 
 local function TouchBowlFilled(touch)
     --only work if none of the other boxes have been touched
-    if (eggTouched == false) and 
-        (sugarTouched == false) and
-        (butterTouched == false) and
-        (flourTouched == false) and
-        (egg2Touched == false) and
-        (bakingSodaTouched == false) and
-        (milkTouched == false) then
+    if (numIngredients == 7) then
 
         if (touch.phase == "began") then
 
@@ -570,7 +579,7 @@ local function TouchBowlFilled(touch)
                 -- setting the position of the number to be in the center of the box
                 bowlFilled.x = fire.x
                 bowlFilled.y = fire.y
-                composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
+                composer.showOverlay( "level1_question", { isModal = true, effect = "fade", time = 100})
                 --bowlFilled.isVisible = false
                 
                 -- call the function to check if the user's input is correct or not
@@ -636,6 +645,14 @@ local function RemoveAnswerBoxEventListeners()
 end 
 
 -----------------------------------------------------------------------------------------
+-- GLOBAL FUNCTIONS
+-----------------------------------------------------------------------------------------
+
+function ResumeLevel1()
+    
+end
+
+-----------------------------------------------------------------------------------------
 -- GLOBAL SCENE FUNCTIONS
 -----------------------------------------------------------------------------------------
 
@@ -656,15 +673,10 @@ function scene:create( event )
     bkg_image.y = display.contentCenterY
     bkg_image.width = display.contentWidth
     bkg_image.height = display.contentHeight
-    -- show overlay with math question
-    composer.showOverlay( "level1question_screen", { isModal = true, effect = "fade", time = 100})
-
 
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg_image )
 
-    -- Send the background image to the back layer so all other objects can be on top
-    bkg_image:toBack()
 
     -- Insert the platforms
     fire = display.newImageRect("Images/fire.png", 300, 200)
@@ -814,6 +826,9 @@ function scene:show( event )
     -- Insert code here to make the scene come alive.
     -- Example: start timers, begin animation, play audio, etc.
     elseif ( phase == "did" ) then 
+        -- initialize the ingredients in the bowl
+        numIngredients = 0
+
         if (soundOn == true) then
             MuteButton.isVisible = true
             UnmuteButton.isVisible = false
@@ -824,12 +839,13 @@ function scene:show( event )
             level1SoundChannel4 = audio.play( level1Sound, { channel=3, loops = -1} ) 
             audio.pause( levelSoundChannel2 )
         end
+
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener)     
         
-
-    end     
         AddAnswerBoxEventListeners()
+    end     
+        
 
 end -- function scene:show( event )
 

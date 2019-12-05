@@ -204,10 +204,10 @@ function scene:create( event )
     -- Associating button widgets with this scene
     sceneGroup:insert( level3Button )
     sceneGroup:insert( level4Button )
-    sceneGroup:insert( backButton )
     sceneGroup:insert( instructionButton )
     sceneGroup:insert( MuteButton )
     sceneGroup:insert( UnmuteButton )
+    sceneGroup:insert( backButton )
    
     -- INSERT INSTRUCTIONS BUTTON INTO SCENE GROUP
 

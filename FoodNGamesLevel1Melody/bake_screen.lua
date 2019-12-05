@@ -32,7 +32,7 @@ local scene = composer.newScene( sceneName )
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
-local instructionsButton
+local instructionbakingButton
 local level1Button
 local level2Button
 local MuteButton
@@ -55,12 +55,12 @@ end
 
 -- Creating Transition to play Screen
 local function Level1Transition( )
-    composer.gotoScene( "Level1_screen", {effect = "slideDown", time = 500})
+    composer.gotoScene( "level1_screen", {effect = "slideDown", time = 500})
 end 
 
 -- Creating Transition to play Screen
 local function Level2Transition( )
-    composer.gotoScene( "Level2_screen", {effect = "slideDown", time = 500})
+    composer.gotoScene( "level2_screen", {effect = "slideDown", time = 500})
 end 
 
 --Creating Transition to mainmenu Screen
@@ -120,7 +120,7 @@ function scene:create( event )
     -----------------------------------------------------------------------------------------   
 
     -- Creating instructions Button
-    instructionButton = widget.newButton( 
+    instructionbakingButton = widget.newButton( 
         {   
             -- Set its position on the screen relative to the screen size
             x = display.contentWidth*4/5,
@@ -194,10 +194,10 @@ function scene:create( event )
     -- Associating button widgets with this scene
     sceneGroup:insert( level1Button )
     sceneGroup:insert( level2Button )
-    sceneGroup:insert( backButton )
-    sceneGroup:insert( instructionButton )
+    sceneGroup:insert( instructionbakingButton )
     sceneGroup:insert( MuteButton )
     sceneGroup:insert( UnmuteButton )
+    sceneGroup:insert( backButton )
 
 end -- function scene:create( event )   
 
