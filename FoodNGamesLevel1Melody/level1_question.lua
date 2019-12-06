@@ -107,6 +107,7 @@ local function CheckUserAnswerInput()
         end
     else
         lives = lives - 1
+        lives.text = "lives = " .. lives - 1
     end
 end
 
@@ -148,6 +149,8 @@ local function TouchListenerLetter1(touch)
                 print ("***TouchListenerLetter1: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter1:addEventListener("touch", TouchListenerLetter1)
                     print ("****CheckUserAnswerInput")
                 end
                 
@@ -171,6 +174,8 @@ local function TouchListenerLetter1(touch)
                 print ("***TouchListenerLetter1: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter1:addEventListener("touch", TouchListenerLetter1)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -193,6 +198,8 @@ local function TouchListenerLetter1(touch)
                 print ("***TouchListenerLetter1: placeholderL3Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter1:addEventListener("touch", TouchListenerLetter1)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -248,6 +255,8 @@ local function TouchListenerLetter2(touch)
                 print ("***TouchListenerLetter2: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter2:addEventListener("touch", TouchListenerLetter2)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -270,6 +279,8 @@ local function TouchListenerLetter2(touch)
                 print ("***TouchListenerLetter2: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter2:addEventListener("touch", TouchListenerLetter2)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -293,6 +304,8 @@ local function TouchListenerLetter2(touch)
                 print ("***TouchListenerLetter2: placeholderL3Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter2:addEventListener("touch", TouchListenerLetter2)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -347,6 +360,8 @@ local function TouchListenerLetter3(touch)
                 print ("***TouchListenerLetter2: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter3:addEventListener("touch", TouchListenerLetter3)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -369,6 +384,8 @@ local function TouchListenerLetter3(touch)
                 print ("***TouchListenerLetter2: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter3:addEventListener("touch", TouchListenerLetter3)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -392,6 +409,8 @@ local function TouchListenerLetter3(touch)
                 print ("***TouchListenerLetter3: placeholderL3Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
+                    DisplayQuestion()
+                    letter3:addEventListener("touch", TouchListenerLetter3)
                     print ("****CheckUserAnswerInput")
                 end
                 -- call the function to check if the user's input is correct or not
@@ -489,6 +508,9 @@ function scene:create( event )
     points = display.newText("Points = " .. points, display.contentWidth*4/7, display.contentHeight*6/7, Arial, 50)
     points:setFillColor(0,0,0)
 
+    lives = display.newText("lives = " .. lives, display.contentWidth*2/7, display.contentHeight*6/7, Arial, 50)
+    lives:setFillColor(0,0,0)
+
     -- Insert the platforms
     placeholderL1 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 150, 150)
     placeholderL1.x = X1
@@ -516,6 +538,8 @@ function scene:create( event )
     sceneGroup:insert(letter1)
     sceneGroup:insert(letter2)
     sceneGroup:insert(letter3)
+    sceneGroup:insert(lives)
+    sceneGroup:insert(points)
 
 
 end --function scene:create( event 150
@@ -565,7 +589,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
-        RemoveTextListeners()
+        --RemoveTextListeners()
     end
 
 end --function scene:hide( event )
