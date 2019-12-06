@@ -51,7 +51,9 @@ local userLetter3
 
 local numLettersCompleted = 0
 local points = 0
-local lives = 3
+local lives = 2
+local livesText
+local pointsText
 
 
 local letter1Touched = false
@@ -94,20 +96,55 @@ local function BackToLevel1()
 end 
 
 
+local function DisplayQuestion()
+    --creating random numbers
+    randomQuestion = math.random(1,2)
+
+    if (randomQuestion == 1) then
+        correctLetter1 = "F"
+        correctLetter2 = "A"
+        correctLetter3 = "T"
+
+        letter1.text = "A"
+        letter2.text = "T"
+        letter3.text = "F"
+    elseif (randomQuestion == 2) then
+        correctLetter1 = "H"
+        correctLetter2 = "A"
+        correctLetter3 = "T"
+
+        letter1.text = "T"
+        letter2.text = "A"
+        letter3.text = "H"
+    end
+
+    letter1PreviousX = X1
+    letter2PreviousX = X2
+    letter3PreviousX = X3
+end
+
+
 local function CheckUserAnswerInput()
     if (userLetter1.text == correctLetter1.text) and
         (userLetter2.text == correctLetter2.text) and
         (userLetter3.text == correctLetter3.text) then
         print ("****correct")
+        
+        lives = lives - 1
+        livesText.text = "lives = " .. lives 
+        DisplayQuestion()
+        if (lives == 0) then
+            BackToLevel1()
+        end
+
+    else
         -- They got it right
         points = points + 1
-        points.text = "Points = " .. points + 1
+        pointsText.text = "Points = " .. points 
+        DisplayQuestion()
         if (points == 5)then
             BackToLevel1()
         end
-    else
-        lives = lives - 1
-        lives.text = "lives = " .. lives - 1
     end
 end
 
@@ -444,32 +481,6 @@ local function RemoveTextListeners()
     letter3:removeEventListener( "touch", TouchListenerLetter3)
 end
 
-local function DisplayQuestion()
-    --creating random numbers
-    randomQuestion = math.random(1,2)
-
-    if (randomQuestion == 1) then
-        correctLetter1 = "F"
-        correctLetter2 = "A"
-        correctLetter3 = "T"
-
-        letter1.text = "A"
-        letter2.text = "T"
-        letter3.text = "F"
-    elseif (randomQuestion == 2) then
-        correctLetter1 = "H"
-        correctLetter2 = "A"
-        correctLetter3 = "T"
-
-        letter1.text = "T"
-        letter2.text = "A"
-        letter3.text = "H"
-    end
-
-    letter1PreviousX = X1
-    letter2PreviousX = X2
-    letter3PreviousX = X3
-end
 
 
    
@@ -505,11 +516,11 @@ function scene:create( event )
     letter2:setFillColor(0,0,0)
     letter3 = display.newText("", X3, Y1, Arial, 100)
     letter3:setFillColor(0,0,0)
-    points = display.newText("Points = " .. points, display.contentWidth*4/7, display.contentHeight*6/7, Arial, 50)
-    points:setFillColor(0,0,0)
+    pointsText = display.newText("Points = " .. points, display.contentWidth*4/7, display.contentHeight*6/7, Arial, 50)
+    pointsText:setFillColor(0,0,0)
 
-    lives = display.newText("lives = " .. lives, display.contentWidth*2/7, display.contentHeight*6/7, Arial, 50)
-    lives:setFillColor(0,0,0)
+    livesText = display.newText("lives = " .. lives, display.contentWidth*2/7, display.contentHeight*6/7, Arial, 50)
+    livesText:setFillColor(0,0,0)
 
     -- Insert the platforms
     placeholderL1 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 150, 150)
@@ -538,8 +549,8 @@ function scene:create( event )
     sceneGroup:insert(letter1)
     sceneGroup:insert(letter2)
     sceneGroup:insert(letter3)
-    sceneGroup:insert(lives)
-    sceneGroup:insert(points)
+    sceneGroup:insert(livesText)
+    sceneGroup:insert(pointsText)
 
 
 end --function scene:create( event 150
