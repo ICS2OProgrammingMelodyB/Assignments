@@ -64,6 +64,10 @@ local letter1PreviousX
 local letter2PreviousX
 local letter3PreviousX
 
+local letter1PreviousY
+local letter2PreviousY
+local letter3PreviousY
+
 local placeholderL1
 local placeholderL2
 local placeholderL3
@@ -116,11 +120,15 @@ local function DisplayQuestion()
         letter1.text = "T"
         letter2.text = "A"
         letter3.text = "H"
+
+        letter1PreviousX = X1
+        letter1PreviousY = Y1
+        letter2PreviousX = X2
+        letter2PreviousY = Y1
+        letter3PreviousX = X3
+        letter3PreviousY = Y1
     end
 
-    letter1PreviousX = X1
-    letter2PreviousX = X2
-    letter3PreviousX = X3
 end
 
 
@@ -129,20 +137,22 @@ local function CheckUserAnswerInput()
         (userLetter2.text == correctLetter2.text) and
         (userLetter3.text == correctLetter3.text) then
         print ("****correct")
-        
-        lives = lives - 1
-        livesText.text = "lives = " .. lives 
-        DisplayQuestion()
-        if (lives == 0) then
-            BackToLevel1()
-        end
-
-    else
         -- They got it right
         points = points + 1
         pointsText.text = "Points = " .. points 
         DisplayQuestion()
+       
         if (points == 5)then
+            BackToLevel1()
+        end
+    
+    else
+       
+        lives = lives - 1
+        livesText.text = "lives = " .. lives 
+        DisplayQuestion()
+        
+        if (lives == 0) then
             BackToLevel1()
         end
     end
@@ -186,7 +196,7 @@ local function TouchListenerLetter1(touch)
                 print ("***TouchListenerLetter1: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+
                     letter1:addEventListener("touch", TouchListenerLetter1)
                     print ("****CheckUserAnswerInput")
                 end
@@ -211,7 +221,7 @@ local function TouchListenerLetter1(touch)
                 print ("***TouchListenerLetter1: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                
                     letter1:addEventListener("touch", TouchListenerLetter1)
                     print ("****CheckUserAnswerInput")
                 end
@@ -235,7 +245,7 @@ local function TouchListenerLetter1(touch)
                 print ("***TouchListenerLetter1: placeholderL3Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                    
                     letter1:addEventListener("touch", TouchListenerLetter1)
                     print ("****CheckUserAnswerInput")
                 end
@@ -245,7 +255,7 @@ local function TouchListenerLetter1(touch)
             --else make box go back to where it was
             else
                 letter1.x = letter1PreviousX
-                letter1.y = Y1
+                letter1.y = letter1PreviousY
                 print ("***Moving letter 1 back to original position")
 
             end
@@ -292,7 +302,7 @@ local function TouchListenerLetter2(touch)
                 print ("***TouchListenerLetter2: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+
                     letter2:addEventListener("touch", TouchListenerLetter2)
                     print ("****CheckUserAnswerInput")
                 end
@@ -316,7 +326,7 @@ local function TouchListenerLetter2(touch)
                 print ("***TouchListenerLetter2: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                    
                     letter2:addEventListener("touch", TouchListenerLetter2)
                     print ("****CheckUserAnswerInput")
                 end
@@ -341,7 +351,7 @@ local function TouchListenerLetter2(touch)
                 print ("***TouchListenerLetter2: placeholderL3Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                    
                     letter2:addEventListener("touch", TouchListenerLetter2)
                     print ("****CheckUserAnswerInput")
                 end
@@ -351,7 +361,7 @@ local function TouchListenerLetter2(touch)
             --else make box go back to where it was
             else
                 letter2.x = letter2PreviousX
-                letter2.y = Y1
+                letter2.y = letter2PreviousY
                 print ("***Moving letter 2 back to original position")
 
             end
@@ -397,7 +407,7 @@ local function TouchListenerLetter3(touch)
                 print ("***TouchListenerLetter2: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                    
                     letter3:addEventListener("touch", TouchListenerLetter3)
                     print ("****CheckUserAnswerInput")
                 end
@@ -421,7 +431,7 @@ local function TouchListenerLetter3(touch)
                 print ("***TouchListenerLetter2: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                    
                     letter3:addEventListener("touch", TouchListenerLetter3)
                     print ("****CheckUserAnswerInput")
                 end
@@ -446,7 +456,7 @@ local function TouchListenerLetter3(touch)
                 print ("***TouchListenerLetter3: placeholderL3Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
-                    DisplayQuestion()
+                    
                     letter3:addEventListener("touch", TouchListenerLetter3)
                     print ("****CheckUserAnswerInput")
                 end
@@ -456,7 +466,7 @@ local function TouchListenerLetter3(touch)
             --else make box go back to where it was
             else
                 letter3.x = letter3PreviousX
-                letter3.y = Y3
+                letter3.y = letter3PreviousY
                 print ("***Moving letter 2 back to original position")
 
             end
