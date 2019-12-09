@@ -54,6 +54,8 @@ local points = 0
 local lives = 2
 local livesText
 local pointsText
+local totalSeconds = 10
+local secondsLeft = 10
 
 
 local letter1Touched = false
@@ -93,10 +95,16 @@ local textTouched = false
 -----------------------------------------------------------------------------------------
 
 --making transition to next scene
-local function BackToLevel1() 
+local function BackToLevel1Win() 
     composer.hideOverlay("crossFade", 400 )
   
-    ResumeLevel1()
+    ResumeLevel1Win()
+end 
+
+local function BackToLevel1Lose() 
+    composer.hideOverlay("crossFade", 400 )
+  
+    ResumeLevel1Lose()
 end 
 
 
@@ -154,25 +162,51 @@ local function CheckUserAnswerInput()
         print ("****correct")
         -- They got it right
         points = points + 1
-        pointsText.text = "Points = " .. points 
+        pointsText.text = "Points = " .. points
+        secondsLeft = totalSeconds 
         DisplayQuestion()
         LetterPosion()
        
         if (points == 5)then
-            BackToLevel1()
+            BackToLevel1Win()
         end
     
     else
        
         lives = lives - 1
         livesText.text = "lives = " .. lives 
+        secondsLeft = totalSeconds
         DisplayQuestion()
         LetterPosion()
         
         if (lives == 0) then
-            BackToLevel1()
+            BackToLevel1Lose()
         end
     end
+end
+
+local function UpdateTime()
+    -- decrement the number of seconds 
+    secondsLeft = secondsLeft - 1
+
+    -- display the number of seconds left in the clock object
+    clockText.text = "secondsLeft = " .. secondsLeft
+
+    if(secondsLeft == 0 )then
+        --reset the number of seconds left
+        secondsLeft = totalSeconds
+        lives = lives - 1
+        --update it in the display object
+        livesText.text = "lives = " .. lives
+        if (lives == 0 ) then
+            BackToLevel1Lose()
+        end
+    end
+end
+
+local function StartTimer()
+    --create a countdown timer that loops infinitely
+    countDownTimer = timer.performWithDelay(1000, UpdateTime, 0)
 end
 
 --checking to see if the user pressed the right answer and bring them back to level 1
@@ -564,6 +598,12 @@ function scene:create( event )
     placeholderL3.x = X3
     placeholderL3.y = Y2
 
+    --create the tome to display on the screen
+    clockText = display.newText("secondsLeft = ".. secondsLeft, 100, 100, nil, 50)
+    clockText:setTextColor(168/255, 255/255, 5/255)
+    clockText.x= 500
+    clockText.y= 65
+
     -----------------------------------------------------------------------------------------
 
     -- insert all objects for this scene into the scene group
@@ -578,6 +618,7 @@ function scene:create( event )
     sceneGroup:insert(letter3)
     sceneGroup:insert(livesText)
     sceneGroup:insert(pointsText)
+    sceneGroup:insert(clockText)
 
 
 end --function scene:create( event 150
@@ -602,6 +643,7 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         DisplayQuestion()
         LetterPosion()
+        StartTimer()
 
         AddTextListeners()
     end

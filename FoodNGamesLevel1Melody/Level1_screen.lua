@@ -580,7 +580,7 @@ local function TouchBowlFilled(touch)
                 bowlFilled.x = fire.x
                 bowlFilled.y = fire.y
                 composer.showOverlay( "level1_question", { isModal = true, effect = "fade", time = 100})
-                --bowlFilled.isVisible = false
+                bowlFilled.isVisible = false
                 
                 -- call the function to check if the user's input is correct or not
                 --CheckUserAnswerInput()
@@ -594,6 +594,16 @@ local function TouchBowlFilled(touch)
         end
     end                
 end 
+
+local function LoseScreenTransition( )        
+    composer.gotoScene( "you_lose", {effect = "zoomInOutFade", time = 1000})
+end 
+
+-- Function that transitions to Lose Screen
+local function WinScreenTransition( )        
+    composer.gotoScene( "you_win", {effect = "zoomInOutFade", time = 1000})
+end 
+
 
 -- making the music to pause when the mute button is clicked
 local function MuteListener(touch)
@@ -648,8 +658,14 @@ end
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
-function ResumeLevel1()
-    
+function ResumeLevel1Win()
+    bowlFilled.isVisible = true
+    timer.performWithDelay( 1000, WinScreenTransition )
+end
+
+function ResumeLevel1Lose()
+    bowlFilled.isVisible = true
+    timer.performWithDelay( 1000, LoseScreenTransition )
 end
 
 -----------------------------------------------------------------------------------------
@@ -841,7 +857,8 @@ function scene:show( event )
         end
 
         MuteButton:addEventListener("touch", MuteListener) 
-        UnmuteButton:addEventListener("touch", UnmuteListener)     
+        UnmuteButton:addEventListener("touch", UnmuteListener) 
+           
         
         AddAnswerBoxEventListeners()
     end     
