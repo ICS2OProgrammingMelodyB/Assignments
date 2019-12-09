@@ -156,9 +156,9 @@ end
 
 
 local function CheckUserAnswerInput()
-    if (placeholderL1 == correctLetter1.text) and
-        (placeholderL2 == correctLetter2.text) and
-        (placeholderL3 == correctLetter3.text) then
+    if (userLetter1 == correctLetter1.text) and
+        (userLetter2 == correctLetter2.text) and
+        (userLetter3 == correctLetter3.text) then
         print ("****correct")
         -- They got it right
         points = points + 1
@@ -646,6 +646,7 @@ function scene:show( event )
         StartTimer()
 
         AddTextListeners()
+
     end
 
 end --function scene:show( event )
@@ -671,6 +672,7 @@ function scene:hide( event )
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
         --RemoveTextListeners()
+        RemoveTextListeners()
     end
 
 end --function scene:hide( event )

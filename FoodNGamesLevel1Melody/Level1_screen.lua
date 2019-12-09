@@ -596,12 +596,12 @@ local function TouchBowlFilled(touch)
 end 
 
 local function LoseScreenTransition( )        
-    composer.gotoScene( "you_lose", {effect = "zoomInOutFade", time = 1000})
+    composer.gotoScene( "youLose", {effect = "zoomInOutFade", time = 1000})
 end 
 
 -- Function that transitions to Lose Screen
 local function WinScreenTransition( )        
-    composer.gotoScene( "you_win", {effect = "zoomInOutFade", time = 1000})
+    composer.gotoScene( "youWin", {effect = "zoomInOutFade", time = 1000})
 end 
 
 
