@@ -131,16 +131,32 @@ local function DisplayQuestion()
 
 end
 
+local function LetterPosion()
+    letter1.x = X1
+    letter1.y = Y1
+    letter2.x = X2
+    letter2.y = Y1
+    letter3.x = X3
+    letter3.y = Y1
+
+    placeholderL1Filled = false
+    placeholderL2Filled = false
+    placeholderL3Filled = false
+
+end
+
+
 
 local function CheckUserAnswerInput()
-    if (userLetter1.text == correctLetter1.text) and
-        (userLetter2.text == correctLetter2.text) and
-        (userLetter3.text == correctLetter3.text) then
+    if (placeholderL1 == correctLetter1.text) and
+        (placeholderL2 == correctLetter2.text) and
+        (placeholderL3 == correctLetter3.text) then
         print ("****correct")
         -- They got it right
         points = points + 1
         pointsText.text = "Points = " .. points 
         DisplayQuestion()
+        LetterPosion()
        
         if (points == 5)then
             BackToLevel1()
@@ -151,6 +167,7 @@ local function CheckUserAnswerInput()
         lives = lives - 1
         livesText.text = "lives = " .. lives 
         DisplayQuestion()
+        LetterPosion()
         
         if (lives == 0) then
             BackToLevel1()
@@ -404,7 +421,7 @@ local function TouchListenerLetter3(touch)
                 numLettersCompleted = numLettersCompleted + 1
                 userLetter1 = letter3
                 letter3:removeEventListener( "touch", TouchListenerLetter3 )
-                print ("***TouchListenerLetter2: placeholderL1Filled is true")
+                print ("***TouchListenerLetter3: placeholderL1Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
                     
@@ -428,7 +445,7 @@ local function TouchListenerLetter3(touch)
                 numLettersCompleted = numLettersCompleted + 1
                 userLetter2 = letter3
                 letter3:removeEventListener( "touch", TouchListenerLetter3 )
-                print ("***TouchListenerLetter2: placeholderL2Filled is true")
+                print ("***TouchListenerLetter3: placeholderL2Filled is true")
                 if (numLettersCompleted == 3) then
                     CheckUserAnswerInput()
                     
@@ -467,7 +484,7 @@ local function TouchListenerLetter3(touch)
             else
                 letter3.x = letter3PreviousX
                 letter3.y = letter3PreviousY
-                print ("***Moving letter 2 back to original position")
+                print ("***Moving letter 3 back to original position")
 
             end
         end
@@ -508,7 +525,7 @@ function scene:create( event )
     --covering the other scene with a rectangle so it looks faded and stops touch from going through
     bkg = display.newRect(display.contentCenterX, display.contentCenterY, display.contentWidth, display.contentHeight)
     --setting to a semi black colour
-    bkg:setFillColor(0,0,0,0.5)
+    bkg:setFillColor(0,0,0.5)
 
     -----------------------------------------------------------------------------------------
     --making a cover rectangle to have the background fully bolcked where the question is
@@ -584,6 +601,7 @@ function scene:show( event )
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
         DisplayQuestion()
+        LetterPosion()
 
         AddTextListeners()
     end
