@@ -659,12 +659,10 @@ end
 -----------------------------------------------------------------------------------------
 
 function ResumeLevel1Win()
-    bowlFilled.isVisible = true
     timer.performWithDelay( 1000, WinScreenTransition )
 end
 
 function ResumeLevel1Lose()
-    bowlFilled.isVisible = true
     timer.performWithDelay( 1000, LoseScreenTransition )
 end
 
