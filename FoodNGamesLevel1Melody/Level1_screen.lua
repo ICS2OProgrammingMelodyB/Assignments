@@ -97,7 +97,44 @@ local level1SoundChannel4
 -- LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------- 
 
--- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN
+-- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN\
+
+local function MakeIgredientsVisible()
+    -- makes all the ingredients visible
+    fire.isVisible = true
+    milk.isVisible = true
+    egg.isVisible = true
+    egg2.isVisible = true
+    bowl.isVisible = true
+    flour.isVisible = true
+    butter.isVisible = true
+    sugar.isVisible = true
+    bakingSoda.isVisible = true
+    bowlFilled.isVisible = false
+end
+
+local function IngredientsPosition()
+    -- puts ingredients in  original position
+    egg.x = display.contentWidth * 3 / 10
+    egg.y = display.contentHeight * 2 / 4
+    egg2.x = display.contentWidth * 2 / 10
+    egg2.y = display.contentHeight * 2 / 4
+    butter.x = display.contentWidth * 6 / 10
+    butter.y = display.contentHeight * 2 / 4
+    sugar.x = display.contentWidth * 7 / 10
+    sugar.y = display.contentHeight * 2 / 4
+    milk.x = display.contentWidth * 5 / 10
+    milk.y = display.contentHeight * 2 / 4
+    flour.x = display.contentWidth * 4 / 10
+    flour.y = display.contentHeight * 2 / 4
+    bakingSoda.x = display.contentWidth * 8 / 10
+    bakingSoda.y = display.contentHeight * 2 / 4
+    bowlFilled.x = display.contentWidth * 1 / 10
+    bowlFilled.y = display.contentHeight * 2 / 4
+    bowl.x = display.contentWidth * 1 / 10
+    bowl.y = display.contentHeight * 2 / 4
+
+end
 
 local function TouchEgg(touch)
     --only work if none of the other boxes have been touched
@@ -696,6 +733,7 @@ function scene:create( event )
     fire = display.newImageRect("Images/fire.png", 300, 200)
     fire.x = display.contentWidth *  7.75 / 10
     fire.y = display.contentHeight * 8.5 / 10
+    fire.isVisible = true
         
     sceneGroup:insert( fire )
 
@@ -703,6 +741,7 @@ function scene:create( event )
     bowl = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
     bowl.x = display.contentWidth * 1 / 10
     bowl.y = display.contentHeight * 2 / 4
+    bowl.isVisible = true
         
     sceneGroup:insert( bowl )
     
@@ -710,6 +749,7 @@ function scene:create( event )
     BowlPlaceholder = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
     BowlPlaceholder.x = display.contentWidth * 1 / 10
     BowlPlaceholder.y = display.contentHeight * 2 / 4
+    BowlPlaceholder.isVisible = false
    
     sceneGroup:insert(BowlPlaceholder)
 
@@ -729,6 +769,7 @@ function scene:create( event )
     egg.y = display.contentHeight * 2 / 4
     eggPreviousX = egg.x  
     eggPreviousY = egg.y
+    egg.isVisible = true
         
     sceneGroup:insert( egg )
 
@@ -738,6 +779,7 @@ function scene:create( event )
     egg2.y = display.contentHeight * 2 / 4
     egg2PreviousX = egg2.x  
     egg2PreviousY = egg2.y
+    egg2.isVisible = true
         
     sceneGroup:insert( egg2 )
 
@@ -747,6 +789,7 @@ function scene:create( event )
     butter.y = display.contentHeight * 2 / 4
     butterPreviousX = butter.x  
     butterPreviousY = butter.y
+    butter.isVisible = true
         
     sceneGroup:insert( butter )
 
@@ -756,6 +799,7 @@ function scene:create( event )
     sugar.y = display.contentHeight * 2 / 4
     sugarPreviousX = sugar.x  
     sugarPreviousY = sugar.y
+    sugar.isVisible = true
         
     sceneGroup:insert( sugar)
 
@@ -765,6 +809,7 @@ function scene:create( event )
     milk.y = display.contentHeight * 2 / 4
     milkPreviousX = milk.x  
     milkPreviousY = milk.y
+    milk.isVisible = true
         
     sceneGroup:insert( milk )
 
@@ -774,6 +819,7 @@ function scene:create( event )
     flour.y = display.contentHeight * 2 / 4
     flourPreviousX = flour.x  
     flourPreviousY = flour.y
+    flour.isVisible = true
         
     sceneGroup:insert( flour )
 
@@ -784,6 +830,7 @@ function scene:create( event )
     bakingSoda.y = display.contentHeight * 2 / 4
     bakingSodaPreviousX = bakingSoda.x  
     bakingSodaPreviousY = bakingSoda.y
+    bakingSoda.isVisible = true
 
         
     sceneGroup:insert( bakingSoda )
@@ -856,6 +903,8 @@ function scene:show( event )
 
         MuteButton:addEventListener("touch", MuteListener) 
         UnmuteButton:addEventListener("touch", UnmuteListener) 
+        MakeIgredientsVisible()
+        IngredientsPosition()
            
         
         AddAnswerBoxEventListeners()

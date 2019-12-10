@@ -27,9 +27,24 @@ sceneName = "youLose"
 local scene = composer.newScene( sceneName ) -- This function doesn't accept a string, only a variable containing a string
 
 -----------------------------------------------------------------------------------------
+-- LOCAL VARIABLES
+-----------------------------------------------------------------------------------------
+
+local homeButton
+local bkg_image
+
+----------------------------------------------------------------------------------------
+--LOCAL FUNCTIONS
+----------------------------------------------------------------------------------------
+-- Creating Transition to play Screen
+local function HomeTransition( )
+    composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
+end 
+
+
+-----------------------------------------------------------------------------------------
 -- DISPLAY OBJECTS
 -----------------------------------------------------------------------------------------
-local bkg_image
 
 -- The function called when the screen doesn't exist
 function scene:create( event )
@@ -50,7 +65,32 @@ function scene:create( event )
 
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg_image )
+
+
+ -----------------------------------------------------------------------------------------
+    -- BUTTON WIDGETS
+    -----------------------------------------------------------------------------------------   
+
+    -- Creating Credits Button
+    homeButton = widget.newButton( 
+        {
+            --Set its position on the screen relative to the screen size
+            x = display.contentWidth*1/8,
+            y = display.contentHeight*7/8,
+            width = 200,
+            height = 100,
+
+            --Insert the images here
+            defaultFile = "Images/HomeUnpressedMelody@2x.png",
+            overFile = "Images/HomePressedMelody@2x.png",
+
+            -- When the button is released, call the Credits transition function
+            onRelease = HomeTransition
+        } ) 
+
+    sceneGroup:insert( homeButton )
 end
+
 -----------------------------------------------------------------------------------------
 
 -- The function called when the scene is issued to appear on screen

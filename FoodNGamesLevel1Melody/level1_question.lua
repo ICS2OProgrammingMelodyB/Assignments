@@ -50,11 +50,11 @@ local userLetter3
 
 local numLettersCompleted = 0
 local points = 0
-local lives = 2
+local lives = 3
 local livesText
 local pointsText
-local totalSeconds = 10
-local secondsLeft = 10
+local totalSeconds = 15
+local secondsLeft = 15
 
 
 local letter1Touched = false
@@ -110,7 +110,7 @@ end
 
 local function DisplayQuestion()
     --creating random numbers
-    randomQuestion = math.random(1,3)
+    randomQuestion = math.random(1,6)
 
     -- reset the number of letters completed to 0
     numLettersCompleted = 0
@@ -150,6 +150,36 @@ local function DisplayQuestion()
         correctLetter1 = letter1
         correctLetter2 = letter3
         correctLetter3 = letter2
+
+    elseif (randomQuestion == 4) then
+
+        letter1.text = "I"
+        letter2.text = "T"
+        letter3.text = "S"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter1
+        correctLetter3 = letter2  
+
+    elseif (randomQuestion == 5) then
+
+        letter1.text = "A"
+        letter2.text = "B"
+        letter3.text = "T"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter1
+        correctLetter3 = letter3 
+
+    elseif (randomQuestion == 6) then
+
+        letter1.text = "S"
+        letter2.text = "T"
+        letter3.text = "A"
+
+        correctLetter1 = letter1
+        correctLetter2 = letter3
+        correctLetter3 = letter2     
     end
     
     letter1PreviousX = X1
@@ -170,7 +200,6 @@ local function LetterPosion()
     letter3.y = Y1
 
 end
-
 
 
 local function CheckUserAnswerInput()
@@ -207,8 +236,7 @@ local function CheckUserAnswerInput()
         -- they got it wrong so lose a life
         lives = lives - 1
         livesText.text = "lives = " .. lives 
-        
-        
+
         if (lives == 0) then
             BackToLevel1Lose()
         else 
@@ -231,6 +259,7 @@ local function UpdateTime()
         lives = lives - 1
         --update it in the display object
         livesText.text = "lives = " .. lives
+
         if (lives == 0 ) then
             BackToLevel1Lose()
         end
@@ -663,7 +692,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        lives = 2
+        lives = 3
         points = 0
         StartTimer()
         AskQuestionLevel1()
