@@ -121,7 +121,7 @@ end
 
 local function DisplayQuestion()
     --creating random numbers
-    randomQuestion = math.random(1,6)
+    randomQuestion = math.random(1,8)
 
     -- reset the number of letters completed to 0
     numLettersCompleted = 0
@@ -190,7 +190,28 @@ local function DisplayQuestion()
 
         correctLetter1 = letter1
         correctLetter2 = letter3
-        correctLetter3 = letter2     
+        correctLetter3 = letter2   
+
+    elseif (randomQuestion == 7) then
+
+        letter1.text = "E"
+        letter2.text = "P"
+        letter3.text = "N"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter1
+        correctLetter3 = letter3
+
+    elseif (randomQuestion == 8) then
+
+        letter1.text = "U"
+        letter2.text = "T"
+        letter3.text = "B"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter1
+        correctLetter3 = letter2
+
     end
     
     letter1PreviousX = X1
