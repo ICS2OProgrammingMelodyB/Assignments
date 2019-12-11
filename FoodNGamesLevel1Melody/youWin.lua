@@ -107,7 +107,7 @@ function scene:create( event )
     sceneGroup:insert( bottomLeft )
 
     -- Insert the platforms
-    bottonMiddle1 = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
+    bottonMiddle1 = display.newImageRect("Images/CakeBottomMiddle1.png", 150, 150)
     bottonMiddle1.x = display.contentWidth * 1 / 10
     bottonMiddle1.y = display.contentHeight * 2 / 4
     bottonMiddle1.isVisible = true
@@ -115,7 +115,7 @@ function scene:create( event )
     sceneGroup:insert( bottonMiddle1 )
     
 
-    bottonMiddle2 = display.newImageRect("Images/BowlMelody@2x.png", 150, 150)
+    bottonMiddle2 = display.newImageRect("Images/CakeBottomMiddle2.png", 150, 150)
     bottonMiddle2.x = display.contentWidth * 1 / 10
     bottonMiddle2.y = display.contentHeight * 2 / 4
     bottonMiddle2.isVisible = true
@@ -123,7 +123,7 @@ function scene:create( event )
     sceneGroup:insert(bottonMiddle2)
 
     -- Insert the platforms
-    bottomRight = display.newImageRect("Images/BowlFilledMelody@2x.png", 150, 150)
+    bottomRight = display.newImageRect("Images/CakeBottomRight.png", 150, 150)
     bottomRight.x = display.contentWidth * 1 / 10
     bottomRight.y = display.contentHeight * 2 / 4
     bottomRight.isVisible = true
