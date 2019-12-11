@@ -42,6 +42,16 @@ local middleRight
 local topLeft
 local topRight
 
+local bottomLeftTouched = false
+local bottonMiddle1Touched = false
+local bottonMiddle2Touched = false
+local bottomRightTouched = false
+local middleleftTouched = false
+local middleMiddleTouched = false
+local middleRightTouched = false
+local topLeftTouched = false
+local topRightTouched = false
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -98,77 +108,81 @@ function scene:create( event )
 
     sceneGroup:insert( homeButton )
 
-    -- Insert the platforms
-    bottomLeft = display.newImageRect("Images/CakeBottomLeft.png", 300, 200)
-    bottomLeft.x = display.contentWidth *  7.75 / 10
-    bottomLeft.y = display.contentHeight * 8.5 / 10
-    bottomLeft.isVisible = true
-        
-    sceneGroup:insert( bottomLeft )
-
-    -- Insert the platforms
-    bottonMiddle1 = display.newImageRect("Images/CakeBottomMiddle1.png", 150, 150)
-    bottonMiddle1.x = display.contentWidth * 1 / 10
-    bottonMiddle1.y = display.contentHeight * 2 / 4
-    bottonMiddle1.isVisible = true
-        
-    sceneGroup:insert( bottonMiddle1 )
-    
-
-    bottonMiddle2 = display.newImageRect("Images/CakeBottomMiddle2.png", 150, 150)
-    bottonMiddle2.x = display.contentWidth * 1 / 10
-    bottonMiddle2.y = display.contentHeight * 2 / 4
-    bottonMiddle2.isVisible = true
-   
-    sceneGroup:insert(bottonMiddle2)
-
-    -- Insert the platforms
-    bottomRight = display.newImageRect("Images/CakeBottomRight.png", 150, 150)
-    bottomRight.x = display.contentWidth * 1 / 10
-    bottomRight.y = display.contentHeight * 2 / 4
-    bottomRight.isVisible = true
-        
-    sceneGroup:insert( bottomRight )
-
-    -- Insert the platforms
-    middleleft = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
-    middleleft.x = display.contentWidth * 3 / 10
-    middleleft.y = display.contentHeight * 2 / 4
-    middleleft.isVisible = true
-        
-    sceneGroup:insert( middleleft )
-
-    -- Insert the platforms
-    middleMiddle = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
-    middleMiddle.x = display.contentWidth * 2 / 10
-    middleMiddle.y = display.contentHeight * 2 / 4
-    middleMiddle.isVisible = true
-        
-    sceneGroup:insert( middleMiddle )
-
-    -- Insert the platforms
-    middleRight= display.newImageRect("Images/ButterMelody@2x.png", 100, 100)
-    middleRight.x = display.contentWidth * 6 / 10
-    middleRight.y = display.contentHeight * 2 / 4
-    middleRight.isVisible = true
-        
-    sceneGroup:insert( middleRight )
-
-    -- Insert the platforms
-    topLeft = display.newImageRect("Images/SugarMelody@2x.png", 100, 100)
-    topLeft.x = display.contentWidth * 7 / 10
-    topLeft.y = display.contentHeight * 2 / 4
+     -- Insert the platforms
+    topLeft = display.newImageRect("Images/CakeTopLeft.png", 100, 100)
+    topLeft.x = display.contentWidth * 4.20 / 10
+    topLeft.y = display.contentHeight * 7 / 10
     topLeft.isVisible = true
         
     sceneGroup:insert( topLeft)
 
     -- Insert the platforms
-    topRight = display.newImageRect("Images/MilkMelody@2x.png", 100, 100)
-    topRight.x = display.contentWidth * 5 / 10
-    topRight.y = display.contentHeight * 2 / 4
+    topRight = display.newImageRect("Images/CakeTopRight.png", 100, 100)
+    topRight.x = display.contentWidth * 4.25 / 10
+    topRight.y = display.contentHeight * 7 / 10
     topRight.isVisible = true
         
     sceneGroup:insert( topRight )
+
+    -- Insert the platforms
+    middleleft = display.newImageRect("Images/CakeMiddleLeft.png", 100, 100)
+    middleleft.x = display.contentWidth * 4.6 / 10
+    middleleft.y = display.contentHeight * 8 / 10
+    middleleft.isVisible = true
+        
+    sceneGroup:insert( middleleft )
+
+    -- Insert the platforms
+    middleMiddle = display.newImageRect("Images/CakeMiddleMiddle.png", 100, 100)
+    middleMiddle.x = display.contentWidth * 4 / 10
+    middleMiddle.y = display.contentHeight * 8 / 10
+    middleMiddle.isVisible = true
+        
+    sceneGroup:insert( middleMiddle )
+
+    -- Insert the platforms
+    middleRight= display.newImageRect("Images/CakeMiddleRight.png", 100, 100)
+    middleRight.x = display.contentWidth * 3.85 / 10
+    middleRight.y = display.contentHeight * 8 / 10
+    middleRight.isVisible = true
+        
+    sceneGroup:insert( middleRight )
+
+
+    -- Insert the platforms
+    bottomLeft = display.newImageRect("Images/CakeBottomLeft.png", 100, 100)
+    bottomLeft.x = display.contentWidth *  5 / 10
+    bottomLeft.y = display.contentHeight * 9 / 10
+    bottomLeft.isVisible = true
+        
+    sceneGroup:insert( bottomLeft )
+
+    -- Insert the platforms
+    bottonMiddle1 = display.newImageRect("Images/CakeBottomMiddle1.png", 100, 100)
+    bottonMiddle1.x = display.contentWidth * 4 / 10
+    bottonMiddle1.y = display.contentHeight * 9 / 10
+    bottonMiddle1.isVisible = true
+        
+    sceneGroup:insert( bottonMiddle1 )
+    
+
+    bottonMiddle2 = display.newImageRect("Images/CakeBottomMiddle2.png", 100, 100)
+    bottonMiddle2.x = display.contentWidth * 4.5 / 10
+    bottonMiddle2.y = display.contentHeight * 9 / 10
+    bottonMiddle2.isVisible = true
+   
+    sceneGroup:insert(bottonMiddle2)
+
+    -- Insert the platforms
+    bottomRight = display.newImageRect("Images/CakeBottomRight.png", 100, 100)
+    bottomRight.x = display.contentWidth * 3.5 / 10
+    bottomRight.y = display.contentHeight * 9 / 10
+    bottomRight.isVisible = true
+        
+    sceneGroup:insert( bottomRight )
+
+   
+   
 
 end
 
@@ -199,6 +213,14 @@ function scene:show( event )
         local Win = audio.loadSound("Sounds/yabbadabbalaugh.wav")
         local WinChannel
         WinChannel = audio.play( Win )
+
+        if(bottomLeftTouched == true) then
+            bottomLeft.isVisible = false
+        elseif(bottonMiddle1Touched == true) then
+            bottonMiddle1.isVisible = false
+        elseif(bottonMiddle2Touched == true) then
+            bottonMiddle2.isVisible = false
+        end
     end
 
 end -- function scene:show( event )
