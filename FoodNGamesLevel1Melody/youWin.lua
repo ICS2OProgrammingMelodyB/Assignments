@@ -210,7 +210,7 @@ function scene:show( event )
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
         -- Example: start timers, begin animation, play audio, etc.
-        local Win = audio.loadSound("Sounds/yabbadabbalaugh.wav")
+        --[[local Win = audio.loadSound("Sounds/yabbadabbalaugh.wav")
         local WinChannel
         WinChannel = audio.play( Win )
 
@@ -220,7 +220,7 @@ function scene:show( event )
             bottonMiddle1.isVisible = false
         elseif(bottonMiddle2Touched == true) then
             bottonMiddle2.isVisible = false
-        end
+        end--]]
     end
 
 end -- function scene:show( event )
@@ -243,7 +243,7 @@ function scene:hide( event )
         -- Called when the scene is on screen (but is about to go off screen).
         -- Insert code here to "pause" the scene.
         -- Example: stop timers, stop animation, stop audio, etc.
-        gameOverChannel = audio.stop( win )
+        --gameOverChannel = audio.stop( win )
 
     -----------------------------------------------------------------------------------------
 
