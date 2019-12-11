@@ -35,6 +35,8 @@ local scene = composer.newScene( sceneName )
 local randomQuestion
 
 local questionText
+local correctObject
+local inCorrectObject
 
 local letter1
 local letter2
@@ -88,6 +90,14 @@ local Y1 = display.contentHeight*1/3
 local Y2 = display.contentHeight*2/3
 
 local textTouched = false
+
+--------------------------------------------------------------------------------------
+-- SOUNDS
+--------------------------------------------------------------------------------------
+local wrongSound = audio.loadSound("Sounds/youLose.mp3")
+local wrongSoundChannel
+local rightSound = audio.loadSound("Sounds/Cheer.m4a")
+local rightSoundChannel
 
 -----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
@@ -201,6 +211,12 @@ local function LetterPosion()
 
 end
 
+local function HideCorrectObject()
+    -- body
+    correctObject.isVisible = false
+    inCorrectObject.isVisible = false
+end
+
 
 local function CheckUserAnswerInput()
 
@@ -220,6 +236,8 @@ local function CheckUserAnswerInput()
         -- They got it right
         points = points + 1
         pointsText.text = "Points = " .. points
+        correctObject.isVisible = true
+        timer.performWithDelay(700, HideCorrectObject)
         
        
         if (points == 5)then
@@ -236,6 +254,9 @@ local function CheckUserAnswerInput()
         -- they got it wrong so lose a life
         lives = lives - 1
         livesText.text = "lives = " .. lives 
+        inCorrectObject.isVisible = true
+        inCorrectObject.text = ("Sorry, the right answer is "..correctLetter1.text..correctLetter2.text..correctLetter3.text)
+        timer.performWithDelay(700, HideCorrectObject)
 
         if (lives == 0) then
             BackToLevel1Lose()
@@ -257,6 +278,8 @@ local function UpdateTime()
         --reset the number of seconds left
         secondsLeft = totalSeconds
         lives = lives - 1
+        inCorrectObject.isVisible = true
+        timer.performWithDelay(700, HideCorrectObject)
         --update it in the display object
         livesText.text = "lives = " .. lives
 
@@ -620,6 +643,11 @@ function scene:create( event )
 
     -- create the question text object
     questionText = display.newText("Drag the letters into the\nboxes to make a word.", display.contentCenterX, display.contentCenterY*3/8, Arial, 50)
+    correctObject = display.newText("Correct!!:)",display.contentCenterX, display.contentCenterY*7/8, Arial, 50)
+    correctObject.isVisible = false
+
+    inCorrectObject = display.newText("", display.contentCenterX, display.contentCenterY*7/8, Arial, 50)
+    inCorrectObject.isVisible = false
 
     -- create the answer text object & wrong answer text objects
     letter1 = display.newText("", X1, Y1, Arial, 100)
@@ -670,6 +698,10 @@ function scene:create( event )
     sceneGroup:insert(livesText)
     sceneGroup:insert(pointsText)
     sceneGroup:insert(clockText)
+    sceneGroup:insert(correctObject)
+    sceneGroup:insert(inCorrectObject)
+
+
 
 
 end --function scene:create( event 150
