@@ -38,6 +38,7 @@ local questionText
 local correctObject
 local inCorrectObject
 
+
 local letter1
 local letter2
 local letter3
@@ -94,9 +95,9 @@ local textTouched = false
 --------------------------------------------------------------------------------------
 -- SOUNDS
 --------------------------------------------------------------------------------------
-local wrongSound = audio.loadSound("Sounds/youLose.mp3")
+local wrongSound = audio.loadSound("Sounds/wrongSound.mp3")
 local wrongSoundChannel
-local rightSound = audio.loadSound("Sounds/Cheer.m4a")
+local rightSound = audio.loadSound("Sounds/correctSound.mp3")
 local rightSoundChannel
 
 -----------------------------------------------------------------------------------------
@@ -236,6 +237,7 @@ local function CheckUserAnswerInput()
         -- They got it right
         points = points + 1
         pointsText.text = "Points = " .. points
+        audio.play( rightSoundChannel)
         correctObject.isVisible = true
         timer.performWithDelay(700, HideCorrectObject)
         
@@ -254,6 +256,7 @@ local function CheckUserAnswerInput()
         -- they got it wrong so lose a life
         lives = lives - 1
         livesText.text = "lives = " .. lives 
+        audio.play( wrongSoundChannel )
         inCorrectObject.isVisible = true
         inCorrectObject.text = ("Sorry, the right answer is "..correctLetter1.text..correctLetter2.text..correctLetter3.text)
         timer.performWithDelay(700, HideCorrectObject)
@@ -278,10 +281,12 @@ local function UpdateTime()
         --reset the number of seconds left
         secondsLeft = totalSeconds
         lives = lives - 1
+        livesText.text = "lives = " .. lives
+        audio.play( wrongSoundChannel )
         inCorrectObject.isVisible = true
         timer.performWithDelay(700, HideCorrectObject)
         --update it in the display object
-        livesText.text = "lives = " .. lives
+        
 
         if (lives == 0 ) then
             BackToLevel1Lose()

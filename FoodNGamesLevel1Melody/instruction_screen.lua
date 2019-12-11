@@ -41,7 +41,7 @@ local backButton
 
 -- INSERT LOCAL FUNCTION DEFINITION THAT GOES TO BACK SCREEN 
 local function BackTransition( )
-    composer.gotoScene( "bake_screen", {effect = "slideDown", time = 500})
+    composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
 end 
 
 -----------------------------------------------------------------------------------------

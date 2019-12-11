@@ -300,7 +300,7 @@ function scene:create( event )
     sceneGroup:insert( level3Button )
     sceneGroup:insert( level4Button )
     sceneGroup:insert( instructionButton )
-        sceneGroup:insert( level1Button )
+    sceneGroup:insert( level1Button )
     sceneGroup:insert( level2Button )
     sceneGroup:insert( instructionbakingButton )
    
