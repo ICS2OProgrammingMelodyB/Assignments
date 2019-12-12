@@ -54,6 +54,13 @@ local middleRightTouched = false
 local topLeftTouched = false
 local topRightTouched = false
 
+------------------------------------------------------------------------------------------
+-- LOCAL SOUND
+------------------------------------------------------------------------------------------
+local Win = audio.loadSound("Sounds/youWinSound.mp3")
+local WinChannel
+
+
 ----------------------------------------------------------------------------------------
 --LOCAL FUNCTIONS
 ----------------------------------------------------------------------------------------
@@ -300,6 +307,7 @@ function scene:create( event )
     instructionText:setFillColor(0,0,0)
     sceneGroup:insert( instructionText )
 
+    
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
     -----------------------------------------------------------------------------------------   
@@ -424,10 +432,8 @@ function scene:show( event )
     elseif ( phase == "did" ) then
         -- Called when the scene is now on screen.
         -- Insert code here to make the scene come alive.
-        -- Example: start timers, begin animation, play audio, etc.
-        --[[local Win = audio.loadSound("Sounds/yabbadabbalaugh.wav")
-        local WinChannel
-        WinChannel = audio.play( Win )--]]
+        -- Example: start timers, begin animation, play audio, etc
+        WinChannel = audio.play( Win )
         AddTextListeners ( )
     end
 
@@ -457,6 +463,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        audio.stop( WinChannel )
         RemoveTextListeners()
     end
 
