@@ -258,7 +258,7 @@ local function CheckUserAnswerInput()
         -- They got it right
         points = points + 1
         pointsText.text = "Points = " .. points
-        audio.play( rightSoundChannel)
+        rightSoundChannel = audio.play( rightSound )
         correctObject.isVisible = true
         timer.performWithDelay(700, HideCorrectObject)
         
@@ -277,7 +277,7 @@ local function CheckUserAnswerInput()
         -- they got it wrong so lose a life
         lives = lives - 1
         livesText.text = "lives = " .. lives 
-        audio.play( wrongSoundChannel )
+        wrongSoundChannel = audio.play( wrongSound )
         inCorrectObject.isVisible = true
         inCorrectObject.text = ("Sorry, the right answer is "..correctLetter1.text..correctLetter2.text..correctLetter3.text)
         timer.performWithDelay(700, HideCorrectObject)

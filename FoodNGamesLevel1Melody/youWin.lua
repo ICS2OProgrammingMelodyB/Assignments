@@ -30,11 +30,13 @@ local scene = composer.newScene( sceneName ) -- This function doesn't accept a s
 -- LOCAL VARIABLES
 -----------------------------------------------------------------------------------------
 
+local instructionText
+
 local homeButton
 local bkg_image
 local bottomLeft
-local bottonMiddle1
-local bottonMiddle2
+local bottomMiddle1
+local bottomMiddle2
 local bottomRight
 local middleleft
 local middleMiddle
@@ -43,8 +45,8 @@ local topLeft
 local topRight
 
 local bottomLeftTouched = false
-local bottonMiddle1Touched = false
-local bottonMiddle2Touched = false
+local bottomMiddle1Touched = false
+local bottomMiddle2Touched = false
 local bottomRightTouched = false
 local middleleftTouched = false
 local middleMiddleTouched = false
@@ -59,6 +61,214 @@ local topRightTouched = false
 local function HomeTransition( )
     composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
 end 
+
+local function BottomLeftTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomMiddle1Touched == false) and 
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (middleMiddleTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleRightTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            bottomLeftTouched = true
+            bottomLeft.isVisible = false
+            bottomLeftTouched = false
+        end
+    end
+end
+
+local function BottomMiddle1Touched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (middleMiddleTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleRightTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            bottomMiddle1Touched = true
+            bottomMiddle1.isVisible = false
+            bottomMiddle1Touched = false
+        end
+    end
+end
+
+local function BottomMiddle2Touched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (middleMiddleTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleRightTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            bottomMiddle2Touched = true
+            bottomMiddle2.isVisible = false
+            bottomMiddle2Touched = false
+        end
+    end
+end
+
+local function BottomRightTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomMiddle2Touched == false) and
+        (middleleftTouched == false) and
+        (middleMiddleTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleRightTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            bottomRightTouched = true
+            bottomRight.isVisible = false
+            bottomRightTouched = false
+        end
+    end
+end
+
+local function MiddleLeftTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleMiddleTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleRightTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            middleleftTouched = true
+            middleleft.isVisible = false
+            middleleftTouched = false
+        end
+    end
+end
+
+local function MiddleMiddleTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleRightTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            middleMiddleTouched = true
+            middleMiddle.isVisible = false
+            middleMiddleTouched = false
+        end
+    end
+end
+
+local function MiddleRightTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (topLeftTouched == false) and
+        (topRightTouched == false) and
+        (middleMiddleTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            middleRightTouched = true
+            middleRight.isVisible = false
+            middleRightTouched = false
+        end
+    end
+end
+
+local function TopLeftTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (middleRightTouched == false) and
+        (topRightTouched == false) and
+        (middleMiddleTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            topLeftTouched = true
+            topLeft.isVisible = false
+            topLeftTouched = false
+        end
+    end
+end
+
+local function TopRightTouched(touch)
+    --only work if none of the other boxes have been touched
+    if (bottomLeftTouched == false) and 
+        (bottomMiddle1Touched == false) and
+        (bottomMiddle2Touched == false) and
+        (bottomRightTouched == false) and
+        (middleleftTouched == false) and
+        (middleRightTouched == false) and
+        (topLeftTouched == false) and
+        (middleMiddleTouched == false) then
+
+        -- this occurs when they release the mouse
+        if (touch.phase == "ended") then
+            topRightTouched = true
+            topRight.isVisible = false
+            topRightTouched = false
+        end
+    end
+end
+
+
+--adding the event listeners 
+local function AddTextListeners ( )
+    bottomMiddle1:addEventListener( "touch", BottomMiddle1Touched )
+    bottomLeft:addEventListener( "touch", BottomLeftTouched)
+    bottomMiddle2:addEventListener( "touch", BottomMiddle2Touched )
+    bottomRight:addEventListener( "touch", BottomRightTouched )
+    middleleft:addEventListener( "touch", MiddleLeftTouched )
+    middleMiddle:addEventListener( "touch", MiddleMiddleTouched )
+    middleRight:addEventListener( "touch", MiddleRightTouched )
+    topLeft:addEventListener( "touch", TopLeftTouched )
+    topRight:addEventListener( "touch", TopRightTouched )
+end
+
+--removing the event listeners
+local function RemoveTextListeners()
+    bottomMiddle1:removeEventListener( "touch", BottomMiddle1Touched )
+    bottomLeft:removeEventListener( "touch", BottomLeftTouched)
+    bottomMiddle2:removeEventListener( "touch", BottomMiddle2Touched )
+    bottomRight:removeEventListener( "touch", BottomRightTouched )
+    middleleft:removeEventListener( "touch", MiddleLeftTouched )
+    middleMiddle:removeEventListener( "touch", MiddleMiddleTouched )
+    middleRight:removeEventListener( "touch", MiddleRightTouched )
+    topLeft:removeEventListener( "touch", TopLeftTouched )
+    topRight:removeEventListener( "touch", TopRightTouched )
+end
+
 
 -----------------------------------------------------------------------------------------
 -- DISPLAY OBJECTS
@@ -84,6 +294,11 @@ function scene:create( event )
 
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg_image )
+
+    -- create the question text object
+    instructionText = display.newText("Start eating from\nthe top please.", display.contentWidth*3/4, display.contentHeight*8/10, Arial, 50)
+    instructionText:setFillColor(0,0,0)
+    sceneGroup:insert( instructionText )
 
     -----------------------------------------------------------------------------------------
     -- BUTTON WIDGETS
@@ -158,20 +373,20 @@ function scene:create( event )
     sceneGroup:insert( bottomLeft )
 
     -- Insert the platforms
-    bottonMiddle1 = display.newImageRect("Images/CakeBottomMiddle1.png", 100, 100)
-    bottonMiddle1.x = display.contentWidth * 4 / 10
-    bottonMiddle1.y = display.contentHeight * 9 / 10
-    bottonMiddle1.isVisible = true
+    bottomMiddle1 = display.newImageRect("Images/CakeBottomMiddle1.png", 100, 100)
+    bottomMiddle1.x = display.contentWidth * 4 / 10
+    bottomMiddle1.y = display.contentHeight * 9 / 10
+    bottomMiddle1.isVisible = true
         
-    sceneGroup:insert( bottonMiddle1 )
+    sceneGroup:insert( bottomMiddle1 )
     
 
-    bottonMiddle2 = display.newImageRect("Images/CakeBottomMiddle2.png", 100, 100)
-    bottonMiddle2.x = display.contentWidth * 4.5 / 10
-    bottonMiddle2.y = display.contentHeight * 9 / 10
-    bottonMiddle2.isVisible = true
+    bottomMiddle2 = display.newImageRect("Images/CakeBottomMiddle2.png", 100, 100)
+    bottomMiddle2.x = display.contentWidth * 4.5 / 10
+    bottomMiddle2.y = display.contentHeight * 9 / 10
+    bottomMiddle2.isVisible = true
    
-    sceneGroup:insert(bottonMiddle2)
+    sceneGroup:insert(bottomMiddle2)
 
     -- Insert the platforms
     bottomRight = display.newImageRect("Images/CakeBottomRight.png", 100, 100)
@@ -212,15 +427,8 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc.
         --[[local Win = audio.loadSound("Sounds/yabbadabbalaugh.wav")
         local WinChannel
-        WinChannel = audio.play( Win )
-
-        if(bottomLeftTouched == true) then
-            bottomLeft.isVisible = false
-        elseif(bottonMiddle1Touched == true) then
-            bottonMiddle1.isVisible = false
-        elseif(bottonMiddle2Touched == true) then
-            bottonMiddle2.isVisible = false
-        end--]]
+        WinChannel = audio.play( Win )--]]
+        AddTextListeners ( )
     end
 
 end -- function scene:show( event )
@@ -249,6 +457,7 @@ function scene:hide( event )
 
     elseif ( phase == "did" ) then
         -- Called immediately after scene goes off screen.
+        RemoveTextListeners()
     end
 
 end --function scene:hide( event )
