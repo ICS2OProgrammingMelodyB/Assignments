@@ -121,7 +121,7 @@ end
 
 local function DisplayQuestion()
     --creating random numbers
-    randomQuestion = math.random(1,8)
+    randomQuestion = math.random(1,20)
 
     -- reset the number of letters completed to 0
     numLettersCompleted = 0
@@ -204,9 +204,129 @@ local function DisplayQuestion()
 
     elseif (randomQuestion == 8) then
 
-        letter1.text = "U"
-        letter2.text = "T"
-        letter3.text = "B"
+        letter1.text = "I"
+        letter2.text = "M"
+        letter3.text = "A"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter1
+        correctLetter3 = letter2
+
+    elseif (randomQuestion == 9) then
+
+        letter1.text = "Y"
+        letter2.text = "M"
+        letter3.text = "A"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter3
+        correctLetter3 = letter1
+
+    elseif (randomQuestion == 10) then
+
+        letter1.text = "Y"
+        letter2.text = "U"
+        letter3.text = "O"
+
+        correctLetter1 = letter1
+        correctLetter2 = letter3
+        correctLetter3 = letter2
+
+    elseif (randomQuestion == 11) then
+
+        letter1.text = "N"
+        letter2.text = "E"
+        letter3.text = "H"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter2
+        correctLetter3 = letter1
+
+    elseif (randomQuestion == 12) then
+
+        letter1.text = "H"
+        letter2.text = "E"
+        letter3.text = "T"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter1
+        correctLetter3 = letter2
+
+    elseif (randomQuestion == 13) then
+
+        letter1.text = "E"
+        letter2.text = "K"
+        letter3.text = "Y"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter1
+        correctLetter3 = letter3
+
+    elseif (randomQuestion == 14) then
+
+        letter1.text = "Y"
+        letter2.text = "A"
+        letter3.text = "R"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter2
+        correctLetter3 = letter1
+
+    elseif (randomQuestion == 15) then
+
+        letter1.text = "Y"
+        letter2.text = "D"
+        letter3.text = "A"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter3
+        correctLetter3 = letter1
+
+    elseif (randomQuestion == 16) then
+
+        letter1.text = "I"
+        letter2.text = "D"
+        letter3.text = "A"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter1
+        correctLetter3 = letter2
+
+    elseif (randomQuestion == 17) then
+
+        letter1.text = "N"
+        letter2.text = "S"
+        letter3.text = "U"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter3
+        correctLetter3 = letter1
+
+    elseif (randomQuestion == 18) then
+
+        letter1.text = "E"
+        letter2.text = "S"
+        letter3.text = "A"
+
+        correctLetter1 = letter2
+        correctLetter2 = letter1
+        correctLetter3 = letter3
+
+    elseif (randomQuestion == 19) then
+
+        letter1.text = "I"
+        letter2.text = "D"
+        letter3.text = "K"
+
+        correctLetter1 = letter3
+        correctLetter2 = letter1
+        correctLetter3 = letter2
+
+    elseif (randomQuestion == 20) then
+
+        letter1.text = "I"
+        letter2.text = "S"
+        letter3.text = "H"
 
         correctLetter1 = letter3
         correctLetter2 = letter1
