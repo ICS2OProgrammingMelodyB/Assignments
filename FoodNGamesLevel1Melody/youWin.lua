@@ -69,6 +69,40 @@ local function HomeTransition( )
     composer.gotoScene( "mainmenu", {effect = "slideDown", time = 500})
 end 
 
+local function MakeCakeVisible()
+    -- makes all the ingredients visible
+    bottomLeft.isVisible = true
+    bottomMiddle1.isVisible = true
+    bottomMiddle2.isVisible = true
+    bottomRight.isVisible = true
+    middleleft.isVisible = true
+    middleMiddle.isVisible = true
+    middleRight.isVisible = true
+    topLeft.isVisible = true
+    topRight.isVisible = true
+end
+
+local function CakePosition()
+    topLeft.x = display.contentWidth * 4.20 / 10
+    topLeft.y = display.contentHeight * 7 / 10
+    topRight.x = display.contentWidth * 4.25 / 10
+    topRight.y = display.contentHeight * 7 / 10
+    middleleft.x = display.contentWidth * 4.6 / 10
+    middleleft.y = display.contentHeight * 8 / 10
+    middleMiddle.x = display.contentWidth * 4 / 10
+    middleMiddle.y = display.contentHeight * 8 / 10
+    middleRight.x = display.contentWidth * 3.85 / 10
+    middleRight.y = display.contentHeight * 8 / 10
+    bottomLeft.x = display.contentWidth *  5 / 10
+    bottomLeft.y = display.contentHeight * 9 / 10
+    bottomMiddle1.x = display.contentWidth * 4 / 10
+    bottomMiddle1.y = display.contentHeight * 9 / 10
+    bottomMiddle2.x = display.contentWidth * 4.5 / 10
+    bottomMiddle2.y = display.contentHeight * 9 / 10
+    bottomRight.x = display.contentWidth * 3.5 / 10
+    bottomRight.y = display.contentHeight * 9 / 10
+end
+
 local function BottomLeftTouched(touch)
     --only work if none of the other boxes have been touched
     if (bottomMiddle1Touched == false) and 
@@ -435,6 +469,9 @@ function scene:show( event )
         -- Example: start timers, begin animation, play audio, etc
         WinChannel = audio.play( Win )
         AddTextListeners ( )
+        MakeCakeVisible()
+        CakePosition()
+
     end
 
 end -- function scene:show( event )
