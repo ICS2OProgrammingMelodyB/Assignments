@@ -1,6 +1,6 @@
 -----------------------------------------------------------------------------------------
 --
--- play_screen.lua
+-- levle1_screen.lua
 -- Created by: Melody Berhane
 -- Date: Nov 14, 2019
 -- Description: This is the main menu, displaying the credits, instructions & play buttons.

@@ -20,7 +20,7 @@ local physics = require( "physics")
 -----------------------------------------------------------------------------------------
 
 -- Naming Scene
-sceneName = "level1_question"
+sceneName = "level2_question"
 
 -----------------------------------------------------------------------------------------
 
@@ -42,14 +42,17 @@ local inCorrectObject
 local letter1
 local letter2
 local letter3
+local letter4
 
 local correctLetter1 
 local correctLetter2 
 local correctLetter3 
+local correctLetter4
 
 local userLetter1
 local userLetter2
 local userLetter3
+local userLetter4
 
 local numLettersCompleted = 0
 local points = 0
@@ -63,30 +66,36 @@ local secondsLeft = 15
 local letter1Touched = false
 local letter2Touched = false
 local letter3Touched = false
+local letter4Touched = false
 
 local letter1PreviousX
 local letter2PreviousX
 local letter3PreviousX
+local letter4PreviousX
 
 local letter1PreviousY
 local letter2PreviousY
 local letter3PreviousY
+local letter4PreviousY
 
 local placeholderL1
 local placeholderL2
 local placeholderL3
+local placeholderL4
 
 local placeholderL1Filled = false
 local placeholderL2Filled = false
 local placeholderL3Filled = false
+local placeholderL4Filled = false
 
 local answerPosition = 1
 local bkg
 local cover
 
-local X1 = display.contentWidth*2/7
-local X2 = display.contentWidth/2
-local X3 = display.contentWidth*5/7
+local X1 = display.contentWidth*2/10
+local X2 = display.contentWidth*4/10
+local X3 = display.contentWidth*6/10
+local X4 = display.contentWidth*8/10
 local Y1 = display.contentHeight*1/3
 local Y2 = display.contentHeight*2/3
 
@@ -105,23 +114,23 @@ local rightSoundChannel
 -----------------------------------------------------------------------------------------
 
 --making transition to next scene
-local function BackToLevel1Win() 
+local function BackToLevel2Win() 
     composer.hideOverlay("crossFade", 400 )
-    print ("***Calling ResumeLevel1Win")
+    print ("***Calling ResumeLeve21Win")
   
-    ResumeLevel1Win()
+    ResumeLevel2Win()
 end 
 
-local function BackToLevel1Lose() 
+local function BackToLevel2Lose() 
     composer.hideOverlay("crossFade", 400 )
-    print ("***Calling ResumeLevel1Lose")
-    ResumeLevel1Lose()
+    print ("***Calling ResumeLevel2Lose")
+    ResumeLevel2Lose()
 end 
 
 
 local function DisplayQuestion()
     --creating random numbers
-    randomQuestion = math.random(1,20)
+    randomQuestion = math.random(1,1)
 
     -- reset the number of letters completed to 0
     numLettersCompleted = 0
@@ -130,17 +139,20 @@ local function DisplayQuestion()
     placeholderL1Filled = false
     placeholderL2Filled = false
     placeholderL3Filled = false
+    placeholderL4Filled = false
 
     -- display a new random question
     if (randomQuestion == 1) then
 
-        letter1.text = "A"
-        letter2.text = "T"
-        letter3.text = "F"
+        letter1.text = "L"
+        letter2.text = "Y"
+        letter3.text = "U"
+        letter4.text = "J"
 
-        correctLetter1 = letter3
-        correctLetter2 = letter1
-        correctLetter3 = letter2
+        correctLetter1 = letter4
+        correctLetter2 = letter3
+        correctLetter3 = letter1
+        correctLetter4 = letter2
 
     elseif (randomQuestion == 2) then
 
@@ -340,6 +352,8 @@ local function DisplayQuestion()
     letter2PreviousY = Y1
     letter3PreviousX = X3
     letter3PreviousY = Y1
+    letter4PreviousX = X4
+    letter4PreviousY = Y1
 
 end
 
@@ -350,6 +364,8 @@ local function LetterPosion()
     letter2.y = Y1
     letter3.x = X3
     letter3.y = Y1
+    letter4.x = X4
+    letter4.y = Y1
 
 end
 
@@ -373,7 +389,8 @@ local function CheckUserAnswerInput()
     -- compare the text part of the user answer to the correct answer
     if (userLetter1.text == correctLetter1.text) and
         (userLetter2.text == correctLetter2.text) and
-        (userLetter3.text == correctLetter3.text) then
+        (userLetter3.text == correctLetter3.text) and
+        (userLetter4.text == correctLetter4.text) then
         print ("****correct")
         -- They got it right
         points = points + 1
@@ -384,12 +401,12 @@ local function CheckUserAnswerInput()
         
        
         if (points == 5)then
-            BackToLevel1Win()
+            BackToLevel2Win()
         else
             -- reset the total seconds
             secondsLeft = totalSeconds 
             -- ask another question
-            AskQuestionLevel1()
+            AskQuestionLevel2()
         end
     
     -- otherwise they did not match up the letters correctly
@@ -399,14 +416,14 @@ local function CheckUserAnswerInput()
         livesText.text = "lives = " .. lives 
         wrongSoundChannel = audio.play( wrongSound )
         inCorrectObject.isVisible = true
-        inCorrectObject.text = ("Sorry, the right answer is "..correctLetter1.text..correctLetter2.text..correctLetter3.text)
+        inCorrectObject.text = ("Sorry, the right answer is "..correctLetter1.text..correctLetter2.text..correctLetter3.text..correctLetter4.text)
         timer.performWithDelay(700, HideCorrectObject)
 
         if (lives == 0) then
-            BackToLevel1Lose()
+            BackToLevel2Lose()
         else 
             secondsLeft = totalSeconds
-            AskQuestionLevel1()
+            AskQuestionLevel2()
         end
     end
 end
@@ -430,7 +447,7 @@ local function UpdateTime()
         
 
         if (lives == 0 ) then
-            BackToLevel1Lose()
+            BackToLevel2Lose()
         end
     end
 end
@@ -444,7 +461,7 @@ end
 local function TouchListenerLetter1(touch)
     print ("***TouchListenerLetter1 was called")
     --only work if none of the other boxes have been touched
-   if (letter2Touched == false) and (letter3Touched == false) then
+   if (letter2Touched == false) and (letter3Touched == false) and (letter4Touched == false) then
 
         if (touch.phase == "began") then
 
@@ -483,7 +500,7 @@ local function TouchListenerLetter1(touch)
                 -- remove the event listener so that the user can't move the letter
                 letter1:removeEventListener( "touch", TouchListenerLetter1 )
                 print ("***TouchListenerLetter1: placeholderL1Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                 end
 
@@ -505,7 +522,7 @@ local function TouchListenerLetter1(touch)
                 userLetter2 = letter1
                 letter1:removeEventListener( "touch", TouchListenerLetter1 )
                 
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                 end
 
@@ -524,9 +541,29 @@ local function TouchListenerLetter1(touch)
                 userLetter3 = letter1
                 letter1:removeEventListener( "touch", TouchListenerLetter1 )
                 print ("***TouchListenerLetter1: placeholderL3Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                 end
+
+            --else make box go back to where it was
+            elseif (((placeholderL4.x - placeholderL4.width/2) < letter1.x ) and
+                ((placeholderL4.x + placeholderL4.width/2) > letter1.x ) and 
+                ((placeholderL4.y - placeholderL4.height/2) < letter1.y ) and 
+                ((placeholderL4.y + placeholderL4.height/2) > letter1.y ) and 
+                (placeholderL4Filled == false) ) then
+
+                -- setting the position of the number to be in the center of the box
+                letter1.x = placeholderL4.x
+                letter1.y = placeholderL4.y
+                placeholderL4Filled = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter4 = letter1
+                letter1:removeEventListener( "touch", TouchListenerLetter1 )
+                print ("***TouchListenerLetter1: placeholderL3Filled is true")
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+                end
+
 
             --else make box go back to where it was
             else
@@ -544,7 +581,7 @@ end
 local function TouchListenerLetter2(touch)
     print ("***TouchListenerLetter2 was called")
 --only work if none of the other boxes have been touched
-    if (letter1Touched == false) and (letter3Touched == false) then
+    if (letter1Touched == false) and (letter3Touched == false) and (letter4Touched == false) then
 
         if (touch.phase == "began") then
 
@@ -577,7 +614,7 @@ local function TouchListenerLetter2(touch)
                 userLetter1 = letter2
                 letter2:removeEventListener( "touch", TouchListenerLetter2 )
                 print ("***TouchListenerLetter2: placeholderL1Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                 end
 
@@ -596,7 +633,7 @@ local function TouchListenerLetter2(touch)
                 userLetter2 = letter2
                 letter2:removeEventListener( "touch", TouchListenerLetter2 )
                 print ("***TouchListenerLetter2: placeholderL2Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                 end
 
@@ -616,9 +653,30 @@ local function TouchListenerLetter2(touch)
                 userLetter3 = letter2            
                 letter2:removeEventListener( "touch", TouchListenerLetter2 )
                 print ("***TouchListenerLetter2: placeholderL3Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                 end
+
+            --else make box go back to where it was
+            elseif (((placeholderL4.x - placeholderL4.width/2) < letter2.x ) and
+                ((placeholderL4.x + placeholderL4.width/2) > letter2.x ) and 
+                ((placeholderL4.y - placeholderL4.height/2) < letter2.y ) and 
+                ((placeholderL4.y + placeholderL4.height/2) > letter2.y ) and 
+                (placeholderL4Filled == false) ) then
+                
+
+                -- setting the position of the number to be in the center of the box
+                letter2.x = placeholderL4.x
+                letter2.y = placeholderL4.y
+                placeholderL4Filled = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter4 = letter2            
+                letter2:removeEventListener( "touch", TouchListenerLetter2 )
+                print ("***TouchListenerLetter2: placeholderL3Filled is true")
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+                end
+
 
             --else make box go back to where it was
             else
@@ -636,7 +694,7 @@ end
 local function TouchListenerLetter3(touch)
     print ("***TouchListenerLetter3 was called")
   --only work if none of the other boxes have been touched
-    if (letter1Touched == false) and (letter2Touched == false) then
+    if (letter1Touched == false) and (letter2Touched == false) and (letter4Touched == false) then
 
         if (touch.phase == "began") then
 
@@ -673,7 +731,7 @@ local function TouchListenerLetter3(touch)
                 letter3:removeEventListener( "touch", TouchListenerLetter3 )
                 print ("***TouchListenerLetter3: placeholderL1Filled is true")
                 
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                     
                 end
@@ -695,7 +753,7 @@ local function TouchListenerLetter3(touch)
                 userLetter2 = letter3
                 letter3:removeEventListener( "touch", TouchListenerLetter3 )
                 print ("***TouchListenerLetter3: placeholderL2Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
        
                 end
@@ -718,7 +776,28 @@ local function TouchListenerLetter3(touch)
                 userLetter3 = letter3
                 letter3:removeEventListener( "touch", TouchListenerLetter3 )
                 print ("***TouchListenerLetter3: placeholderL3Filled is true")
-                if (numLettersCompleted == 3) then
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+                    
+                end
+
+            --else make box go back to where it was
+            elseif (((placeholderL4.x - placeholderL4.width/2) < letter3.x ) and
+                ((placeholderL4.x + placeholderL4.width/2) > letter3.x ) and 
+                ((placeholderL4.y - placeholderL4.height/2) < letter3.y ) and 
+                ((placeholderL4.y + placeholderL4.height/2) > letter3.y ) and 
+                (placeholderL4Filled == false) ) then
+                
+
+                -- setting the position of the number to be in the center of the box
+                letter3.x = placeholderL4.x
+                letter3.y = placeholderL4.y
+                placeholderL4Filled = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter4 = letter3
+                letter3:removeEventListener( "touch", TouchListenerLetter3 )
+                print ("***TouchListenerLetter3: placeholderL3Filled is true")
+                if (numLettersCompleted == 4) then
                     CheckUserAnswerInput()
                     
                 end
@@ -737,6 +816,132 @@ local function TouchListenerLetter3(touch)
     end  
 end
 
+--checking to see if the user pressed the right answer and bring them back to level 1
+local function TouchListenerLetter4(touch)
+    print ("***TouchListenerLetter4 was called")
+  --only work if none of the other boxes have been touched
+    if (letter1Touched == false) and (letter2Touched == false) and (letter3Touched == false) then
+
+        if (touch.phase == "began") then
+
+            --let other boxes know it has been clicked
+            letter4Touched = true
+
+        --drag the answer to follow the mouse
+        elseif (touch.phase == "moved") then
+            
+            letter4.x = touch.x
+            letter4.y = touch.y
+        -- this occurs when they release the mouse
+        elseif (touch.phase == "ended") then
+
+            letter4Touched = false
+
+              -- allow  the letter to be dragged into any place holder 
+            if (((placeholderL1.x - placeholderL1.width/2) < letter4.x ) and
+                ((placeholderL1.x + placeholderL1.width/2) > letter4.x ) and 
+                ((placeholderL1.y - placeholderL1.height/2) < letter4.y ) and 
+                ((placeholderL1.y + placeholderL1.height/2) > letter4.y ) and 
+                (placeholderL1Filled == false)) then
+
+                -- setting the position of the number to be in the center of the box
+                letter4.x = placeholderL1.x
+                letter4.y = placeholderL1.y
+
+                placeholderL1Filled = true
+                
+                numLettersCompleted = numLettersCompleted + 1
+                
+                userLetter1 = letter4
+                
+                letter4:removeEventListener( "touch", TouchListenerLetter4 )
+                print ("***TouchListenerLetter4: placeholderL1Filled is true")
+                
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+                    
+                end
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            elseif (((placeholderL2.x - placeholderL2.width/2) < letter4.x ) and
+                ((placeholderL2.x + placeholderL2.width/2) > letter4.x ) and 
+                ((placeholderL2.y - placeholderL2.height/2) < letter4.y ) and 
+                ((placeholderL2.y + placeholderL2.height/2) > letter4.y ) and 
+                (placeholderL2Filled == false)) then
+
+                -- setting the position of the number to be in the center of the box
+                letter4.x = placeholderL2.x
+                letter4.y = placeholderL2.y
+                placeholderL2Filled = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter2 = letter4
+                letter4:removeEventListener( "touch", TouchListenerLetter4 )
+                print ("***TouchListenerLetter4: placeholderL2Filled is true")
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+       
+                end
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            elseif (((placeholderL3.x - placeholderL3.width/2) < letter4.x ) and
+                ((placeholderL3.x + placeholderL3.width/2) > letter4.x ) and 
+                ((placeholderL3.y - placeholderL3.height/2) < letter4.y ) and 
+                ((placeholderL3.y + placeholderL3.height/2) > letter4.y ) and 
+                (placeholderL3Filled == false) ) then
+                
+
+                -- setting the position of the number to be in the center of the box
+                letter4.x = placeholderL3.x
+                letter4.y = placeholderL3.y
+                placeholderL3Filled = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter3 = letter4
+                letter4:removeEventListener( "touch", TouchListenerLetter4 )
+                print ("***TouchListenerLetter4: placeholderL4Filled is true")
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+                    
+                end
+
+            --else make box go back to where it was
+            elseif (((placeholderL4.x - placeholderL4.width/2) < letter4.x ) and
+                ((placeholderL4.x + placeholderL4.width/2) > letter4.x ) and 
+                ((placeholderL4.y - placeholderL4.height/2) < letter4.y ) and 
+                ((placeholderL4.y + placeholderL4.height/2) > letter4.y ) and 
+                (placeholderL4Filled == false) ) then
+                
+
+                -- setting the position of the number to be in the center of the box
+                letter4.x = placeholderL4.x
+                letter4.y = placeholderL4.y
+                placeholderL4Filled = true
+                numLettersCompleted = numLettersCompleted + 1
+                userLetter4 = letter4
+                letter4:removeEventListener( "touch", TouchListenerLetter4 )
+                print ("***TouchListenerLetter4: placeholderL4Filled is true")
+                if (numLettersCompleted == 4) then
+                    CheckUserAnswerInput()
+                    
+                end
+                -- call the function to check if the user's input is correct or not
+                --CheckUserAnswerInput()
+
+            --else make box go back to where it was
+            else
+                letter4.x = letter4PreviousX
+                letter4.y = letter4PreviousY
+                print ("***Moving letter 4 back to original position")
+
+            end
+        end
+        
+    end  
+end
+
 
 --adding the event listeners 
 local function AddTextListeners ( )
@@ -744,6 +949,7 @@ local function AddTextListeners ( )
     letter1:addEventListener( "touch", TouchListenerLetter1 )
     letter2:addEventListener( "touch", TouchListenerLetter2)
     letter3:addEventListener( "touch", TouchListenerLetter3)
+    letter4:addEventListener( "touch", TouchListenerLetter4)
 
 end
 
@@ -752,6 +958,7 @@ local function RemoveTextListeners()
     letter1:removeEventListener( "touch", TouchListenerLetter1 )
     letter2:removeEventListener( "touch", TouchListenerLetter2)
     letter3:removeEventListener( "touch", TouchListenerLetter3)
+    letter4:removeEventListener( "touch", TouchListenerLetter4)
 end
 
 
@@ -759,7 +966,7 @@ end
 -- GLOBAL FUNCTIONS
 -----------------------------------------------------------------------------------------
 
-function AskQuestionLevel1()
+function AskQuestionLevel2()
     DisplayQuestion()
     LetterPosion()
     AddTextListeners()
@@ -802,6 +1009,8 @@ function scene:create( event )
     letter2:setFillColor(0,0,0)
     letter3 = display.newText("", X3, Y1, Arial, 100)
     letter3:setFillColor(0,0,0)
+    letter4 = display.newText("", X4, Y1, Arial, 100)
+    letter4:setFillColor(0,0,0)
     pointsText = display.newText("Points = " .. points, display.contentWidth*4/7, display.contentHeight*6/7, Arial, 50)
     pointsText:setFillColor(0,0,0)
 
@@ -809,19 +1018,23 @@ function scene:create( event )
     livesText:setFillColor(0,0,0)
 
     -- Insert the platforms
-    placeholderL1 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 150, 150)
+    placeholderL1 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 100, 100)
     placeholderL1.x = X1
     placeholderL1.y = Y2
 
     -- Insert the platforms
-    placeholderL2 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 150, 150)
+    placeholderL2 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 100, 100)
     placeholderL2.x = X2
     placeholderL2.y = Y2
 
     -- Insert the platforms
-    placeholderL3 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 150, 150)
+    placeholderL3 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 100, 100)
     placeholderL3.x = X3
     placeholderL3.y = Y2
+    -- Insert the platforms
+    placeholderL4 = display.newImageRect("Images/LetterPlaceHolderMelody@2x.png", 100, 100)
+    placeholderL4.x = X4
+    placeholderL4.y = Y2
 
     --create the tome to display on the screen
     clockText = display.newText("secondsLeft = ".. secondsLeft, 100, 100, nil, 50)
@@ -838,9 +1051,11 @@ function scene:create( event )
     sceneGroup:insert(placeholderL1)
     sceneGroup:insert(placeholderL2)
     sceneGroup:insert(placeholderL3)
+    sceneGroup:insert(placeholderL4)
     sceneGroup:insert(letter1)
     sceneGroup:insert(letter2)
     sceneGroup:insert(letter3)
+    sceneGroup:insert(letter4)
     sceneGroup:insert(livesText)
     sceneGroup:insert(pointsText)
     sceneGroup:insert(clockText)
@@ -873,7 +1088,7 @@ function scene:show( event )
         lives = 3
         points = 0
         StartTimer()
-        AskQuestionLevel1()
+        AskQuestionLevel2()
 
     end
 
