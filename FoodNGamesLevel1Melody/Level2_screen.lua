@@ -43,6 +43,17 @@ local butter
 local bowl
 local bowlFilled
 
+-- Objects used to bake 
+local eggSmall
+local egg2Small
+local bakingSodaSmall
+local sugarSmall
+local milkSmall
+local flourSmall
+local butterSmall
+
+local instructionText
+local instruction2Text
 
 -- The background and the mute and unmute buttons
 local bkg_image
@@ -102,32 +113,67 @@ local level2SoundChannel4
 local function MakeIgredientsVisible()
     -- makes all the ingredients visible
     fire.isVisible = true
-    milk.isVisible = true
-    egg.isVisible = true
-    egg2.isVisible = true
+    milk.isVisible = false
+    egg.isVisible = false
+    eggSmall.isVisible = false
+    egg2Small.isVisible = false
+    bakingSodaSmall.isVisible = false
+    sugarSmall.isVisible = false
+    milkSmall.isVisible = false
+    flourSmall.isVisible = false
+    butterSmall.isVisible = false
+    egg2.isVisible = false
     bowl.isVisible = true
     flour.isVisible = true
-    butter.isVisible = true
+    butter.isVisible = false
     sugar.isVisible = true
     bakingSoda.isVisible = true
     bowlFilled.isVisible = false
+end
+
+local function MakeDryIgredientsInvisible()
+    -- makes all the ingredients visible
+    milk.isVisible = true
+    egg.isVisible = true
+    egg2.isVisible = true
+    flour.isVisible = false
+    butter.isVisible = true
+    sugar.isVisible = false
+    bakingSoda.isVisible = false
+    instruction2Text.isVisible = true
+    instructionText.isVisible = false
+
 end
 
 local function IngredientsPosition()
     -- puts ingredients in  original position
     egg.x = display.contentWidth * 3 / 10
     egg.y = display.contentHeight * 2 / 4
+    eggSmall.x = display.contentWidth * 1.25 / 10
+    eggSmall.y = display.contentHeight * 5 / 10
+    egg2Small.x = display.contentWidth * 1.35 / 10
+    egg2Small.y = display.contentHeight * 5 / 10
+    bakingSodaSmall.x = display.contentWidth * 1.25 / 10
+    bakingSodaSmall.y = display.contentHeight * 5.25 / 10
+    sugarSmall.x = display.contentWidth * 1.15 / 10
+    sugarSmall.y = display.contentHeight * 5.5 / 10
+    milkSmall.x = display.contentWidth * 1 / 10
+    milkSmall.y = display.contentHeight * 5.15 / 10
+    flourSmall.x = display.contentWidth * 0.75 / 10
+    flourSmall.y = display.contentHeight * 5 / 10
+    butterSmall.x = display.contentWidth * 1 / 10
+    butterSmall.y = display.contentHeight * 5.5 / 10
     egg2.x = display.contentWidth * 2 / 10
     egg2.y = display.contentHeight * 2 / 4
-    butter.x = display.contentWidth * 6 / 10
+    butter.x = display.contentWidth * 5 / 10
     butter.y = display.contentHeight * 2 / 4
-    sugar.x = display.contentWidth * 7 / 10
+    sugar.x = display.contentWidth * 2 / 10
     sugar.y = display.contentHeight * 2 / 4
-    milk.x = display.contentWidth * 5 / 10
+    milk.x = display.contentWidth * 4 / 10
     milk.y = display.contentHeight * 2 / 4
-    flour.x = display.contentWidth * 4 / 10
+    flour.x = display.contentWidth * 3 / 10
     flour.y = display.contentHeight * 2 / 4
-    bakingSoda.x = display.contentWidth * 8 / 10
+    bakingSoda.x = display.contentWidth * 4 / 10
     bakingSoda.y = display.contentHeight * 2 / 4
     bowlFilled.x = display.contentWidth * 1 / 10
     bowlFilled.y = display.contentHeight * 2 / 4
@@ -173,6 +219,7 @@ local function TouchEgg(touch)
 
                 --makes the egg invisible
                 egg.isVisible = false
+                eggSmall.isVisible = true
 
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
@@ -181,10 +228,18 @@ local function TouchEgg(touch)
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
                 -- both the bowl and the BowlPlaceholder will be invisible.
+
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
 
                 end
 
@@ -237,6 +292,7 @@ local function TouchEgg2(touch)
                 egg2.y = BowlPlaceholder.y
                 --makes the egg2 invisible
                 egg2.isVisible = false
+                egg2Small.isVisible = true
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
 
@@ -245,9 +301,17 @@ local function TouchEgg2(touch)
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
                 -- both the bowl and the BowlPlaceholder will be invisible.
+
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
 
                 end
@@ -301,6 +365,7 @@ local function TouchFlour(touch)
                 flour.y = BowlPlaceholder.y
                 --makes the flour invisible
                 flour.isVisible = false
+                flourSmall.isVisible = true
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
                 
@@ -309,9 +374,21 @@ local function TouchFlour(touch)
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
                 -- both the bowl and the BowlPlaceholder will be invisible.
+
+                if (numIngredients == 3)  then
+                    MakeDryIgredientsInvisible()
+                end
+
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
 
                 end
@@ -365,6 +442,7 @@ local function TouchMilk(touch)
                 milk.y = BowlPlaceholder.y
                 --makes the milk invisible
                 milk.isVisible = false
+                milkSmall.isVisible = true
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
 
@@ -376,6 +454,13 @@ local function TouchMilk(touch)
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
 
                 end
@@ -429,6 +514,7 @@ local function TouchButter(touch)
                 butter.y = BowlPlaceholder.y
                 --makes the butter invisible
                 butter.isVisible = false
+                butterSmall.isVisible = true
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
 
@@ -440,6 +526,13 @@ local function TouchButter(touch)
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
 
                 end
@@ -493,6 +586,7 @@ local function TouchSugar(touch)
                 sugar.y = BowlPlaceholder.y
                 --makes the sugar invisible
                 sugar.isVisible = false
+                sugarSmall.isVisible = true
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
 
@@ -501,9 +595,21 @@ local function TouchSugar(touch)
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
                 -- both the bowl and the BowlPlaceholder will be invisible.
+
+                if (numIngredients == 3)  then
+                    MakeDryIgredientsInvisible()
+                end
+
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
 
                 end
@@ -558,6 +664,7 @@ local function TouchBakingSoda(touch)
                 bakingSoda.y = BowlPlaceholder.y
                 --makes the bakingsoda invisible
                 bakingSoda.isVisible = false
+                bakingSodaSmall.isVisible = true
                 --addes one to the number of ingredients inside the bowl
                 numIngredients = numIngredients + 1
 
@@ -566,9 +673,21 @@ local function TouchBakingSoda(touch)
                 -- checks if there are 7 ingredientsin  the bowl, if there are then the following happens;
                 --bowlFilled will be visible 
                 -- both the bowl and the BowlPlaceholder will be invisible.
+
+                if (numIngredients == 3)  then
+                    MakeDryIgredientsInvisible()
+                end
+
                 if (numIngredients == 7)  then
                     bowlFilled.isVisible = true
                     bowl.isVisible = false
+                    eggSmall.isVisible = false
+                    egg2Small.isVisible = false
+                    bakingSodaSmall.isVisible = false
+                    sugarSmall.isVisible = false
+                    milkSmall.isVisible = false
+                    flourSmall.isVisible = false
+                    butterSmall.isVisible = false
                     BowlPlaceholder.isVisible = false
 
                 end
@@ -728,6 +847,17 @@ function scene:create( event )
     -- Associating display objects with this scene 
     sceneGroup:insert( bkg_image )
 
+    -- create the question text object
+    instructionText = display.newText("Put all the dry ingredients.", display.contentCenterX, display.contentCenterY*3/8, Arial, 50)
+    sceneGroup:insert( instructionText )
+    instructionText.isVisible = true
+
+    -- create the question text object
+    instruction2Text = display.newText("Now the other ingredients.", display.contentCenterX, display.contentCenterY*3/8, Arial, 50)
+    sceneGroup:insert( instruction2Text )
+    instruction2Text.isVisible = false
+
+
 
     -- Insert the platforms
     fire = display.newImageRect("Images/fire.png", 300, 200)
@@ -774,6 +904,15 @@ function scene:create( event )
     sceneGroup:insert( egg )
 
     -- Insert the platforms
+    eggSmall = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
+    eggSmall.x = display.contentWidth * 1.25 / 10
+    eggSmall.y = display.contentHeight * 5 / 10
+    eggSmall.isVisible = false
+    eggSmall:scale(0.5,0.5)
+        
+    sceneGroup:insert( eggSmall )
+
+    -- Insert the platforms
     egg2 = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
     egg2.x = display.contentWidth * 2 / 10
     egg2.y = display.contentHeight * 2 / 4
@@ -784,8 +923,17 @@ function scene:create( event )
     sceneGroup:insert( egg2 )
 
     -- Insert the platforms
+    egg2Small = display.newImageRect("Images/EggMelody@2x.png", 100, 100)
+    egg2Small.x = display.contentWidth * 1.35 / 10
+    egg2Small.y = display.contentHeight * 5 / 10
+    egg2Small.isVisible = false
+    egg2Small:scale(0.5,0.5)
+        
+    sceneGroup:insert( egg2Small )
+
+    -- Insert the platforms
     butter= display.newImageRect("Images/ButterMelody@2x.png", 100, 100)
-    butter.x = display.contentWidth * 6 / 10
+    butter.x = display.contentWidth * 5 / 10
     butter.y = display.contentHeight * 2 / 4
     butterPreviousX = butter.x  
     butterPreviousY = butter.y
@@ -794,8 +942,17 @@ function scene:create( event )
     sceneGroup:insert( butter )
 
     -- Insert the platforms
+    butterSmall = display.newImageRect("Images/ButterMelody@2x.png", 100, 100)
+    butterSmall.x = display.contentWidth * 1 / 10
+    butterSmall.y = display.contentHeight * 5.5 / 10
+    butterSmall.isVisible = true
+    butterSmall:scale(0.5,0.5)
+        
+    sceneGroup:insert( butterSmall )
+
+    -- Insert the platforms
     sugar = display.newImageRect("Images/SugarMelody@2x.png", 100, 100)
-    sugar.x = display.contentWidth * 7 / 10
+    sugar.x = display.contentWidth * 2 / 10
     sugar.y = display.contentHeight * 2 / 4
     sugarPreviousX = sugar.x  
     sugarPreviousY = sugar.y
@@ -804,8 +961,17 @@ function scene:create( event )
     sceneGroup:insert( sugar)
 
     -- Insert the platforms
+    sugarSmall = display.newImageRect("Images/SugarMelody@2x.png", 100, 100)
+    sugarSmall.x = display.contentWidth * 1.15 / 10
+    sugarSmall.y = display.contentHeight * 5.5 / 10
+    sugarSmall.isVisible = false
+    sugarSmall:scale(0.5,0.5)
+        
+    sceneGroup:insert( sugarSmall)
+
+    -- Insert the platforms
     milk = display.newImageRect("Images/MilkMelody@2x.png", 100, 100)
-    milk.x = display.contentWidth * 5 / 10
+    milk.x = display.contentWidth * 4 / 10
     milk.y = display.contentHeight * 2 / 4
     milkPreviousX = milk.x  
     milkPreviousY = milk.y
@@ -814,8 +980,17 @@ function scene:create( event )
     sceneGroup:insert( milk )
 
     -- Insert the platforms
+    milkSmall = display.newImageRect("Images/MilkMelody@2x.png", 100, 100)
+    milkSmall.x = display.contentWidth * 1 / 10
+    milkSmall.y = display.contentHeight * 5.15 / 10
+    milkSmall.isVisible = false
+    milkSmall:scale(0.5,0.5)
+        
+    sceneGroup:insert( milkSmall )
+
+    -- Insert the platforms
     flour = display.newImageRect("Images/FlourMelody@2x.png", 100, 100)
-    flour.x = display.contentWidth * 4 / 10
+    flour.x = display.contentWidth * 3 / 10
     flour.y = display.contentHeight * 2 / 4
     flourPreviousX = flour.x  
     flourPreviousY = flour.y
@@ -823,10 +998,19 @@ function scene:create( event )
         
     sceneGroup:insert( flour )
 
+    -- Insert the platforms
+    flourSmall = display.newImageRect("Images/FlourMelody@2x.png", 100, 100)
+    flourSmall.x = display.contentWidth * 0.75 / 10
+    flourSmall.y = display.contentHeight * 5 / 10
+    flourSmall:scale(0.5,0.5)
+    flourSmall.isVisible = false
+        
+    sceneGroup:insert( flourSmall )
+
 
     -- Insert the platforms
     bakingSoda = display.newImageRect("Images/BakingSodaMelody@2x.png", 100, 100)
-    bakingSoda.x = display.contentWidth * 8 / 10
+    bakingSoda.x = display.contentWidth * 4 / 10
     bakingSoda.y = display.contentHeight * 2 / 4
     bakingSodaPreviousX = bakingSoda.x  
     bakingSodaPreviousY = bakingSoda.y
@@ -834,6 +1018,16 @@ function scene:create( event )
 
         
     sceneGroup:insert( bakingSoda )
+
+    -- Insert the platforms
+    bakingSodaSmall = display.newImageRect("Images/BakingSodaMelody@2x.png", 100, 100)
+    bakingSodaSmall.x = display.contentWidth * 1.25 / 10
+    bakingSodaSmall.y = display.contentHeight * 5.25 / 10
+    bakingSodaSmall.isVisible = false
+    bakingSodaSmall:scale(0.5,0.5)
+
+        
+    sceneGroup:insert( bakingSodaSmall )
 
     -- creating the unmute button
     UnmuteButton = display.newImageRect("Images/UnmuteButtonMelody@2x.png", 198, 98)
@@ -905,6 +1099,7 @@ function scene:show( event )
         UnmuteButton:addEventListener("touch", UnmuteListener) 
         MakeIgredientsVisible()
         IngredientsPosition()
+
            
         
         AddAnswerBoxEventListeners()

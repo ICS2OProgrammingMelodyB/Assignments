@@ -59,8 +59,8 @@ local points = 0
 local lives = 3
 local livesText
 local pointsText
-local totalSeconds = 15
-local secondsLeft = 15
+local totalSeconds = 10
+local secondsLeft = 10
 
 
 local letter1Touched = false
@@ -319,71 +319,77 @@ local function DisplayQuestion()
     elseif (randomQuestion == 15) then
 
         letter1.text = "Y"
-        letter2.text = "D"
+        letter2.text = "R"
         letter3.text = "A"
-        letter4.text = "R"
+        letter4.text = "E"
 
 
-        correctLetter1 = letter2
-        correctLetter2 = letter3
-        correctLetter3 = letter1
-        correctLetter4 = letter3
+        correctLetter1 = letter1
+        correctLetter2 = letter4
+        correctLetter3 = letter3
+        correctLetter4 = letter2
 
     elseif (randomQuestion == 16) then
 
-        letter1.text = "I"
-        letter2.text = "D"
-        letter3.text = "A"
-        letter4.text = "R"
+        letter1.text = "O"
+        letter2.text = "K"
+        letter3.text = "J"
+        letter4.text = "E"
 
 
         correctLetter1 = letter3
         correctLetter2 = letter1
         correctLetter3 = letter2
-        correctLetter4 = letter3
+        correctLetter4 = letter4
 
     elseif (randomQuestion == 17) then
 
         letter1.text = "N"
-        letter2.text = "S"
-        letter3.text = "U"
-        letter4.text = "R"
+        letter2.text = "G"
+        letter3.text = "L"
+        letter4.text = "O"
 
 
-        correctLetter1 = letter2
-        correctLetter2 = letter3
+        correctLetter1 = letter3
+        correctLetter2 = letter4
         correctLetter3 = letter1
-        correctLetter4 = letter3
+        correctLetter4 = letter2
 
     elseif (randomQuestion == 18) then
 
         letter1.text = "E"
         letter2.text = "S"
         letter3.text = "A"
+        letter4.text = "L"
 
         correctLetter1 = letter2
         correctLetter2 = letter1
         correctLetter3 = letter3
+        correctLetter4 = letter4
 
     elseif (randomQuestion == 19) then
 
         letter1.text = "I"
-        letter2.text = "D"
+        letter2.text = "P"
         letter3.text = "K"
+        letter4.text = "C"
 
-        correctLetter1 = letter3
+        correctLetter1 = letter2
         correctLetter2 = letter1
-        correctLetter3 = letter2
+        correctLetter3 = letter4
+        correctLetter4 = letter3
 
     elseif (randomQuestion == 20) then
 
-        letter1.text = "I"
-        letter2.text = "S"
-        letter3.text = "H"
+        letter1.text = "K"
+        letter2.text = "A"
+        letter3.text = "C"
+        letter4.text = "P"
 
-        correctLetter1 = letter3
-        correctLetter2 = letter1
-        correctLetter3 = letter2
+        correctLetter1 = letter4
+        correctLetter2 = letter2
+        correctLetter3 = letter3
+        correctLetter4 = letter1
 
     end
     
